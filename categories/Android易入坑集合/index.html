@@ -3,20 +3,14 @@
 <head>
     <meta charset="utf-8">
     
-    <title>handler.sendMessageDelay侦察 | happycodinggirl</title>
+    <title>分类: Android易入坑集合 | happycodinggirl</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="案发现场：app 卡住,无响应">
-<meta property="og:type" content="article">
-<meta property="og:title" content="handler.sendMessageDelay侦察">
-<meta property="og:url" content="http://yoursite.com/2016/04/14/handler.sendMessageDelay侦察/index.html">
+    <meta property="og:type" content="website">
+<meta property="og:title" content="happycodinggirl">
+<meta property="og:url" content="http://yoursite.com/categories/Android易入坑集合/index.html">
 <meta property="og:site_name" content="happycodinggirl">
-<meta property="og:description" content="案发现场：app 卡住,无响应">
-<meta property="og:image" content="http://7xs2th.com1.z0.glb.clouddn.com/2080663027847346608.jpg">
-<meta property="og:updated_time" content="2016-09-11T08:38:22.109Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="handler.sendMessageDelay侦察">
-<meta name="twitter:description" content="案发现场：app 卡住,无响应">
-<meta name="twitter:image" content="http://7xs2th.com1.z0.glb.clouddn.com/2080663027847346608.jpg">
+<meta name="twitter:title" content="happycodinggirl">
     
 
     
@@ -195,217 +189,50 @@
 </aside>
 
             
-            <section id="main"><article id="post-handler.sendMessageDelay侦察" class="article article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
-        
-            
-	
-		<img src="http://7xs2th.com1.z0.glb.clouddn.com/shalou.jpg" class="article-banner" />
-	
-
-
-
-        
-        
-            <header class="article-header">
+            <section id="main">
+<div class="timeline timeline-wrap">
+    <div class="timeline-row timeline-row-major">
+        <span class="node"><i class="fa fa-folder"></i></span>
+        <h1 class="title">Android易入坑集合</h1>
+    </div>
+    
+        <div class="timeline-row">
+            <span class="node"></span>
+            <div class="content">
                 
     
-        <h1 class="article-title" itemprop="name">
-            handler.sendMessageDelay侦察
+        <h1 itemprop="name">
+            <a class="timeline-article-title" href="/2016/05/02/startActivityForResult注意点/">startActivityForResult注意点</a>
         </h1>
     
 
-                
-                    <div class="article-meta">
-                        
+                <div class="article-meta">
+                    
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2016/04/14/handler.sendMessageDelay侦察/">
-            <time datetime="2016-04-14T13:55:37.000Z" itemprop="datePublished">2016-04-14</time>
+        <a href="/2016/05/02/startActivityForResult注意点/">
+            <time datetime="2016-05-02T13:55:37.000Z" itemprop="datePublished">2016-05-02</time>
         </a>
     </div>
 
 
-                        
-                        
+                    
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Android易入坑集合/">Android易入坑集合</a>
+    </div>
+
+                    
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/handler/">handler</a>
+        <a class="tag-link" href="/tags/Android/">Android</a>
     </div>
 
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <h3 id="案发现场：app-卡住-无响应"><a href="#案发现场：app-卡住-无响应" class="headerlink" title="案发现场：app 卡住,无响应"></a>案发现场：app 卡住,无响应</h3><a id="more"></a>
-<h3 id="案情回顾再现："><a href="#案情回顾再现：" class="headerlink" title="案情回顾再现："></a>案情回顾再现：</h3><pre><code>MyBundle myBundle = new MyBundle();
-myBundle.setName(&quot;lily&quot;);
-Message message = Message.obtain();
-message.obj = myBundle;
-myHandler.sendMessageDelayed(message, 3000);
-myHandler.sendMessageDelayed(message, 3000);
-</code></pre><h3 id="原因侦察："><a href="#原因侦察：" class="headerlink" title="原因侦察："></a>原因侦察：</h3><h3 id="源码："><a href="#源码：" class="headerlink" title="源码："></a>源码：</h3><pre><code>boolean enqueueMessage(Message msg, long when) {
-    if (msg.target == null) {
-        throw new IllegalArgumentException(&quot;Message must have a target.&quot;);
-    }
-    if (msg.isInUse()) {
-        throw new IllegalStateException(msg + &quot; This message is already in use.&quot;);
-    }
-
-    synchronized (this) {
-        if (mQuitting) {
-            IllegalStateException e = new IllegalStateException(
-                    msg.target + &quot; sending message to a Handler on a dead thread&quot;);
-            Log.w(TAG, e.getMessage(), e);
-            msg.recycle();
-            return false;
-        }
-
-        msg.markInUse();
-        msg.when = when;
-        Message p = mMessages;
-        boolean needWake;
-        if (p == null || when == 0 || when &lt; p.when) {
-            // New head, wake up the event queue if blocked.
-            msg.next = p;
-            mMessages = msg;
-            needWake = mBlocked;
-        } else {
-            // Inserted within the middle of the queue.  Usually we don&apos;t have to wake
-            // up the event queue unless there is a barrier at the head of the queue
-            // and the message is the earliest asynchronous message in the queue.
-            needWake = mBlocked &amp;&amp; p.target == null &amp;&amp; msg.isAsynchronous();
-            Message prev;
-            for (;;) {
-                prev = p;
-                p = p.next;
-                if (p == null || when &lt; p.when) {
-                    break;
-                }
-                if (needWake &amp;&amp; p.isAsynchronous()) {
-                    needWake = false;
-                }
-            }
-            msg.next = p; // invariant: p == prev.next
-            prev.next = msg;
-        }
-
-        // We can assume mPtr != 0 because mQuitting is false.
-        if (needWake) {
-            nativeWake(mPtr);
-        }
-    }
-    return true;
-}
-</code></pre><p>通过看源码发现原来MessageQueue类的enqueueMessage方法里面会将该类加锁，导致死锁了,消息队列阻塞了，handleMessage里面都没有收到改消息，看起来像是这样。在改代码的无意中发现了这个现象。</p>
-<h3 id="案件处理："><a href="#案件处理：" class="headerlink" title="案件处理："></a>案件处理：</h3><p>以后注意不要用handler.sendMessageDelay发送同一个Message同一时间多次，注意同一个Message关键字。会使程序不能继续进行下去，最后导致ANR.注意sendMessage也是一样的效果。</p>
-
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-    <div class="jiathis_style">
-    <span class="jiathis_txt">分享到：</span>
-    <a class="jiathis_button_qzone">QQ空间</a>
-    <a class="jiathis_button_tsina">新浪微博</a>
-    <a class="jiathis_button_tqq">腾讯微博</a>
-    <a class="jiathis_button_weixin">微信</a>
-    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-    <a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
-<style>
-    .jiathis_style div:first-child:not(.jiadiv_01) {
-        width: auto !important;
-        border: none !important;
-    }
-    .jiathis_style .jiadiv_01 {
-        margin: 10px 0;
-        border-radius: 4px;
-        border: #e1e1e1 solid 1px;
-    }
-    .jiathis_style .jiadiv_01 div:first-child {
-        display: none;
-    }
-    .jiathis_style .jiadiv_02 {
-        padding: 7px 0 !important;
-    }
-    .jiathis_style .jiadiv_02 .jiatitle {
-        width: 85px;
-        border: none;
-        height: auto;
-        margin: 3px 10px;
-        padding: 6px 10px;
-        border-radius: 4px;
-    }
-    .jiathis_style .jiadiv_02 .jiatitle:hover {
-        border: none;
-    }
-    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
-        margin-left: 0;
-    }
-    .jiathis_style .jtico:hover {
-        opacity: 1;
-    }
-    .jiathis_style .ckepopBottom,
-    .jiathis_style .centerBottom {
-        width: auto !important;
-        padding: 5px;
-        background: #f7f7f7;
-    }
-</style>
-
-
-
-</div>
-
-            
-    
-        <a href="http://yoursite.com/2016/04/14/handler.sendMessageDelay侦察/#comments" class="article-comment-link">评论</a>
-    
-
-        </footer>
-    </div>
-    
-        
-<nav id="article-nav">
-    
-        <a href="/2016/05/02/startActivityForResult注意点/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">上一篇</strong>
-            <div class="article-nav-title">
-                
-                    startActivityForResult注意点
-                
+                </div>
             </div>
-        </a>
+        </div>
     
-    
-        <a href="/2016/03/21/Rx学习历程（二）：defer、just、create区别和运行线程/" id="article-nav-older" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">下一篇</strong>
-            <div class="article-nav-title">RxJava学习历程（二）:defer、just、create区别和运行线程</div>
-        </a>
-    
-</nav>
-
-
-    
-</article>
-
-
-    
-    <section id="comments">
-    
-        
-    <div id="uyan_frame"></div>
-
-    
-    </section>
-
+</div>
 </section>
             
                 <aside id="sidebar">
