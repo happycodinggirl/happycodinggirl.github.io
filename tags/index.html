@@ -3,32 +3,15 @@
 <head>
     <meta charset="utf-8">
     
-    <title>RxJava学习历程（二）:defer、just、create区别和运行线程 | happycodinggirl</title>
+    <title>Tags | happycodinggirl</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="今天继续学习RxJava，新技能get了总要记录一下。上篇文章写到的生成观察者的两种方式其实是有区别的，例如
-先看下面的代码：
-   private String name=&amp;quot;lily&amp;quot;;
-private Observable&amp;lt;String&amp;gt; defObserveable;
-private Observable&amp;lt;String&amp;gt; justObserveab">
-<meta property="og:type" content="article">
-<meta property="og:title" content="RxJava学习历程（二）:defer、just、create区别和运行线程">
-<meta property="og:url" content="http://yoursite.com/2016/03/10/学习历程（一）：初识观察者和被观察者RxJava/index.html">
+    <meta property="og:type" content="website">
+<meta property="og:title" content="Tags">
+<meta property="og:url" content="http://yoursite.com/tags/index.html">
 <meta property="og:site_name" content="happycodinggirl">
-<meta property="og:description" content="今天继续学习RxJava，新技能get了总要记录一下。上篇文章写到的生成观察者的两种方式其实是有区别的，例如
-先看下面的代码：
-   private String name=&amp;quot;lily&amp;quot;;
-private Observable&amp;lt;String&amp;gt; defObserveable;
-private Observable&amp;lt;String&amp;gt; justObserveab">
-<meta property="og:image" content="http://7xs2th.com1.z0.glb.clouddn.com/fengye.jpg">
-<meta property="og:updated_time" content="2016-09-10T13:44:20.774Z">
+<meta property="og:updated_time" content="2016-09-11T07:52:50.533Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="RxJava学习历程（二）:defer、just、create区别和运行线程">
-<meta name="twitter:description" content="今天继续学习RxJava，新技能get了总要记录一下。上篇文章写到的生成观察者的两种方式其实是有区别的，例如
-先看下面的代码：
-   private String name=&amp;quot;lily&amp;quot;;
-private Observable&amp;lt;String&amp;gt; defObserveable;
-private Observable&amp;lt;String&amp;gt; justObserveab">
-<meta name="twitter:image" content="http://7xs2th.com1.z0.glb.clouddn.com/fengye.jpg">
+<meta name="twitter:title" content="Tags">
     
 
     
@@ -207,283 +190,16 @@ private Observable&amp;lt;String&amp;gt; justObserveab">
 </aside>
 
             
-            <section id="main"><article id="post-学习历程（一）：初识观察者和被观察者RxJava" class="article article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
-        
-            
-	
-		<img src="http://7xs2th.com1.z0.glb.clouddn.com/img/third.jpg" class="article-banner" />
-	
-
-
-
-        
-        
-            <header class="article-header">
-                
-    
-        <h1 class="article-title" itemprop="name">
-            RxJava学习历程（二）:defer、just、create区别和运行线程
-        </h1>
-    
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2016/03/10/学习历程（一）：初识观察者和被观察者RxJava/">
-            <time datetime="2016-03-10T13:55:37.000Z" itemprop="datePublished">2016-03-10</time>
-        </a>
+            <section id="main"><section class="layout-wrap">
+    <div class="layout-title">
+        <span>Tags</span>
     </div>
-
-
-                        
-                        
-                    </div>
-                
-            </header>
+    <div class="layout-wrap-inner tag-cloud">
         
+            <a href="/tags/Android内存泄漏/" style="font-size: 14px;">Android内存泄漏</a> <a href="/tags/Android易入坑/" style="font-size: 14px;">Android易入坑</a> <a href="/tags/Hexo/" style="font-size: 14px;">Hexo</a> <a href="/tags/RxJava/" style="font-size: 28px;">RxJava</a> <a href="/tags/aar/" style="font-size: 14px;">aar</a> <a href="/tags/handler/" style="font-size: 14px;">handler</a> <a href="/tags/闲书读书笔记/" style="font-size: 14px;">闲书读书笔记</a>
         
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <p>今天继续学习RxJava，新技能get了总要记录一下。<br>上篇文章写到的生成观察者的两种方式其实是有区别的，例如</p>
-<p>先看下面的代码：</p>
-<pre><code>   private String name=&quot;lily&quot;;
-private Observable&lt;String&gt; defObserveable;
-private Observable&lt;String&gt; justObserveable;
-private Observable&lt;String&gt; comObservable;
-
-private Subscriber&lt;String&gt; subscriber;
-
-
-@Override
-protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    defObserveable = Observable.defer(new Func0&lt;Observable&lt;String&gt;&gt;() {
-       @Override
-       public Observable&lt;String&gt; call() {
-           return Observable.just(name);
-       }
-   });
-    justObserveable = Observable.just(name);
-    comObservable=Observable.create(new Observable.OnSubscribe&lt;String&gt;() {
-        @Override
-        public void call(Subscriber&lt;? super String&gt; subscriber) {
-            subscriber.onNext(name);
-        }
-    });
-    subscriber = new Subscriber&lt;String&gt;() {
-        @Override
-        public void onCompleted() {
-
-        }
-
-        @Override
-        public void onError(Throwable e) {
-
-        }
-
-        @Override
-        public void onNext(String s) {
-            PluLogUtil.log(&quot;---onNext name is &quot; + s);
-        }
-    };
-    name =&quot;lucy&quot;;
-    comObservable.subscribe(subscriber);
-    defObserveable.subscribe(subscriber);
-    justObserveable.subscribe(subscriber);
-    //打印结果：
-    //---_PLU LOG ---onNext name is lucy
-    //---_PLU LOG ---onNext name is lucy
-    // ---_PLU LOG ---onNext name is lily
-
-}
-</code></pre><p>可以看到just(param)方式与其他方式区别是参数是否变化。<br>just方式里面的参数不会随外部参数的变化而变化，但如果在其外层加了一层def的方式的话当外部参数变化的时候参数值也随一起变化，这点需要注意。而用create方式生成的Observable，要看subscribe方法的调用发生在name变量变化的前面还是后面，若在name变量值改变后调用的subscribe，因为Observer创建时OnSubscribe里面的call方法的调用是发生在subscribe调用的时候，所以name变化传入的值也会变化，如果subscribe之后再改变name的值那也不会随之变。</p>
-<p>RxJava的运行所在线程总结：</p>
-<p>先上代码：</p>
-<pre><code>Observable.create(new Observable.OnSubscribe&lt;Integer&gt;() {
-       @Override
-       public void call(Subscriber&lt;? super Integer&gt; subscriber) {// IO 线程，由 subscribeOn() 指定
-           subscriber.onNext(3);
-           PluLogUtil.log(&quot; --  onSubscribe call thread is &quot;+Thread.currentThread().getName());
-
-       }
-   }).subscribeOn(Schedulers.io())
-           .subscribeOn(Schedulers.newThread())
-           .observeOn(Schedulers.io())
-           .map(new Func1&lt;Integer, Integer&gt;() {
-               @Override
-               public Integer call(Integer integer) {// io线程，由 observeOn() 指定
-                   PluLogUtil.log(&quot;---map 111 thread is &quot; + Thread.currentThread().getName());
-                   return integer + 1;
-               }
-           })
-           .observeOn(Schedulers.newThread())
-           .observeOn(Schedulers.io())
-           .map(new Func1&lt;Integer, Integer&gt;() {
-               @Override
-               public Integer call(Integer integer) {//io线程，由 observeOn() 指定
-                   PluLogUtil.log(&quot;----map 2 22 thread is &quot; + Thread.currentThread().getName());
-                   return integer + 1;
-               }
-           })
-           .observeOn(Schedulers.newThread())
-           .map(new Func1&lt;Integer, Integer&gt;() {
-               @Override
-               public Integer call(Integer integer) {// 新线程，由 observeOn() 指定
-                   PluLogUtil.log(&quot;----map 333 thread is &quot; + Thread.currentThread().getName());
-                   return integer + 1;
-               }
-           })
-           .doOnSubscribe(new Action0() {//io线程，由其后的第一个subscribeOn所限定的线程决定
-               @Override
-               public void call() {
-                   PluLogUtil.log(&quot;----doOnSubscribe thread is &quot;+Thread.currentThread().getName());
-               }
-           }).subscribeOn(Schedulers.io()).
-           subscribe(new Subscriber&lt;Integer&gt;() {
-               @Override
-               public void onCompleted() {
-
-               }
-
-               @Override
-               public void onError(Throwable e) {
-
-               }
-
-               @Override
-               public void onNext(Integer integer) {//新线程，由最后一个observeOn的线程限定
-                   PluLogUtil.log(&quot;---onNext thread is &quot; + Thread.currentThread().getName());
-               }
-           });
-
-   /**
-    * 03-10 23:20:51.360 8134-8134/? D/TAG_PluginDeliverService: PluginDeliverService start com.sina.weibo.plugin.PluginDeliverService$PluginDeliverService3
-    ---_PLU LOG ----doOnSubscribe thread is RxCachedThreadScheduler-1
-    ---_PLU LOG  --  onSubscribe call thread is RxCachedThreadScheduler-4
-    ---_PLU LOG ---map 111 thread is RxCachedThreadScheduler-3
-    ---_PLU LOG ----map 2 22 thread is RxCachedThreadScheduler-2
-    ---_PLU LOG ----map 333 thread is RxNewThreadScheduler-1
-    ---_PLU LOG ---onNext thread is RxNewThreadScheduler-1
-
-    */
-</code></pre><p>说下我自己的理解：</p>
-<p>1.subscribeOn限定被观察者运行的线程</p>
-<p>2.observeOn限定观察者运行的线程</p>
-<p>3.map指令:</p>
-<p>1&gt;如果map前面没有observeOn&amp;&amp;没有subscribeOn,则该map所在的线程为主线程。</p>
-<p>2&gt;如果map前面只有subscribeOn则运行在scribeOn指定的线程。</p>
-<p>3&gt;如果map前面有observeOn（不管subscribeOn有没有）则map里代码运行在其前面的最后一个onserveOn所限定的线程上。</p>
-<p>4.doOnSubscribe里面运行的代码所在的线程取决于其后面的第一个subscribeOn里面指定的线程的名字，请注意第一字眼和其后面的字眼。</p>
-<p>5.subscribe的onNext:若指定了多个observeOn，则subscribe的onNext里面运行的代码使用的线程是最后一个subscribeOn限定的线程。</p>
-<p>呼啦啦，写的跨度可能比较大，明天再继续分析，如有不对欢迎批评指正。睡啦，呼呼~~~</p>
-
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-    <div class="jiathis_style">
-    <span class="jiathis_txt">分享到：</span>
-    <a class="jiathis_button_qzone">QQ空间</a>
-    <a class="jiathis_button_tsina">新浪微博</a>
-    <a class="jiathis_button_tqq">腾讯微博</a>
-    <a class="jiathis_button_weixin">微信</a>
-    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-    <a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
-<style>
-    .jiathis_style div:first-child:not(.jiadiv_01) {
-        width: auto !important;
-        border: none !important;
-    }
-    .jiathis_style .jiadiv_01 {
-        margin: 10px 0;
-        border-radius: 4px;
-        border: #e1e1e1 solid 1px;
-    }
-    .jiathis_style .jiadiv_01 div:first-child {
-        display: none;
-    }
-    .jiathis_style .jiadiv_02 {
-        padding: 7px 0 !important;
-    }
-    .jiathis_style .jiadiv_02 .jiatitle {
-        width: 85px;
-        border: none;
-        height: auto;
-        margin: 3px 10px;
-        padding: 6px 10px;
-        border-radius: 4px;
-    }
-    .jiathis_style .jiadiv_02 .jiatitle:hover {
-        border: none;
-    }
-    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
-        margin-left: 0;
-    }
-    .jiathis_style .jtico:hover {
-        opacity: 1;
-    }
-    .jiathis_style .ckepopBottom,
-    .jiathis_style .centerBottom {
-        width: auto !important;
-        padding: 5px;
-        background: #f7f7f7;
-    }
-</style>
-
-
-
-</div>
-
-            
-    
-        <a href="http://yoursite.com/2016/03/10/学习历程（一）：初识观察者和被观察者RxJava/#comments" class="article-comment-link">评论</a>
-    
-
-        </footer>
     </div>
-    
-        
-<nav id="article-nav">
-    
-        <a href="/2016/03/10/RxJava学习历程(三) Rx操作符之创建操作符/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">上一篇</strong>
-            <div class="article-nav-title">
-                
-                    RxJava学习历程（三）:Rx操作符之：创建操作符
-                
-            </div>
-        </a>
-    
-    
-        <a href="/2016/03/09/RxJava学习历程(一)初识观察者与被观察者/" id="article-nav-older" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">下一篇</strong>
-            <div class="article-nav-title">RxJava学习历程(一)：初识观察者和被观察者</div>
-        </a>
-    
-</nav>
-
-
-    
-</article>
-
-
-    
-    <section id="comments">
-    
-        
-    <div id="uyan_frame"></div>
-
-    
-    </section>
-
-</section>
+</section></section>
             
                 <aside id="sidebar">
    
