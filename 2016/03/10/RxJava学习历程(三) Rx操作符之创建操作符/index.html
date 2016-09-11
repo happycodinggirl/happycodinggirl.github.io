@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>RxJava学习历程（三）:Rx操作符之：创建操作符 | happycodinggirl</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="上篇文章讲的def,create,just都是创建操作符，今天继续学习剩余的创建操作符
+Timer创建一个Observable，它在一个给定的延迟后发射一个特殊的值。RxJava将这个操作符实现为timer函数。
+timer返回一个Observable，它在延迟一段给定的时间后发射一个简单的数字0。
+
+timer(long,TimeUnit))
+timer(long,TimeUnit,Schedu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RxJava学习历程（三）:Rx操作符之：创建操作符">
+<meta property="og:url" content="http://yoursite.com/2016/03/10/RxJava学习历程(三) Rx操作符之创建操作符/index.html">
+<meta property="og:site_name" content="happycodinggirl">
+<meta property="og:description" content="上篇文章讲的def,create,just都是创建操作符，今天继续学习剩余的创建操作符
+Timer创建一个Observable，它在一个给定的延迟后发射一个特殊的值。RxJava将这个操作符实现为timer函数。
+timer返回一个Observable，它在延迟一段给定的时间后发射一个简单的数字0。
+
+timer(long,TimeUnit))
+timer(long,TimeUnit,Schedu">
+<meta property="og:image" content="http://7xs2th.com1.z0.glb.clouddn.com/fengye.jpg">
+<meta property="og:updated_time" content="2016-09-10T14:35:30.723Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RxJava学习历程（三）:Rx操作符之：创建操作符">
+<meta name="twitter:description" content="上篇文章讲的def,create,just都是创建操作符，今天继续学习剩余的创建操作符
+Timer创建一个Observable，它在一个给定的延迟后发射一个特殊的值。RxJava将这个操作符实现为timer函数。
+timer返回一个Observable，它在延迟一段给定的时间后发射一个简单的数字0。
+
+timer(long,TimeUnit))
+timer(long,TimeUnit,Schedu">
+<meta name="twitter:image" content="http://7xs2th.com1.z0.glb.clouddn.com/fengye.jpg">
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/vendor/open-sans/styles.css">
+    <link rel="stylesheet" href="/vendor/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/vendor/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/vendor/lightgallery/css/lightgallery.min.css">
+    
+    
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">happycodinggirl</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">Home</a>
+                
+                    <a class="main-nav-link" href="/archives">Archives</a>
+                
+                    <a class="main-nav-link" href="/categories">Categories</a>
+                
+                    <a class="main-nav-link" href="/tags">Tags</a>
+                
+                    <a class="main-nav-link" href="/about">About</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avatar.jpg" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">Archives</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">Categories</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">Tags</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">About</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/avatar.jpg" />
+            <h2 id="name">happycodinggirl</h2>
+            <h3 id="title">Android Developer &amp; Reader</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>Shanghai, China</span>
+            <a id="follow" target="_blank" href="https://github.com/happycodinggirl">FOLLOW</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                11
+                <span>posts</span>
+            </div>
+            <div class="article-info-block">
+                7
+                <span>tags</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://github.com/happycodinggirl" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="http://weibo.com/2706286190/profile?topnav=1&wvr=6" target="_blank" title="weibo" class=tooltip>
+                            <i class="fa fa-weibo"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://aboutme.google.com/?referer=gplus" target="_blank" title="google-plus-square" class=tooltip>
+                            <i class="fa fa-google-plus-square"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-RxJava学习历程(三) Rx操作符之创建操作符" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            
+	
+		<img src="http://7xs2th.com1.z0.glb.clouddn.com/beike.jpg" class="article-banner" />
+	
+
+
+
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            RxJava学习历程（三）:Rx操作符之：创建操作符
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2016/03/10/RxJava学习历程(三) Rx操作符之创建操作符/">
+            <time datetime="2016-03-10T13:55:37.000Z" itemprop="datePublished">2016-03-10</time>
+        </a>
+    </div>
+
+
+                        
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/RxJava/">RxJava</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p>上篇文章讲的def,create,just都是创建操作符，今天继续学习剩余的创建操作符</p>
+<h2 id="Timer"><a href="#Timer" class="headerlink" title="Timer"></a>Timer</h2><p>创建一个Observable，它在一个给定的延迟后发射一个特殊的值。<br>RxJava将这个操作符实现为timer函数。</p>
+<p>timer返回一个Observable，它在延迟一段给定的时间后发射一个简单的数字0。</p>
+<blockquote>
+<p>timer(long,TimeUnit))</p>
+<p>timer(long,TimeUnit,Scheduler))</p>
+</blockquote>
+<p>1s后在主线程发射一个数字0.<br>timerObservable = Observable.timer(1,TimeUnit.SECONDS,AndroidSchedulers.mainThread());//timer默认运行在第三方线程运行，可自己指定运行线程</p>
+<h2 id="Interval"><a href="#Interval" class="headerlink" title="Interval"></a>Interval</h2><p>RxJava将这个操作符实现为interval方法。它接受一个表示时间间隔的参数和一个表示时间单位的参数。</p>
+<blockquote>
+<p>Javadoc: interval(long,TimeUnit))</p>
+<p>Javadoc: interval(long,TimeUnit,Scheduler))</p>
+</blockquote>
+<p>10s后以每隔500ms发射一次数字，从0开始，每次递增1.<br>itervalObservable = Observable.interval(10, 500, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread());</p>
+<h2 id="Range"><a href="#Range" class="headerlink" title="Range"></a>Range</h2><p>创建一个发射特定整数序列的Observable<br>Range操作符发射一个范围内的有序整数序列，你可以指定范围的起始和长度。</p>
+<p>RxJava将这个操作符实现为range函数，它接受两个参数，一个是范围的起始值，一个是范围的数据的数目。如果你将第二个参数设为0，将导致Observable不发射任何数据（如果设置为负数，会抛异常）。</p>
+<p>range默认不在任何特定的调度器上执行。有一个变体可以通过可选参数指定Scheduler。</p>
+<blockquote>
+<p>Javadoc: range(int,int))</p>
+<p>Javadoc: range(int,int,Scheduler))<br>发射0，1，2，这3个数字。</p>
+</blockquote>
+<pre><code>rangeObservable = Observable.range(0, 3);
+</code></pre><p>range操作符的subscriber，若不指定，默认运行在主线程。</p>
+<h2 id="Repeat"><a href="#Repeat" class="headerlink" title="Repeat"></a>Repeat</h2><p>创建一个发射特定数据重复多次的Observable<br>RxJava将这个操作符实现为repeat方法。它不是创建一个Observable，而是重复发射原始Observable的数据序列，这个序列或者是无限的，或者通过repeat(n)指定重复次数。</p>
+<p>repeat操作符默认在trampoline调度器上执行。有一个变体可以通过可选参数指定Scheduler。</p>
+<blockquote>
+<p>repeat()</p>
+<p>repeat(long)</p>
+<p>repeat(Scheduler))</p>
+<p>repeat(long,Scheduler))<br>将上面的rangeObservable所发射的数据，顺序重复3遍</p>
+</blockquote>
+<p>repeatObservable = rangeObservable.repeat(3);<br>可以看出repeat方法不是Observable里面的静态方法，它为其他的observable添加重复属性</p>
+<h2 id="StartWith"><a href="#StartWith" class="headerlink" title="StartWith"></a>StartWith</h2><p>若defObservable里面发射“lily”这个字符串，则startWith后变为发射“hellolily”</p>
+<pre><code>startWithObserver = defObserveable.startWith(Observable.just(&quot;hello&quot;));
+</code></pre><h2 id="Empty-Never-Throw"><a href="#Empty-Never-Throw" class="headerlink" title="Empty/Never/Throw"></a>Empty/Never/Throw</h2><h3 id="Empty"><a href="#Empty" class="headerlink" title="Empty"></a>Empty</h3><p>创建一个不发射任何数据但是正常终止的Observable</p>
+<h3 id="Never"><a href="#Never" class="headerlink" title="Never"></a>Never</h3><p>创建一个不发射数据也不终止的Observable</p>
+<h3 id="Throw"><a href="#Throw" class="headerlink" title="Throw"></a>Throw</h3><p>创建一个不发射数据以一个错误终止的Observable</p>
+<p>这三个操作符生成的Observable行为非常特殊和受限。测试的时候很有用，有时候也用于结合其它的Observables，或者作为其它需要Observable的操作符的参数。</p>
+<p>RxJava将这些操作符实现为 empty，never和error。error操作符需要一个Throwable参数，你的Observable会以此终止。这些操作符默认不在任何特定的调度器上执行，但是empty和error有一个可选参数是Scheduler，如果你传递了Scheduler参数，它们会在这个调度器上发送通知。</p>
+<blockquote>
+<p>Javadoc: empty())</p>
+<p>Javadoc: never())</p>
+<p>Javadoc: error(java.lang.Throwable))</p>
+</blockquote>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+    <div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_qzone">QQ空间</a>
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_tqq">腾讯微博</a>
+    <a class="jiathis_button_weixin">微信</a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+    <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<style>
+    .jiathis_style div:first-child:not(.jiadiv_01) {
+        width: auto !important;
+        border: none !important;
+    }
+    .jiathis_style .jiadiv_01 {
+        margin: 10px 0;
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .jiathis_style .jiadiv_01 div:first-child {
+        display: none;
+    }
+    .jiathis_style .jiadiv_02 {
+        padding: 7px 0 !important;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle {
+        width: 85px;
+        border: none;
+        height: auto;
+        margin: 3px 10px;
+        padding: 6px 10px;
+        border-radius: 4px;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:hover {
+        border: none;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
+        margin-left: 0;
+    }
+    .jiathis_style .jtico:hover {
+        opacity: 1;
+    }
+    .jiathis_style .ckepopBottom,
+    .jiathis_style .centerBottom {
+        width: auto !important;
+        padding: 5px;
+        background: #f7f7f7;
+    }
+</style>
+
+
+
+</div>
+
+            
+    
+        <a href="http://yoursite.com/2016/03/10/RxJava学习历程(三) Rx操作符之创建操作符/#comments" class="article-comment-link">Comments</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2016/03/11/MVP的使用/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    MVP学习使用
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2016/03/10/学习历程（一）：初识观察者和被观察者RxJava/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">RxJava学习历程（二）:defer、just、create区别和运行线程</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div id="uyan_frame"></div>
+
+    
+    </section>
+
+</section>
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">recent</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/07/24/android 内存泄露产生原因分析/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://7xs2th.com1.z0.glb.clouddn.com/20140228153005850%20%281%29.jpeg)" alt="android 内存泄露产生原因分析" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/07/24/android 内存泄露产生原因分析/" class="title">android 内存泄露产生原因分析</a></p>
+                            <p class="item-date"><time datetime="2016-07-24T13:55:37.000Z" itemprop="datePublished">2016-07-24</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/07/13/《追风筝的人》读后感/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://7xs2th.com1.z0.glb.clouddn.com/1437009246_SFbvBUVK.jpg)" alt="《追风筝的人》读后感" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/07/13/《追风筝的人》读后感/" class="title">《追风筝的人》读后感</a></p>
+                            <p class="item-date"><time datetime="2016-07-13T13:55:37.000Z" itemprop="datePublished">2016-07-13</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/05/03/aar的生成与引用/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://7xs2th.com1.z0.glb.clouddn.com/fengye.jpg)" alt="aar的生成与引用" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/05/03/aar的生成与引用/" class="title">aar的生成与引用</a></p>
+                            <p class="item-date"><time datetime="2016-05-03T13:55:37.000Z" itemprop="datePublished">2016-05-03</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/05/02/startActivityForResult注意点/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://7xs2th.com1.z0.glb.clouddn.com/20140228153005850%20%281%29.jpeg)" alt="startActivityForResult注意点" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/05/02/startActivityForResult注意点/" class="title">startActivityForResult注意点</a></p>
+                            <p class="item-date"><time datetime="2016-05-02T13:55:37.000Z" itemprop="datePublished">2016-05-02</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/04/14/handler.sendMessageDelay侦察/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://7xs2th.com1.z0.glb.clouddn.com/2080663027847346608.jpg)" alt="handler.sendMessageDelay侦察" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/04/14/handler.sendMessageDelay侦察/" class="title">handler.sendMessageDelay侦察</a></p>
+                            <p class="item-date"><time datetime="2016-04-14T13:55:37.000Z" itemprop="datePublished">2016-04-14</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android内存泄漏/">Android内存泄漏</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android易入坑/">Android易入坑</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RxJava/">RxJava</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aar/">aar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/handler/">handler</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/闲书读书笔记/">闲书读书笔记</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Android内存泄漏/" style="font-size: 10px;">Android内存泄漏</a> <a href="/tags/Android易入坑/" style="font-size: 10px;">Android易入坑</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/RxJava/" style="font-size: 20px;">RxJava</a> <a href="/tags/aar/" style="font-size: 10px;">aar</a> <a href="/tags/handler/" style="font-size: 10px;">handler</a> <a href="/tags/闲书读书笔记/" style="font-size: 10px;">闲书读书笔记</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://gufei.me/">阿飞的博客</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2016 happycodinggirl<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2113352"></script>
+
+
+
+    
+        <script src="/vendor/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-share.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-video.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
