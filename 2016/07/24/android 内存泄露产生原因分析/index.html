@@ -12,7 +12,7 @@
 <meta property="og:site_name" content="happycodinggirl">
 <meta property="og:description" content="在android开发过程中，代码不规范，有时候很容易就会遭到内存泄露的侵袭。内存泄露，就是该死不死，有些对象或引用，本该释放的时候，因为某些原因释放不掉就会造成内存泄露。注意本文所写内容仅为本人自己的理解，若有错误，欢迎批评指正。">
 <meta property="og:image" content="http://7xs2th.com1.z0.glb.clouddn.com/20140228153005850%20%281%29.jpeg">
-<meta property="og:updated_time" content="2016-09-24T22:57:58.809Z">
+<meta property="og:updated_time" content="2016-09-24T22:59:27.453Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="android 内存泄露产生原因分析">
 <meta name="twitter:description" content="在android开发过程中，代码不规范，有时候很容易就会遭到内存泄露的侵袭。内存泄露，就是该死不死，有些对象或引用，本该释放的时候，因为某些原因释放不掉就会造成内存泄露。注意本文所写内容仅为本人自己的理解，若有错误，欢迎批评指正。">
@@ -257,8 +257,7 @@ protected void onCreate(Bundle savedInstanceState) {
         mDrawableTest = getResources().getDrawable(R.mipmap.ic_launcher);
     }
 }
-</code></pre><p>```java</p>
-<p>上述代码，mActivity变量赋给了运行中的activity,如果该activity在生命周期结束前不将静态变量mActivity置为空，则该变量一直指向运行中的activity，持有它，导致activity的生命周期被静态变量hold住了，导致释放不掉。正确的做法是在onDestroy时将activity置为空，activity=null,则静态变量mActivity不指向activity了，则activity就能释放掉了。继续看下文描述。</p>
+</code></pre><p>上述代码，mActivity变量赋给了运行中的activity,如果该activity在生命周期结束前不将静态变量mActivity置为空，则该变量一直指向运行中的activity，持有它，导致activity的生命周期被静态变量hold住了，导致释放不掉。正确的做法是在onDestroy时将activity置为空，activity=null,则静态变量mActivity不指向activity了，则activity就能释放掉了。继续看下文描述。</p>
 <h5 id="2-gt-静态View"><a href="#2-gt-静态View" class="headerlink" title="2&gt;静态View."></a>2&gt;静态View.</h5><pre><code> private static TextView view;
 
 @Override
