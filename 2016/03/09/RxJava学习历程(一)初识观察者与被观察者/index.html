@@ -12,7 +12,7 @@
 <meta property="og:site_name" content="happycodinggirl">
 <meta property="og:description" content="RxJava也火了好久了，网上介绍的博文也很多，在此谨记录自己学习的一些理解和心得，可能有些地方说的不一定对的。谨此记录而已。先附上友链给 Android 开发者的 RxJava 详解、大头鬼.再次声明。博文谨代表我个人的理解，若误认子弟，概不负责。当然，也不一定有多少人会看到我这篇博文了，还是在此自恋一下。">
 <meta property="og:image" content="http://7xs2th.com1.z0.glb.clouddn.com/fengye.jpg">
-<meta property="og:updated_time" content="2016-09-11T08:42:45.088Z">
+<meta property="og:updated_time" content="2016-09-24T23:52:52.269Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RxJava学习历程(一)：初识观察者和被观察者">
 <meta name="twitter:description" content="RxJava也火了好久了，网上介绍的博文也很多，在此谨记录自己学习的一些理解和心得，可能有些地方说的不一定对的。谨此记录而已。先附上友链给 Android 开发者的 RxJava 详解、大头鬼.再次声明。博文谨代表我个人的理解，若误认子弟，概不负责。当然，也不一定有多少人会看到我这篇博文了，还是在此自恋一下。">
@@ -250,50 +250,18 @@
 <p>RxJava采用的是观察者模式，同时面向接口编程，利用回调实现了被观察变化后观察者能立刻做出反应，而不用观察者一直注意在被观察者的身上。最近越来越喜欢接口这个东西了，真是感觉用接口写出的代码，自己都觉得自己帅呆了。~。</p>
 <p>今天刚开始学习RxJava,首先学习了Rx最基本的几个知识点,记录如下：<br>Obserable(被观察者) 、Subsciber(观察者) ，当被观察者有什么风吹草动观察者都会受到消息从而采取可以采取措施。编码层面代码具体怎么写呢。</p>
 <p>1.生成一个被观察者</p>
-<p>方式一：</p>
-<pre><code>rx.Observable&lt;String&gt; observable = rx.Observable.create(new rx.Observable.OnSubscribe&lt;String&gt;() {
-    @Override
-    public void call(Subscriber&lt;? super String&gt; subscriber) {
-        subscriber.onNext(&quot;hello world&quot;);
-    }
-});
-</code></pre><p>方式二：</p>
-<pre><code>rx.Observable&lt;String&gt; observable1= rx.Observable.just(&quot;hello world&quot;);
-</code></pre><p>这两种方式在此处效果是等价的。但注意just方法里面传参数生成的Observable和def方式使用的Observable的不同，具体看下篇博文。</p>
+<p>方式一：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">rx.Observable&lt;String&gt; observable = rx.Observable.create(<span class="keyword">new</span> rx.Observable.OnSubscribe&lt;String&gt;() &#123;</div><div class="line">      <span class="meta">@Override</span></div><div class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">call</span><span class="params">(Subscriber&lt;? <span class="keyword">super</span> String&gt; subscriber)</span> </span>&#123;</div><div class="line">          subscriber.onNext(<span class="string">"hello world"</span>);</div><div class="line">      &#125;</div><div class="line">  &#125;);</div></pre></td></tr></table></figure></p>
+<p>方式二：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rx.Observable&lt;String&gt; observable1= rx.Observable.just(<span class="string">"hello world"</span>);</div></pre></td></tr></table></figure>
+<p>这两种方式在此处效果是等价的。但注意just方法里面传参数生成的Observable和def方式使用的Observable的不同，具体看下篇博文。</p>
 <p>2.生成一个观察者：</p>
-<pre><code>rx.Subscriber&lt;String&gt; subscriber1 = new Subscriber&lt;String&gt;() {
-   @Override
-   public void onCompleted() {
-
-   }
-
-   @Override
-   public void onError(Throwable e) {
-
-   }
-
-   @Override
-   public void onNext(String s) {
-       Log.v(&quot;TAG&quot;, s);
-   }
-   };
-</code></pre><p>3.将两者结为百年之好。</p>
-<pre><code>observable.subscribe(subscriber1);
-</code></pre><p>运行一下，你就会获得”hello world”的打印。</p>
-<p>或者被观察者只被一种观察一种行为也可以，subscribe也提供了其他形参种类的方法，比如还是使用上面的被观察者，但现在只监听它的onNext行为。如下：</p>
-<pre><code>Action1&lt;String&gt; mOnNextAction = new Action1&lt;String&gt;() {
-   @Override
-   public void call(String s) {
-       Log.v(&quot;TAG&quot;, s);
-   }
-   };
-   observable1.subscribe(mOnNextAction);
-</code></pre><p>这样运行的结果也是一样的。同样subscribe方法还提供了一个分别对应onNext,onCompleted和onError这3个Action的重载，对应顺序是否正确，已忘，不敢保证。</p>
-<p>最后别忘记将被观察者解绑。</p>
-<pre><code>if (subscriber.isUnsubscribed()){
-    subscriber.unsubscribe();
-    }
-</code></pre><p>ok,今天先写到这里，后面笔记继续随着学习而增加，睡觉觉啦，呼啦啦~</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">rx.Subscriber&lt;String&gt; subscriber1 = <span class="keyword">new</span> Subscriber&lt;String&gt;() &#123;</div><div class="line">      <span class="meta">@Override</span></div><div class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCompleted</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">      &#125;</div><div class="line"></div><div class="line">      <span class="meta">@Override</span></div><div class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable e)</span> </span>&#123;</div><div class="line"></div><div class="line">      &#125;</div><div class="line"></div><div class="line">      <span class="meta">@Override</span></div><div class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNext</span><span class="params">(String s)</span> </span>&#123;</div><div class="line">          Log.v(<span class="string">"TAG"</span>, s);</div><div class="line">      &#125;</div><div class="line">  	&#125;;</div></pre></td></tr></table></figure>
+<p>3.将两者结为百年之好。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">observable.subscribe(subscriber1);</div></pre></td></tr></table></figure></p>
+<p>运行一下，你就会获得”hello world”的打印。</p>
+<p>或者被观察者只被一种观察一种行为也可以，subscribe也提供了其他形参种类的方法，比如还是使用上面的被观察者，但现在只监听它的onNext行为。如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Action1&lt;String&gt; mOnNextAction = <span class="keyword">new</span> Action1&lt;String&gt;() &#123;</div><div class="line">      <span class="meta">@Override</span></div><div class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">call</span><span class="params">(String s)</span> </span>&#123;</div><div class="line">          Log.v(<span class="string">"TAG"</span>, s);</div><div class="line">      &#125;</div><div class="line"> 	 &#125;;</div><div class="line">  	observable1.subscribe(mOnNextAction);</div></pre></td></tr></table></figure></p>
+<p>这样运行的结果也是一样的。同样subscribe方法还提供了一个分别对应onNext,onCompleted和onError这3个Action的重载，对应顺序是否正确，已忘，不敢保证。</p>
+<p>最后别忘记将被观察者解绑。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (subscriber.isUnsubscribed())&#123;</div><div class="line">       subscriber.unsubscribe();</div><div class="line">   	&#125;</div></pre></td></tr></table></figure></p>
+<p>ok,今天先写到这里，后面笔记继续随着学习而增加，睡觉觉啦，呼啦啦~</p>
 
         
         </div>

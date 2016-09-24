@@ -12,7 +12,7 @@
 <meta property="og:site_name" content="happycodinggirl">
 <meta property="og:description" content="今天继续学习RxJava，新技能get了总要记录一下。上篇文章写到的生成观察者的两种方式其实是有区别的，例如">
 <meta property="og:image" content="http://7xs2th.com1.z0.glb.clouddn.com/fengye.jpg">
-<meta property="og:updated_time" content="2016-09-11T08:43:03.710Z">
+<meta property="og:updated_time" content="2016-09-24T23:52:55.008Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RxJava学习历程（二）:defer、just、create区别和运行线程">
 <meta name="twitter:description" content="今天继续学习RxJava，新技能get了总要记录一下。上篇文章写到的生成观察者的两种方式其实是有区别的，例如">
@@ -247,128 +247,8 @@
         
             
             <p>今天继续学习RxJava，新技能get了总要记录一下。<br>上篇文章写到的生成观察者的两种方式其实是有区别的，例如<br><a id="more"></a></p>
-<p>先看下面的代码：</p>
-<pre><code>   private String name=&quot;lily&quot;;
-private Observable&lt;String&gt; defObserveable;
-private Observable&lt;String&gt; justObserveable;
-private Observable&lt;String&gt; comObservable;
-
-private Subscriber&lt;String&gt; subscriber;
-
-
-@Override
-protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    defObserveable = Observable.defer(new Func0&lt;Observable&lt;String&gt;&gt;() {
-       @Override
-       public Observable&lt;String&gt; call() {
-           return Observable.just(name);
-       }
-   });
-    justObserveable = Observable.just(name);
-    comObservable=Observable.create(new Observable.OnSubscribe&lt;String&gt;() {
-        @Override
-        public void call(Subscriber&lt;? super String&gt; subscriber) {
-            subscriber.onNext(name);
-        }
-    });
-    subscriber = new Subscriber&lt;String&gt;() {
-        @Override
-        public void onCompleted() {
-
-        }
-
-        @Override
-        public void onError(Throwable e) {
-
-        }
-
-        @Override
-        public void onNext(String s) {
-            PluLogUtil.log(&quot;---onNext name is &quot; + s);
-        }
-    };
-    name =&quot;lucy&quot;;
-    comObservable.subscribe(subscriber);
-    defObserveable.subscribe(subscriber);
-    justObserveable.subscribe(subscriber);
-    //打印结果：
-    //---_PLU LOG ---onNext name is lucy
-    //---_PLU LOG ---onNext name is lucy
-    // ---_PLU LOG ---onNext name is lily
-
-}
-</code></pre><p>可以看到just(param)方式与其他方式区别是参数是否变化。<br>just方式里面的参数不会随外部参数的变化而变化，但如果在其外层加了一层def的方式的话当外部参数变化的时候参数值也随一起变化，这点需要注意。而用create方式生成的Observable，要看subscribe方法的调用发生在name变量变化的前面还是后面，若在name变量值改变后调用的subscribe，因为Observer创建时OnSubscribe里面的call方法的调用是发生在subscribe调用的时候，所以name变化传入的值也会变化，如果subscribe之后再改变name的值那也不会随之变。</p>
-<p>RxJava的运行所在线程总结：</p>
-<p>先上代码：</p>
-<pre><code>Observable.create(new Observable.OnSubscribe&lt;Integer&gt;() {
-       @Override
-       public void call(Subscriber&lt;? super Integer&gt; subscriber) {// IO 线程，由 subscribeOn() 指定
-           subscriber.onNext(3);
-           PluLogUtil.log(&quot; --  onSubscribe call thread is &quot;+Thread.currentThread().getName());
-
-       }
-   }).subscribeOn(Schedulers.io())
-           .subscribeOn(Schedulers.newThread())
-           .observeOn(Schedulers.io())
-           .map(new Func1&lt;Integer, Integer&gt;() {
-               @Override
-               public Integer call(Integer integer) {// io线程，由 observeOn() 指定
-                   PluLogUtil.log(&quot;---map 111 thread is &quot; + Thread.currentThread().getName());
-                   return integer + 1;
-               }
-           })
-           .observeOn(Schedulers.newThread())
-           .observeOn(Schedulers.io())
-           .map(new Func1&lt;Integer, Integer&gt;() {
-               @Override
-               public Integer call(Integer integer) {//io线程，由 observeOn() 指定
-                   PluLogUtil.log(&quot;----map 2 22 thread is &quot; + Thread.currentThread().getName());
-                   return integer + 1;
-               }
-           })
-           .observeOn(Schedulers.newThread())
-           .map(new Func1&lt;Integer, Integer&gt;() {
-               @Override
-               public Integer call(Integer integer) {// 新线程，由 observeOn() 指定
-                   PluLogUtil.log(&quot;----map 333 thread is &quot; + Thread.currentThread().getName());
-                   return integer + 1;
-               }
-           })
-           .doOnSubscribe(new Action0() {//io线程，由其后的第一个subscribeOn所限定的线程决定
-               @Override
-               public void call() {
-                   PluLogUtil.log(&quot;----doOnSubscribe thread is &quot;+Thread.currentThread().getName());
-               }
-           }).subscribeOn(Schedulers.io()).
-           subscribe(new Subscriber&lt;Integer&gt;() {
-               @Override
-               public void onCompleted() {
-
-               }
-
-               @Override
-               public void onError(Throwable e) {
-
-               }
-
-               @Override
-               public void onNext(Integer integer) {//新线程，由最后一个observeOn的线程限定
-                   PluLogUtil.log(&quot;---onNext thread is &quot; + Thread.currentThread().getName());
-               }
-           });
-
-   /**
-    * 03-10 23:20:51.360 8134-8134/? D/TAG_PluginDeliverService: PluginDeliverService start com.sina.weibo.plugin.PluginDeliverService$PluginDeliverService3
-    ---_PLU LOG ----doOnSubscribe thread is RxCachedThreadScheduler-1
-    ---_PLU LOG  --  onSubscribe call thread is RxCachedThreadScheduler-4
-    ---_PLU LOG ---map 111 thread is RxCachedThreadScheduler-3
-    ---_PLU LOG ----map 2 22 thread is RxCachedThreadScheduler-2
-    ---_PLU LOG ----map 333 thread is RxNewThreadScheduler-1
-    ---_PLU LOG ---onNext thread is RxNewThreadScheduler-1
-
-    */
-</code></pre><p>说下我自己的理解：</p>
+<p>先看下面的代码：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div></pre></td><td class="code"><pre><div class="line">   	private String name="lily";</div><div class="line">	private Observable&lt;String&gt; defObserveable;</div><div class="line">	private Observable&lt;String&gt; justObserveable;</div><div class="line">	private Observable&lt;String&gt; comObservable;</div><div class="line"></div><div class="line">	private Subscriber&lt;String&gt; subscriber;</div><div class="line">	</div><div class="line">	</div><div class="line">	@Override</div><div class="line">	protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">	    super.onCreate(savedInstanceState);</div><div class="line">	    defObserveable = Observable.defer(new Func0&lt;Observable&lt;String&gt;&gt;() &#123;</div><div class="line">	       @Override</div><div class="line">	       public Observable&lt;String&gt; call() &#123;</div><div class="line">	           return Observable.just(name);</div><div class="line">	       &#125;</div><div class="line">	   &#125;);</div><div class="line">	    justObserveable = Observable.just(name);</div><div class="line">	    comObservable=Observable.create(new Observable.OnSubscribe&lt;String&gt;() &#123;</div><div class="line">	        @Override</div><div class="line">	        public void call(Subscriber&lt;? super String&gt; subscriber) &#123;</div><div class="line">	            subscriber.onNext(name);</div><div class="line">	        &#125;</div><div class="line">	    &#125;);</div><div class="line">	    subscriber = new Subscriber&lt;String&gt;() &#123;</div><div class="line">	        @Override</div><div class="line">	        public void onCompleted() &#123;</div><div class="line">	</div><div class="line">	        &#125;</div><div class="line">	</div><div class="line">	        @Override</div><div class="line">	        public void onError(Throwable e) &#123;</div><div class="line">	</div><div class="line">	        &#125;</div><div class="line">	</div><div class="line">	        @Override</div><div class="line">	        public void onNext(String s) &#123;</div><div class="line">	            PluLogUtil.log("---onNext name is " + s);</div><div class="line">	        &#125;</div><div class="line">	    &#125;;</div><div class="line">	    name ="lucy";</div><div class="line">	    comObservable.subscribe(subscriber);</div><div class="line">	    defObserveable.subscribe(subscriber);</div><div class="line">	    justObserveable.subscribe(subscriber);</div><div class="line">	    //打印结果：</div><div class="line">	    //---_PLU LOG ---onNext name is lucy</div><div class="line">	    //---_PLU LOG ---onNext name is lucy</div><div class="line">	    // ---_PLU LOG ---onNext name is lily</div><div class="line">	</div><div class="line">	&#125;</div><div class="line">```	</div><div class="line"></div><div class="line">可以看到just(param)方式与其他方式区别是参数是否变化。just方式里面的参数不会随外部参数的变化而变化，但如果在其外层加了一层def的方式的话当外部参数变化的时候参数值也随一起变化，这点需要注意。而用create方式生成的Observable，要看subscribe方法的调用发生在name变量变化的前面还是后面，若在name变量值改变后调用的subscribe，因为Observer创建时OnSubscribe里面的call方法的调用是发生在subscribe调用的时候，所以name变化传入的值也会变化，如果subscribe之后再改变name的值那也不会随之变。</div><div class="line"></div><div class="line">### RxJava的运行所在线程总结：</div><div class="line"></div><div class="line">先上代码：</div><div class="line"></div><div class="line">```java</div><div class="line">	Observable.create(new Observable.OnSubscribe&lt;Integer&gt;() &#123;</div><div class="line">	       @Override</div><div class="line">	       public void call(Subscriber&lt;? super Integer&gt; subscriber) &#123;// IO 线程，由 subscribeOn() 指定</div><div class="line">	           subscriber.onNext(3);</div><div class="line">	           PluLogUtil.log(" --  onSubscribe call thread is "+Thread.currentThread().getName());</div><div class="line">	</div><div class="line">	       &#125;</div><div class="line">	   &#125;).subscribeOn(Schedulers.io())</div><div class="line">	           .subscribeOn(Schedulers.newThread())</div><div class="line">	           .observeOn(Schedulers.io())</div><div class="line">	           .map(new Func1&lt;Integer, Integer&gt;() &#123;</div><div class="line">	               @Override</div><div class="line">	               public Integer call(Integer integer) &#123;// io线程，由 observeOn() 指定</div><div class="line">	                   PluLogUtil.log("---map 111 thread is " + Thread.currentThread().getName());</div><div class="line">	                   return integer + 1;</div><div class="line">	               &#125;</div><div class="line">	           &#125;)</div><div class="line">	           .observeOn(Schedulers.newThread())</div><div class="line">	           .observeOn(Schedulers.io())</div><div class="line">	           .map(new Func1&lt;Integer, Integer&gt;() &#123;</div><div class="line">	               @Override</div><div class="line">	               public Integer call(Integer integer) &#123;//io线程，由 observeOn() 指定</div><div class="line">	                   PluLogUtil.log("----map 2 22 thread is " + Thread.currentThread().getName());</div><div class="line">	                   return integer + 1;</div><div class="line">	               &#125;</div><div class="line">	           &#125;)</div><div class="line">	           .observeOn(Schedulers.newThread())</div><div class="line">	           .map(new Func1&lt;Integer, Integer&gt;() &#123;</div><div class="line">	               @Override</div><div class="line">	               public Integer call(Integer integer) &#123;// 新线程，由 observeOn() 指定</div><div class="line">	                   PluLogUtil.log("----map 333 thread is " + Thread.currentThread().getName());</div><div class="line">	                   return integer + 1;</div><div class="line">	               &#125;</div><div class="line">	           &#125;)</div><div class="line">	           .doOnSubscribe(new Action0() &#123;//io线程，由其后的第一个subscribeOn所限定的线程决定</div><div class="line">	               @Override</div><div class="line">	               public void call() &#123;</div><div class="line">	                   PluLogUtil.log("----doOnSubscribe thread is "+Thread.currentThread().getName());</div><div class="line">	               &#125;</div><div class="line">	           &#125;).subscribeOn(Schedulers.io()).</div><div class="line">	           subscribe(new Subscriber&lt;Integer&gt;() &#123;</div><div class="line">	               @Override</div><div class="line">	               public void onCompleted() &#123;</div><div class="line">	</div><div class="line">	               &#125;</div><div class="line">	</div><div class="line">	               @Override</div><div class="line">	               public void onError(Throwable e) &#123;</div><div class="line">	</div><div class="line">	               &#125;</div><div class="line">	</div><div class="line">	               @Override</div><div class="line">	               public void onNext(Integer integer) &#123;//新线程，由最后一个observeOn的线程限定</div><div class="line">	                   PluLogUtil.log("---onNext thread is " + Thread.currentThread().getName());</div><div class="line">	               &#125;</div><div class="line">	           &#125;);</div><div class="line">	</div><div class="line">	   /**</div><div class="line">	    * 03-10 23:20:51.360 8134-8134/? D/TAG_PluginDeliverService: PluginDeliverService start com.sina.weibo.plugin.PluginDeliverService$PluginDeliverService3</div><div class="line">	    ---_PLU LOG ----doOnSubscribe thread is RxCachedThreadScheduler-1</div><div class="line">	    ---_PLU LOG  --  onSubscribe call thread is RxCachedThreadScheduler-4</div><div class="line">	    ---_PLU LOG ---map 111 thread is RxCachedThreadScheduler-3</div><div class="line">	    ---_PLU LOG ----map 2 22 thread is RxCachedThreadScheduler-2</div><div class="line">	    ---_PLU LOG ----map 333 thread is RxNewThreadScheduler-1</div><div class="line">	    ---_PLU LOG ---onNext thread is RxNewThreadScheduler-1</div><div class="line">	</div><div class="line">	    */</div></pre></td></tr></table></figure></p>
+<p>说下我自己的理解：</p>
 <p>1.subscribeOn限定被观察者运行的线程</p>
 <p>2.observeOn限定观察者运行的线程</p>
 <p>3.map指令:</p>

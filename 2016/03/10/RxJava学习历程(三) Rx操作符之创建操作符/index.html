@@ -12,7 +12,7 @@
 <meta property="og:site_name" content="happycodinggirl">
 <meta property="og:description" content="上篇文章讲的def,create,just都是创建操作符，今天继续学习剩余的创建操作符">
 <meta property="og:image" content="http://7xs2th.com1.z0.glb.clouddn.com/fengye.jpg">
-<meta property="og:updated_time" content="2016-09-11T08:41:46.654Z">
+<meta property="og:updated_time" content="2016-09-24T23:52:49.030Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RxJava学习历程（三）:Rx操作符之：创建操作符">
 <meta name="twitter:description" content="上篇文章讲的def,create,just都是创建操作符，今天继续学习剩余的创建操作符">
@@ -253,13 +253,13 @@
 <p>timer(long,TimeUnit))</p>
 <p>timer(long,TimeUnit,Scheduler))</p>
 </blockquote>
-<p>1s后在主线程发射一个数字0.<br>timerObservable = Observable.timer(1,TimeUnit.SECONDS,AndroidSchedulers.mainThread());//timer默认运行在第三方线程运行，可自己指定运行线程</p>
+<p>1s后在主线程发射一个数字0.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">timerObservable = Observable.timer(<span class="number">1</span>,TimeUnit.SECONDS,AndroidSchedulers.mainThread());<span class="comment">//timer默认运行在第三方线程运行，可自己指定运行线程</span></div></pre></td></tr></table></figure></p>
 <h2 id="Interval"><a href="#Interval" class="headerlink" title="Interval"></a>Interval</h2><p>RxJava将这个操作符实现为interval方法。它接受一个表示时间间隔的参数和一个表示时间单位的参数。</p>
 <blockquote>
 <p>Javadoc: interval(long,TimeUnit))</p>
 <p>Javadoc: interval(long,TimeUnit,Scheduler))</p>
 </blockquote>
-<p>10s后以每隔500ms发射一次数字，从0开始，每次递增1.<br>itervalObservable = Observable.interval(10, 500, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread());</p>
+<p>10s后以每隔500ms发射一次数字，从0开始，每次递增1.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">itervalObservable = Observable.interval(<span class="number">10</span>, <span class="number">500</span>, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread());</div></pre></td></tr></table></figure></p>
 <h2 id="Range"><a href="#Range" class="headerlink" title="Range"></a>Range</h2><p>创建一个发射特定整数序列的Observable<br>Range操作符发射一个范围内的有序整数序列，你可以指定范围的起始和长度。</p>
 <p>RxJava将这个操作符实现为range函数，它接受两个参数，一个是范围的起始值，一个是范围的数据的数目。如果你将第二个参数设为0，将导致Observable不发射任何数据（如果设置为负数，会抛异常）。</p>
 <p>range默认不在任何特定的调度器上执行。有一个变体可以通过可选参数指定Scheduler。</p>
@@ -267,8 +267,8 @@
 <p>Javadoc: range(int,int))</p>
 <p>Javadoc: range(int,int,Scheduler))<br>发射0，1，2，这3个数字。</p>
 </blockquote>
-<pre><code>rangeObservable = Observable.range(0, 3);
-</code></pre><p>range操作符的subscriber，若不指定，默认运行在主线程。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rangeObservable = Observable.range(<span class="number">0</span>, <span class="number">3</span>);</div></pre></td></tr></table></figure>
+<p>range操作符的subscriber，若不指定，默认运行在主线程。</p>
 <h2 id="Repeat"><a href="#Repeat" class="headerlink" title="Repeat"></a>Repeat</h2><p>创建一个发射特定数据重复多次的Observable<br>RxJava将这个操作符实现为repeat方法。它不是创建一个Observable，而是重复发射原始Observable的数据序列，这个序列或者是无限的，或者通过repeat(n)指定重复次数。</p>
 <p>repeat操作符默认在trampoline调度器上执行。有一个变体可以通过可选参数指定Scheduler。</p>
 <blockquote>
@@ -277,10 +277,10 @@
 <p>repeat(Scheduler))</p>
 <p>repeat(long,Scheduler))<br>将上面的rangeObservable所发射的数据，顺序重复3遍</p>
 </blockquote>
-<p>repeatObservable = rangeObservable.repeat(3);<br>可以看出repeat方法不是Observable里面的静态方法，它为其他的observable添加重复属性</p>
-<h2 id="StartWith"><a href="#StartWith" class="headerlink" title="StartWith"></a>StartWith</h2><p>若defObservable里面发射“lily”这个字符串，则startWith后变为发射“hellolily”</p>
-<pre><code>startWithObserver = defObserveable.startWith(Observable.just(&quot;hello&quot;));
-</code></pre><h2 id="Empty-Never-Throw"><a href="#Empty-Never-Throw" class="headerlink" title="Empty/Never/Throw"></a>Empty/Never/Throw</h2><h3 id="Empty"><a href="#Empty" class="headerlink" title="Empty"></a>Empty</h3><p>创建一个不发射任何数据但是正常终止的Observable</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">repeatObservable = rangeObservable.repeat(<span class="number">3</span>);</div></pre></td></tr></table></figure>
+<p>可以看出repeat方法不是Observable里面的静态方法，它为其他的observable添加重复属性</p>
+<h2 id="StartWith"><a href="#StartWith" class="headerlink" title="StartWith"></a>StartWith</h2><p>若defObservable里面发射“lily”这个字符串，则startWith后变为发射“hellolily”<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">startWithObserver = defObserveable.startWith(Observable.just(<span class="string">"hello"</span>));</div></pre></td></tr></table></figure></p>
+<h2 id="Empty-Never-Throw"><a href="#Empty-Never-Throw" class="headerlink" title="Empty/Never/Throw"></a>Empty/Never/Throw</h2><h3 id="Empty"><a href="#Empty" class="headerlink" title="Empty"></a>Empty</h3><p>创建一个不发射任何数据但是正常终止的Observable</p>
 <h3 id="Never"><a href="#Never" class="headerlink" title="Never"></a>Never</h3><p>创建一个不发射数据也不终止的Observable</p>
 <h3 id="Throw"><a href="#Throw" class="headerlink" title="Throw"></a>Throw</h3><p>创建一个不发射数据以一个错误终止的Observable</p>
 <p>这三个操作符生成的Observable行为非常特殊和受限。测试的时候很有用，有时候也用于结合其它的Observables，或者作为其它需要Observable的操作符的参数。</p>
