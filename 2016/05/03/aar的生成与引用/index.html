@@ -12,7 +12,7 @@
 <meta property="og:site_name" content="happycodinggirl">
 <meta property="og:description" content="最近项目中使用了aar，网上介绍的aar的使用方法都是最基本的使用方法，自己在实际使用的时候遇到一些问题，google,百度都无果，后来自己摸索出来了，记录一下。最基本的用法：">
 <meta property="og:image" content="http://7xs2th.com1.z0.glb.clouddn.com/fengye.jpg">
-<meta property="og:updated_time" content="2016-09-11T08:35:11.234Z">
+<meta property="og:updated_time" content="2016-09-24T23:24:53.520Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="aar的生成与引用">
 <meta name="twitter:description" content="最近项目中使用了aar，网上介绍的aar的使用方法都是最基本的使用方法，自己在实际使用的时候遇到一些问题，google,百度都无果，后来自己摸索出来了，记录一下。最基本的用法：">
@@ -248,54 +248,19 @@
             
             <p>最近项目中使用了aar，网上介绍的aar的使用方法都是最基本的使用方法，自己在实际使用的时候遇到一些问题，google,百度都无果，后来自己摸索出来了，记录一下。<br>最基本的用法：<br><a id="more"></a></p>
 <h2 id="一-、aar的生成："><a href="#一-、aar的生成：" class="headerlink" title="一 、aar的生成："></a>一 、aar的生成：</h2><p>1.生成一个library类型的mould.<br>2.执行 ./gradlew assembleRelease(windows下直接gradlew assembleRelease)，然后aar文件生成在build/outputs/aar里面</p>
-<h2 id="二-、aar文件的引用："><a href="#二-、aar文件的引用：" class="headerlink" title="二 、aar文件的引用："></a>二 、aar文件的引用：</h2><h4 id="1-在build-gradle文件的android-里面加入"><a href="#1-在build-gradle文件的android-里面加入" class="headerlink" title="1.在build.gradle文件的android{}里面加入"></a>1.在build.gradle文件的android{}里面加入</h4><pre><code>repositories {
-flatDir {
-dirs &apos;libs&apos; // this way we can find the .aar file in libs folder 到libs文件夹下寻找.aar包
-}
-}
-</code></pre><h4 id="2-在dependencies-里面加入："><a href="#2-在dependencies-里面加入：" class="headerlink" title="2.在dependencies {}里面加入："></a>2.在dependencies {}里面加入：</h4><p>compile(name:’aartest-debug’, ext:’aar’)<br>name后面是aar的name,这里我的aar名字叫aartest-debug.aar ，去后缀名<br>这样你就可以应用aar里面的类和方法了。是不是so easy.</p>
+<h2 id="二-、aar文件的引用："><a href="#二-、aar文件的引用：" class="headerlink" title="二 、aar文件的引用："></a>二 、aar文件的引用：</h2><h4 id="1-在build-gradle文件的android-里面加入"><a href="#1-在build-gradle文件的android-里面加入" class="headerlink" title="1.在build.gradle文件的android{}里面加入"></a>1.在build.gradle文件的android{}里面加入</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">repositories &#123;</div><div class="line">flatDir &#123;</div><div class="line">dirs <span class="string">'libs'</span> <span class="comment">// this way we can find the .aar file in libs folder 到libs文件夹下寻找.aar包</span></div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="2-在dependencies-里面加入："><a href="#2-在dependencies-里面加入：" class="headerlink" title="2.在dependencies {}里面加入："></a>2.在dependencies {}里面加入：</h4><p>compile(name:’aartest-debug’, ext:’aar’)<br>name后面是aar的name,这里我的aar名字叫aartest-debug.aar ，去后缀名<br>这样你就可以应用aar里面的类和方法了。是不是so easy.</p>
 <h2 id="三、自己遇到的坑："><a href="#三、自己遇到的坑：" class="headerlink" title="三、自己遇到的坑："></a>三、自己遇到的坑：</h2><p>上述这些也都是网上大多数介绍的aar的生成与引用方法。在我们的项目里面，项目结构是十分复杂的。我们有个libray的mould ,暂且叫mould useaartest吧。mould useaartest里面主要是实现了某一功能的一个独立的模块，作为一个library让其他mould引用的。该模块的实现现在需要依赖另一个aar模块，起初我按照网上介绍的方法即上述的2步在mould A里面实行。结果一直报找不到aar文件。郁闷至极。这是为啥呢。在非libray的mould里面按照上述2步就可以成功。但我们的aar必须在作为library的mould A里面引用实现。后来几经辗转，想到了，我将aar放到一个单独的libray mould里面，是不是可行呢，后来一试，果然可以。完美通过，好开心。</p>
 <p>现在目录结构是这样的。比如我们在mould useaartest里面需要使用的aar叫aartest-debug.aar,单独建的存放该aar文件的library类型的mould叫originaarforuse，mould useaartest还是叫mould useaartest,主入口mould叫mould app ,<br>则存放aar文件的library mould 的build.gradle 文件啥都不用该，其仅仅起了一个存放aar文件的作用（不单独建个library mould 放它还不行，如上所述，一直报找不到),mould useaartest的build.gradle关于aar引入的实现如下：</p>
-<pre><code>apply plugin: &apos;com.android.library&apos;
-
-android {
-compileSdkVersion 23
-buildToolsVersion &quot;23.0.2&quot;
-
-defaultConfig {
-    minSdkVersion 15
-    targetSdkVersion 23
-    versionCode 1
-    versionName &quot;1.0&quot;
-}
-buildTypes {
-    release {
-        minifyEnabled false
-        proguardFiles getDefaultProguardFile(&apos;proguard-android.txt&apos;), &apos;proguard-rules.pro&apos;
-    }
-}
-repositories {
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">apply plugin: <span class="string">'com.android.library'</span></div><div class="line"></div><div class="line">android &#123;</div><div class="line">compileSdkVersion <span class="number">23</span></div><div class="line">buildToolsVersion <span class="string">"23.0.2"</span></div><div class="line"></div><div class="line">defaultConfig &#123;</div><div class="line">    minSdkVersion <span class="number">15</span></div><div class="line">    targetSdkVersion <span class="number">23</span></div><div class="line">    versionCode <span class="number">1</span></div><div class="line">    versionName <span class="string">"1.0"</span></div><div class="line">&#125;</div><div class="line">buildTypes &#123;</div><div class="line">    release &#123;</div><div class="line">        <span class="function">minifyEnabled <span class="keyword">false</span></span></div><div class="line">        proguardFiles <span class="title">getDefaultProguardFile</span><span class="params">(<span class="string">'proguard-android.txt'</span>)</span>, 'proguard-rules.pro'</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">repositories &#123;</div><div class="line">    flatDir &#123;</div><div class="line">        <span class="function">dirs <span class="title">project</span><span class="params">(<span class="string">':originaarforuse'</span>)</span>.<span class="title">file</span><span class="params">(<span class="string">'libs'</span>)</span> <span class="comment">// this way we can find the .aar file in libs folder 到libs文件夹下寻找.aar包</span></span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">dependencies &#123;</div><div class="line"><span class="function">compile <span class="title">fileTree</span><span class="params">(include: [<span class="string">'*.jar'</span>], dir: <span class="string">'libs'</span>)</span></span></div><div class="line">testCompile 'junit:junit:4.12'</div><div class="line">compile 'com.android.support:appcompat-v7:23.2.1'</div><div class="line"><span class="title">compile</span><span class="params">(name: <span class="string">'aartest-debug'</span>, ext: <span class="string">'aar'</span>)</span></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<pre><code>主mould app 的build.gradle文件就不贴了，主要是在android{}里面跟上面的一样，加了
+</code></pre><pre><code class="java">    repositories {
     flatDir {
-        dirs project(&apos;:originaarforuse&apos;).file(&apos;libs&apos;) // this way we can find the .aar file in libs folder 到libs文件夹下寻找.aar包
+        <span class="function">dirs <span class="title">project</span><span class="params">(<span class="string">':originaarforuse'</span>)</span>.<span class="title">file</span><span class="params">(<span class="string">'libs'</span>)</span> <span class="comment">// this way we can find the .aar file in libs folder 到libs文件夹下寻找.aar包</span>
     }
-}
-}
-
-dependencies {
-compile fileTree(include: [&apos;*.jar&apos;], dir: &apos;libs&apos;)
-testCompile &apos;junit:junit:4.12&apos;
-compile &apos;com.android.support:appcompat-v7:23.2.1&apos;
-compile(name: &apos;aartest-debug&apos;, ext: &apos;aar&apos;)
-
-}
-主mould app 的build.gradle文件就不贴了，主要是在android{}里面跟上面的一样，加了
-
-repositories {
-    flatDir {
-        dirs project(&apos;:originaarforuse&apos;).file(&apos;libs&apos;) // this way we can find the .aar file in libs folder 到libs文件夹下寻找.aar包
-    }
-}
-</code></pre><p>注意这个一定要加否则找不到aar文件。dependencies里面加了对mould useaartest的依赖。如此在mould app和mould useaartest就都能引用aar里面的类和方法了。欧耶！so great!</p>
+}</span>
+</code></pre>
+<p>注意这个一定要加否则找不到aar文件。dependencies里面加了对mould useaartest的依赖。如此在mould app和mould useaartest就都能引用aar里面的类和方法了。欧耶！so great!</p>
 <hr>
 <h3 id="每日美句"><a href="#每日美句" class="headerlink" title="每日美句:"></a>每日美句:</h3><p>人生的路，走走停停是一种闲适，边走边看是一种优雅，边走边忘，是一种豁达。</p>
 

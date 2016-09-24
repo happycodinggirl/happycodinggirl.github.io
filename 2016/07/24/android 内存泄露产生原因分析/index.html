@@ -12,7 +12,7 @@
 <meta property="og:site_name" content="happycodinggirl">
 <meta property="og:description" content="在android开发过程中，代码不规范，有时候很容易就会遭到内存泄露的侵袭。内存泄露，就是该死不死，有些对象或引用，本该释放的时候，因为某些原因释放不掉就会造成内存泄露。注意本文所写内容仅为本人自己的理解，若有错误，欢迎批评指正。">
 <meta property="og:image" content="http://7xs2th.com1.z0.glb.clouddn.com/20140228153005850%20%281%29.jpeg">
-<meta property="og:updated_time" content="2016-09-24T23:12:02.970Z">
+<meta property="og:updated_time" content="2016-09-24T23:20:57.100Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="android 内存泄露产生原因分析">
 <meta name="twitter:description" content="在android开发过程中，代码不规范，有时候很容易就会遭到内存泄露的侵袭。内存泄露，就是该死不死，有些对象或引用，本该释放的时候，因为某些原因释放不掉就会造成内存泄露。注意本文所写内容仅为本人自己的理解，若有错误，欢迎批评指正。">
@@ -250,23 +250,8 @@
 <h3 id="1-静态变量"><a href="#1-静态变量" class="headerlink" title="1.静态变量"></a>1.静态变量</h3><p>两种类型的静态变量，如果是纯数值型的静态变量不会引起内存泄露，如果是对象或者引用，如果在activity的生命周期结束前没有将其置位空，可能会引起内存泄露。</p>
 <h5 id="1-gt-静态activity"><a href="#1-gt-静态activity" class="headerlink" title="1&gt;静态activity."></a>1&gt;静态activity.</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> Activity mActivity;</div><div class="line"><span class="keyword">static</span> Drawable mDrawableTest;</div><div class="line"></div><div class="line"></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">    mActivity = <span class="keyword">this</span>;</div><div class="line">    <span class="keyword">if</span> (mDrawableTest == <span class="keyword">null</span>) &#123;</div><div class="line">        mDrawableTest = getResources().getDrawable(R.mipmap.ic_launcher);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>上述代码，mActivity变量赋给了运行中的activity,如果该activity在生命周期结束前不将静态变量mActivity置为空，则该变量一直指向运行中的activity，持有它，导致activity的生命周期被静态变量hold住了，导致释放不掉。正确的做法是在onDestroy时将activity置为空，activity=null,则静态变量mActivity不指向activity了，则activity就能释放掉了。继续看下文描述。</p>
-<h5 id="2-gt-静态View"><a href="#2-gt-静态View" class="headerlink" title="2&gt;静态View."></a>2&gt;静态View.</h5><pre><code> private static TextView view;
-
-@Override
-protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
-    final TextView textView = (TextView) findViewById(R.id.tv);
-    textView.setText(&quot;i am textview 2222222&quot;);
-    textView.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            view = textView;
-
-        }
-    });
-}
-</code></pre><p>上述代码如果在onDestroy时未将view=null,则view持有textview,textview持有activity,导致activity释放不掉，导致内存泄露。跟上段代码的mDrawableTest不同，mDrawableTest不持有activity.继续看下文描述。</p>
+<h5 id="2-gt-静态View"><a href="#2-gt-静态View" class="headerlink" title="2&gt;静态View."></a>2&gt;静态View.</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"> <span class="keyword">private</span> <span class="keyword">static</span> TextView view;</div><div class="line"></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">    setContentView(R.layout.activity_main);</div><div class="line">    <span class="keyword">final</span> TextView textView = (TextView) findViewById(R.id.tv);</div><div class="line">    textView.setText(<span class="string">"i am textview 2222222"</span>);</div><div class="line">    textView.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</div><div class="line">            view = textView;</div><div class="line"></div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上述代码如果在onDestroy时未将view=null,则view持有textview,textview持有activity,导致activity释放不掉，导致内存泄露。跟上段代码的mDrawableTest不同，mDrawableTest不持有activity.继续看下文描述。</p>
 <p>上述2种情况碰到过将静态变量置为空也出现过退出后，mat中 activity个数不为0的情况，非必现，此时no gc root.原因未知，大神若知，忘留言。</p>
 <h5 id="3-内部类和匿名内部类"><a href="#3-内部类和匿名内部类" class="headerlink" title="3.内部类和匿名内部类"></a>3.内部类和匿名内部类</h5><p>内部类默认持有外部类的引用。我自己的经验是不是所有的内部类都会导致内存泄露，如果在外部类释放的时候，内部类仍有耗时操作时就会泄露外部类，导致外部类不能被回收。</p>
 <h5 id="4-第三方线程没有主动结束掉导致内存泄露。"><a href="#4-第三方线程没有主动结束掉导致内存泄露。" class="headerlink" title="4.第三方线程没有主动结束掉导致内存泄露。"></a>4.第三方线程没有主动结束掉导致内存泄露。</h5><p>以上总结的4种原因，也许有不对的地方，若有不对，看客可在下面留言，必回复。</p>
