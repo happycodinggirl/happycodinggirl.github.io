@@ -12,7 +12,7 @@
 <meta property="og:site_name" content="happycodinggirl">
 <meta property="og:description" content="在android开发过程中，代码不规范，有时候很容易就会遭到内存泄露的侵袭。内存泄露，就是该死不死，有些对象或引用，本该释放的时候，因为某些原因释放不掉就会造成内存泄露。注意本文所写内容仅为本人自己的理解，若有错误，欢迎批评指正。">
 <meta property="og:image" content="http://7xs2th.com1.z0.glb.clouddn.com/20140228153005850%20%281%29.jpeg">
-<meta property="og:updated_time" content="2016-09-24T22:59:27.453Z">
+<meta property="og:updated_time" content="2016-09-24T23:06:16.082Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="android 内存泄露产生原因分析">
 <meta name="twitter:description" content="在android开发过程中，代码不规范，有时候很容易就会遭到内存泄露的侵袭。内存泄露，就是该死不死，有些对象或引用，本该释放的时候，因为某些原因释放不掉就会造成内存泄露。注意本文所写内容仅为本人自己的理解，若有错误，欢迎批评指正。">
@@ -248,8 +248,12 @@
             
             <p>在android开发过程中，代码不规范，有时候很容易就会遭到内存泄露的侵袭。内存泄露，就是该死不死，有些对象或引用，本该释放的时候，因为某些原因释放不掉就会造成内存泄露。注意本文所写内容仅为本人自己的理解，若有错误，欢迎批评指正。<br><a id="more"></a></p>
 <h3 id="1-静态变量"><a href="#1-静态变量" class="headerlink" title="1.静态变量"></a>1.静态变量</h3><p>两种类型的静态变量，如果是纯数值型的静态变量不会引起内存泄露，如果是对象或者引用，如果在activity的生命周期结束前没有将其置位空，可能会引起内存泄露。</p>
-<h5 id="1-gt-静态activity"><a href="#1-gt-静态activity" class="headerlink" title="1&gt;静态activity."></a>1&gt;静态activity.</h5><p>```java<br>    static Activity mActivity;<br>    static Drawable mDrawableTest;</p>
-<pre><code>@Override
+<h5 id="1-gt-静态activity"><a href="#1-gt-静态activity" class="headerlink" title="1&gt;静态activity."></a>1&gt;静态activity.</h5><p>```java</p>
+<pre><code>static Activity mActivity;
+static Drawable mDrawableTest;
+
+
+@Override
 protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     mActivity = this;
