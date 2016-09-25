@@ -3,20 +3,23 @@
 <head>
     <meta charset="utf-8">
     
-    <title>MVP学习使用 | happycodinggirl</title>
+    <title>友盟SDK偏僻知识点总结 | happycodinggirl</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="今晚写了个MVP的小例子，总结下，自己并不是使用MVP的大师级人物，此处仅记录自己的理解。">
+    <meta name="description" content="记录友盟分享的一些偏僻知识点.
+在微信分享时,如果分享的content为空,即文字为空,只有图片,即单纯分享图片时,分享出去的链接打开进不到实际分享的地址,怎么办呢,你也不想加内容,也不想进不到链接里面.只要将content内容String content=”    “;多打几个空格,传进去就ok了.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MVP学习使用">
-<meta property="og:url" content="http://yoursite.com/2016/03/11/MVP的使用/index.html">
+<meta property="og:title" content="友盟SDK偏僻知识点总结">
+<meta property="og:url" content="http://yoursite.com/2016/09/15/友盟使用知识点总结/index.html">
 <meta property="og:site_name" content="happycodinggirl">
-<meta property="og:description" content="今晚写了个MVP的小例子，总结下，自己并不是使用MVP的大师级人物，此处仅记录自己的理解。">
-<meta property="og:image" content="http://7xs2th.com1.z0.glb.clouddn.com/fengye.jpg">
-<meta property="og:updated_time" content="2016-09-11T08:41:16.049Z">
+<meta property="og:description" content="记录友盟分享的一些偏僻知识点.
+在微信分享时,如果分享的content为空,即文字为空,只有图片,即单纯分享图片时,分享出去的链接打开进不到实际分享的地址,怎么办呢,你也不想加内容,也不想进不到链接里面.只要将content内容String content=”    “;多打几个空格,传进去就ok了.">
+<meta property="og:image" content="http://7xs2th.com1.z0.glb.clouddn.com/sunset.jpg">
+<meta property="og:updated_time" content="2016-09-25T08:34:44.729Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MVP学习使用">
-<meta name="twitter:description" content="今晚写了个MVP的小例子，总结下，自己并不是使用MVP的大师级人物，此处仅记录自己的理解。">
-<meta name="twitter:image" content="http://7xs2th.com1.z0.glb.clouddn.com/fengye.jpg">
+<meta name="twitter:title" content="友盟SDK偏僻知识点总结">
+<meta name="twitter:description" content="记录友盟分享的一些偏僻知识点.
+在微信分享时,如果分享的content为空,即文字为空,只有图片,即单纯分享图片时,分享出去的链接打开进不到实际分享的地址,怎么办呢,你也不想加内容,也不想进不到链接里面.只要将content内容String content=”    “;多打几个空格,传进去就ok了.">
+<meta name="twitter:image" content="http://7xs2th.com1.z0.glb.clouddn.com/sunset.jpg">
     
 
     
@@ -195,12 +198,12 @@
 </aside>
 
             
-            <section id="main"><article id="post-MVP的使用" class="article article-type-post" itemscope itemprop="blogPost">
+            <section id="main"><article id="post-友盟使用知识点总结" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
             
 	
-		<img src="http://7xs2th.com1.z0.glb.clouddn.com/four.jpg" class="article-banner" />
+		<img src="http://7xs2th.com1.z0.glb.clouddn.com/sunup.jpg" class="article-banner" />
 	
 
 
@@ -211,7 +214,7 @@
                 
     
         <h1 class="article-title" itemprop="name">
-            MVP学习使用
+            友盟SDK偏僻知识点总结
         </h1>
     
 
@@ -220,8 +223,8 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2016/03/11/MVP的使用/">
-            <time datetime="2016-03-11T13:55:37.000Z" itemprop="datePublished">2016-03-11</time>
+        <a href="/2016/09/15/友盟使用知识点总结/">
+            <time datetime="2016-09-15T07:48:37.000Z" itemprop="datePublished">2016-09-15</time>
         </a>
     </div>
 
@@ -229,13 +232,13 @@
                         
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/MVP/">MVP</a>
+        <a class="article-category-link" href="/categories/第三方/">第三方</a>
     </div>
 
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/MVP/">MVP</a>
+        <a class="tag-link" href="/tags/youmeng/">youmeng</a>
     </div>
 
                     </div>
@@ -246,12 +249,8 @@
         <div class="article-entry" itemprop="articleBody">
         
             
-            <p>今晚写了个MVP的小例子，总结下，自己并不是使用MVP的大师级人物，此处仅记录自己的理解。<br><a id="more"></a></p>
-<p>使用MVP的好处可以使View层与Model层解耦，所谓解耦就是不互相持有，说的白一点就是model里面没有view的成员，view里面没有model的成员，两者之间的通信通过Presenter来实现。Presenter起到一个桥梁的作用，将view跟model联系了起来，view和presenter通信，model也和presenter通信，但view和model是不通信的。</p>
-<p>以下摘自Mr.Simple的源码与设计模式</p>
-<h2 id="Presenter-交互的中间人"><a href="#Presenter-交互的中间人" class="headerlink" title="Presenter:交互的中间人"></a>Presenter:交互的中间人</h2><p>Presenter作为沟通View和model的桥梁，它从Model层检索数据后，返回给view层，使得viw和model之间没有耦合，也将业务逻辑从view角色上抽离出来。</p>
-<h2 id="View：用户界面"><a href="#View：用户界面" class="headerlink" title="View：用户界面"></a>View：用户界面</h2><p>view通常指Activity、Fragment或者某个View控件，它含有一个Presenter成员变量。通常view需要实现一个逻辑接口，将View上的操作转交给Presenter实现，最后Presenter调用View的逻辑接口将结果返回给View元素。</p>
-<h2 id="Model-数据的存取"><a href="#Model-数据的存取" class="headerlink" title="Model:数据的存取"></a>Model:数据的存取</h2><p>Model的角色主要提供数据的存取功能。Presenter需要通过Model层存储，获取数据，Model就像一个数据仓库。更直白的说，Model是封装了数据库DAO或者网络获取数据的角色，或者两种数据获取方式的集合。</p>
+            <p>记录友盟分享的一些偏僻知识点.</p>
+<p>在微信分享时,如果分享的content为空,即文字为空,只有图片,即单纯分享图片时,分享出去的链接打开进不到实际分享的地址,怎么办呢,你也不想加内容,也不想进不到链接里面.只要将content内容String content=”    “;多打几个空格,传进去就ok了.</p>
 
         
         </div>
@@ -315,7 +314,7 @@
 
             
     
-        <a href="http://yoursite.com/2016/03/11/MVP的使用/#comments" class="article-comment-link">评论</a>
+        <a href="http://yoursite.com/2016/09/15/友盟使用知识点总结/#comments" class="article-comment-link">评论</a>
     
 
         </footer>
@@ -324,19 +323,19 @@
         
 <nav id="article-nav">
     
-        <a href="/2016/03/21/Rx学习历程（二）：defer、just、create区别和运行线程/" id="article-nav-newer" class="article-nav-link-wrap">
+        <a href="/2016/09/25/toolbar知识点总结/" id="article-nav-newer" class="article-nav-link-wrap">
             <strong class="article-nav-caption">上一篇</strong>
             <div class="article-nav-title">
                 
-                    RxJava学习历程（二）:defer、just、create区别和运行线程
+                    Toolbar知识点总结
                 
             </div>
         </a>
     
     
-        <a href="/2016/03/10/RxJava学习历程(三) Rx操作符之创建操作符/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2016/07/24/android 内存泄露产生原因分析/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">下一篇</strong>
-            <div class="article-nav-title">RxJava学习历程（三）:Rx操作符之：创建操作符</div>
+            <div class="article-nav-title">android 内存泄露产生原因分析</div>
         </a>
     
 </nav>
