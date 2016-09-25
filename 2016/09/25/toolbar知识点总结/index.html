@@ -3,20 +3,20 @@
 <head>
     <meta charset="utf-8">
     
-    <title>aar的生成与引用 | happycodinggirl</title>
+    <title>Toolbar知识点总结 | happycodinggirl</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="最近项目中使用了aar，网上介绍的aar的使用方法都是最基本的使用方法，自己在实际使用的时候遇到一些问题，google,百度都无果，后来自己摸索出来了，记录一下。最基本的用法：">
+    <meta name="description" content="Toolbar也用了一段时间了,每次用都会掉进重复的坑里,知识点比较零碎,总结下,当做笔记,以后不要第n次踩进同一个坑里了.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="aar的生成与引用">
-<meta property="og:url" content="http://yoursite.com/2016/05/03/aar的生成与引用/index.html">
+<meta property="og:title" content="Toolbar知识点总结">
+<meta property="og:url" content="http://yoursite.com/2016/09/25/toolbar知识点总结/index.html">
 <meta property="og:site_name" content="happycodinggirl">
-<meta property="og:description" content="最近项目中使用了aar，网上介绍的aar的使用方法都是最基本的使用方法，自己在实际使用的时候遇到一些问题，google,百度都无果，后来自己摸索出来了，记录一下。最基本的用法：">
-<meta property="og:image" content="http://7xs2th.com1.z0.glb.clouddn.com/fengye.jpg">
-<meta property="og:updated_time" content="2016-09-25T06:07:33.960Z">
+<meta property="og:description" content="Toolbar也用了一段时间了,每次用都会掉进重复的坑里,知识点比较零碎,总结下,当做笔记,以后不要第n次踩进同一个坑里了.">
+<meta property="og:image" content="http://7xs2th.com1.z0.glb.clouddn.com/huak.jpg">
+<meta property="og:updated_time" content="2016-09-25T08:07:48.616Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="aar的生成与引用">
-<meta name="twitter:description" content="最近项目中使用了aar，网上介绍的aar的使用方法都是最基本的使用方法，自己在实际使用的时候遇到一些问题，google,百度都无果，后来自己摸索出来了，记录一下。最基本的用法：">
-<meta name="twitter:image" content="http://7xs2th.com1.z0.glb.clouddn.com/fengye.jpg">
+<meta name="twitter:title" content="Toolbar知识点总结">
+<meta name="twitter:description" content="Toolbar也用了一段时间了,每次用都会掉进重复的坑里,知识点比较零碎,总结下,当做笔记,以后不要第n次踩进同一个坑里了.">
+<meta name="twitter:image" content="http://7xs2th.com1.z0.glb.clouddn.com/huak.jpg">
     
 
     
@@ -195,12 +195,12 @@
 </aside>
 
             
-            <section id="main"><article id="post-aar的生成与引用" class="article article-type-post" itemscope itemprop="blogPost">
+            <section id="main"><article id="post-toolbar知识点总结" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
             
 	
-		<img src="http://7xs2th.com1.z0.glb.clouddn.com/1-140610151318.jpg" class="article-banner" />
+		<img src="http://7xs2th.com1.z0.glb.clouddn.com/mudan.jpg" class="article-banner" />
 	
 
 
@@ -211,7 +211,7 @@
                 
     
         <h1 class="article-title" itemprop="name">
-            aar的生成与引用
+            Toolbar知识点总结
         </h1>
     
 
@@ -220,8 +220,8 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2016/05/03/aar的生成与引用/">
-            <time datetime="2016-05-03T13:55:37.000Z" itemprop="datePublished">2016-05-03</time>
+        <a href="/2016/09/25/toolbar知识点总结/">
+            <time datetime="2016-09-25T07:48:37.000Z" itemprop="datePublished">2016-09-25</time>
         </a>
     </div>
 
@@ -229,13 +229,13 @@
                         
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Android/">Android</a>
+        <a class="article-category-link" href="/categories/Android-UI/">Android UI</a>
     </div>
 
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/aar/">aar</a>
+        <a class="tag-link" href="/tags/toolbar/">toolbar</a>
     </div>
 
                     </div>
@@ -246,17 +246,18 @@
         <div class="article-entry" itemprop="articleBody">
         
             
-            <p>最近项目中使用了aar，网上介绍的aar的使用方法都是最基本的使用方法，自己在实际使用的时候遇到一些问题，google,百度都无果，后来自己摸索出来了，记录一下。<br>最基本的用法：<br><a id="more"></a></p>
-<h2 id="一-、aar的生成："><a href="#一-、aar的生成：" class="headerlink" title="一 、aar的生成："></a>一 、aar的生成：</h2><p>1.生成一个library类型的mould.<br>2.执行 ./gradlew assembleRelease(windows下直接gradlew assembleRelease)，然后aar文件生成在build/outputs/aar里面</p>
-<h2 id="二-、aar文件的引用："><a href="#二-、aar文件的引用：" class="headerlink" title="二 、aar文件的引用："></a>二 、aar文件的引用：</h2><h4 id="1-在build-gradle文件的android-里面加入"><a href="#1-在build-gradle文件的android-里面加入" class="headerlink" title="1.在build.gradle文件的android{}里面加入"></a>1.在build.gradle文件的android{}里面加入</h4><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">repositories &#123;</div><div class="line">flatDir &#123;</div><div class="line">dirs <span class="string">'libs'</span> <span class="comment">// this way we can find the .aar file in libs folder 到libs文件夹下寻找.aar包</span></div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="2-在dependencies-里面加入："><a href="#2-在dependencies-里面加入：" class="headerlink" title="2.在dependencies {}里面加入："></a>2.在dependencies {}里面加入：</h4><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">compile(<span class="string">name:</span>’aartest-debug’, <span class="string">ext:</span>’aar’)</div></pre></td></tr></table></figure>
-<p>name后面是aar的name,这里我的aar名字叫aartest-debug.aar ，去后缀名<br>这样你就可以应用aar里面的类和方法了。是不是so easy.</p>
-<h2 id="三、自己遇到的坑："><a href="#三、自己遇到的坑：" class="headerlink" title="三、自己遇到的坑："></a>三、自己遇到的坑：</h2><p>上述这些也都是网上大多数介绍的aar的生成与引用方法。在我们的项目里面，项目结构是十分复杂的。我们有个libray的mould ,暂且叫mould useaartest吧。mould useaartest里面主要是实现了某一功能的一个独立的模块，作为一个library让其他mould引用的。该模块的实现现在需要依赖另一个aar模块，起初我按照网上介绍的方法即上述的2步在mould A里面实行。结果一直报找不到aar文件。郁闷至极。这是为啥呢。在非libray的mould里面按照上述2步就可以成功。但我们的aar必须在作为library的mould A里面引用实现。后来几经辗转，想到了，我将aar放到一个单独的libray mould里面，是不是可行呢，后来一试，果然可以。完美通过，好开心。</p>
-<p>现在目录结构是这样的。比如我们在mould useaartest里面需要使用的aar叫aartest-debug.aar,单独建的存放该aar文件的library类型的mould叫originaarforuse，mould useaartest还是叫mould useaartest,主入口mould叫mould app ,<br>则存放aar文件的library mould 的build.gradle 文件啥都不用该，其仅仅起了一个存放aar文件的作用（不单独建个library mould 放它还不行，如上所述，一直报找不到),mould useaartest的build.gradle关于aar引入的实现如下：</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">apply <span class="string">plugin:</span> <span class="string">'com.android.library'</span></div><div class="line"></div><div class="line">android &#123;</div><div class="line">compileSdkVersion <span class="number">23</span></div><div class="line">buildToolsVersion <span class="string">"23.0.2"</span></div><div class="line"></div><div class="line">defaultConfig &#123;</div><div class="line">    minSdkVersion <span class="number">15</span></div><div class="line">    targetSdkVersion <span class="number">23</span></div><div class="line">    versionCode <span class="number">1</span></div><div class="line">    versionName <span class="string">"1.0"</span></div><div class="line">&#125;</div><div class="line">buildTypes &#123;</div><div class="line">    release &#123;</div><div class="line">        minifyEnabled <span class="literal">false</span></div><div class="line">        proguardFiles getDefaultProguardFile(<span class="string">'proguard-android.txt'</span>), <span class="string">'proguard-rules.pro'</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">repositories &#123;</div><div class="line">    flatDir &#123;</div><div class="line">        dirs project(<span class="string">':originaarforuse'</span>).file(<span class="string">'libs'</span>) <span class="comment">// this way we can find the .aar file in libs folder 到libs文件夹下寻找.aar包</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">dependencies &#123;</div><div class="line">compile fileTree(<span class="string">include:</span> [<span class="string">'*.jar'</span>], <span class="string">dir:</span> <span class="string">'libs'</span>)</div><div class="line">testCompile <span class="string">'junit:junit:4.12'</span></div><div class="line">compile <span class="string">'com.android.support:appcompat-v7:23.2.1'</span></div><div class="line">compile(<span class="string">name:</span> <span class="string">'aartest-debug'</span>, <span class="string">ext:</span> <span class="string">'aar'</span>)</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>主mould app 的build.gradle文件就不贴了，主要是在android{}里面跟上面的一样，加了</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">repositories &#123;</div><div class="line">	    flatDir &#123;</div><div class="line">	        dirs project(<span class="string">':originaarforuse'</span>).file(<span class="string">'libs'</span>) <span class="comment">// this way we can find the .aar file in libs folder 到libs文件夹下寻找.aar包</span></div><div class="line">	    &#125;</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
-<h2 id="注意这个一定要加否则找不到aar文件。dependencies里面加了对mould-useaartest的依赖。如此在mould-app和mould-useaartest就都能引用aar里面的类和方法了。欧耶！so-great"><a href="#注意这个一定要加否则找不到aar文件。dependencies里面加了对mould-useaartest的依赖。如此在mould-app和mould-useaartest就都能引用aar里面的类和方法了。欧耶！so-great" class="headerlink" title="注意这个一定要加否则找不到aar文件。dependencies里面加了对mould useaartest的依赖。如此在mould app和mould useaartest就都能引用aar里面的类和方法了。欧耶！so great!"></a>注意这个一定要加否则找不到aar文件。dependencies里面加了对mould useaartest的依赖。如此在mould app和mould useaartest就都能引用aar里面的类和方法了。欧耶！so great!</h2><h3 id="每日美句"><a href="#每日美句" class="headerlink" title="每日美句:"></a>每日美句:</h3><p>人生的路，走走停停是一种闲适，边走边看是一种优雅，边走边忘，是一种豁达。</p>
+            <p>Toolbar也用了一段时间了,每次用都会掉进重复的坑里,知识点比较零碎,总结下,当做笔记,以后不要第n次踩进同一个坑里了.<br><a id="more"></a></p>
+<p>Android Studio提供了很多应用模板,例如Scrolling Activity 模板,创建后得到的效果如下:<br><img src="http://7xs2th.com1.z0.glb.clouddn.com/toolbar.png" alt="toolbar"><br>然后我们根据这个模板来改造属于自己的toolbar吧.</p>
+<p>模板里面的代码也已经展示了toolBar的使用方法了.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">setContentView(R.layout.activity_scrolling);</div><div class="line">Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);</div><div class="line">setSupportActionBar(toolbar);</div></pre></td></tr></table></figure></p>
+<p>1.一般我们项目里面要去掉CoodDemo这个自带的标题.只要添加一句代码:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">toolbar.setTitle(<span class="string">""</span>);</div></pre></td></tr></table></figure></p>
+<h4 id="但是一定记得在setSupportActionBar之前添加-否则没有效果-1号坑"><a href="#但是一定记得在setSupportActionBar之前添加-否则没有效果-1号坑" class="headerlink" title="但是一定记得在setSupportActionBar之前添加,否则没有效果.(1号坑)"></a>但是一定记得在setSupportActionBar之前添加,否则没有效果.(1号坑)</h4><p>2.去掉右边的menu<br>只需要删除onCreateOptionsMenu和onOptionsItemSelected就好了.</p>
+<p>3.添加返回按钮<br>只需要在xml文件toolbar标签下面添加属性<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">app:navigationIcon="@mipmap/back"</div></pre></td></tr></table></figure></p>
+<p>4.设置navigationIcon的返回按钮点击事件<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">toolbar.setNavigationOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</div><div class="line">           <span class="meta">@Override</span></div><div class="line">           <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</div><div class="line">               Toast.makeText(ScrollingActivity.<span class="keyword">this</span>, <span class="string">"back clicked"</span>, Toast.LENGTH_SHORT).show();</div><div class="line">           &#125;</div><div class="line">       &#125;);</div></pre></td></tr></table></figure></p>
+<h3 id="注意该点击事件的设置要在"><a href="#注意该点击事件的设置要在" class="headerlink" title="注意该点击事件的设置要在"></a>注意该点击事件的设置要在</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">setSupportActionBar(toolbar);</div></pre></td></tr></table></figure>
+<h3 id="之后调用-否则没有效果-2号坑"><a href="#之后调用-否则没有效果-2号坑" class="headerlink" title="之后调用,否则没有效果(2号坑)"></a>之后调用,否则没有效果(2号坑)</h3><p>5.可能会遇到返回按钮没有垂直居中显示的问题,你设置了android:gravity和android:layout_gravity都垂直居中后仍然没有效果.这时你只需要在xml中给toolbar添加一行代码<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">android:minHeight="40dp"</div></pre></td></tr></table></figure></p>
+<p>输入你需要的高度,就会发现返回按钮居然神奇的居中了,虽然不合逻辑,但确实是这样就居中了.(3号坑)<br>6.添加自己的标题<br>Toolbar是个ViewGroup,和其他的LinearLayout,RelativeLayout一样,当然可以添加自己的子view.<br>实例:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">android.support.v7.widget.Toolbar</span></span></div><div class="line">               <span class="attr">android:id</span>=<span class="string">"@+id/toolbar"</span></div><div class="line">               <span class="attr">app:navigationIcon</span>=<span class="string">"@mipmap/ic_launcher"</span></div><div class="line">               <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">               <span class="attr">android:layout_height</span>=<span class="string">"?attr/actionBarSize"</span></div><div class="line">               <span class="attr">app:layout_collapseMode</span>=<span class="string">"pin"</span></div><div class="line">               <span class="attr">android:minHeight</span>=<span class="string">"40dp"</span></div><div class="line">               <span class="attr">app:popupTheme</span>=<span class="string">"@style/AppTheme.PopupOverlay"</span> &gt;</div><div class="line">               <span class="tag">&lt;<span class="name">LinearLayout</span></span></div><div class="line">                   <span class="attr">android:orientation</span>=<span class="string">"horizontal"</span></div><div class="line">                   <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">                   <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span>&gt;</div><div class="line"></div><div class="line">                   <span class="tag">&lt;<span class="name">TextView</span></span></div><div class="line">                       <span class="attr">android:text</span>=<span class="string">"toolbar title"</span></div><div class="line">                       <span class="attr">android:layout_gravity</span>=<span class="string">"center"</span></div><div class="line">                       <span class="attr">android:gravity</span>=<span class="string">"center"</span></div><div class="line">                       <span class="attr">android:textSize</span>=<span class="string">"25dp"</span></div><div class="line">                       <span class="attr">android:layout_weight</span>=<span class="string">"1"</span></div><div class="line">                       <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></div><div class="line">                       <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span> /&gt;</div><div class="line"></div><div class="line">                   <span class="tag">&lt;<span class="name">ImageView</span></span></div><div class="line">                       <span class="attr">android:gravity</span>=<span class="string">"center"</span></div><div class="line">                       <span class="attr">android:layout_gravity</span>=<span class="string">"right|center"</span></div><div class="line"></div><div class="line">                       <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></div><div class="line">                       <span class="attr">android:layout_height</span>=<span class="string">"40dp"</span></div><div class="line">                       <span class="attr">android:src</span>=<span class="string">"@android:drawable/ic_search_category_default"</span>/&gt;</div><div class="line">               <span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></div><div class="line"></div><div class="line">           <span class="tag">&lt;/<span class="name">android.support.v7.widget.Toolbar</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>7.在Activity里面有个方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onTitleChanged</span><span class="params">(CharSequence title, <span class="keyword">int</span> color)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onTitleChanged(title, color);</div><div class="line">        Log.v(<span class="string">"MT"</span>,<span class="string">"---ONTITLE CHANGE IS "</span>+title);</div><div class="line">        toolbar.setTitle(title);</div><div class="line"></div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>title参数传进来的是系统默认的title,一般是工程的名字.可以在里面做些需要的事情.没怎么用过,待挖掘…</p>
 
         
         </div>
@@ -320,7 +321,7 @@
 
             
     
-        <a href="http://yoursite.com/2016/05/03/aar的生成与引用/#comments" class="article-comment-link">评论</a>
+        <a href="http://yoursite.com/2016/09/25/toolbar知识点总结/#comments" class="article-comment-link">评论</a>
     
 
         </footer>
@@ -329,19 +330,19 @@
         
 <nav id="article-nav">
     
-        <a href="/2016/07/13/《追风筝的人》读后感/" id="article-nav-newer" class="article-nav-link-wrap">
+        <a href="/2016/09/25/Android事件分发机制研究/" id="article-nav-newer" class="article-nav-link-wrap">
             <strong class="article-nav-caption">上一篇</strong>
             <div class="article-nav-title">
                 
-                    《追风筝的人》读后感
+                    Android事件分发机制研究
                 
             </div>
         </a>
     
     
-        <a href="/2016/05/02/startActivityForResult注意点/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2016/07/24/android 内存泄露产生原因分析/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">下一篇</strong>
-            <div class="article-nav-title">startActivityForResult注意点</div>
+            <div class="article-nav-title">android 内存泄露产生原因分析</div>
         </a>
     
 </nav>
