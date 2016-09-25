@@ -3,14 +3,20 @@
 <head>
     <meta charset="utf-8">
     
-    <title>标签: RxJava | happycodinggirl</title>
+    <title>Android事件分发机制研究 | happycodinggirl</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta property="og:type" content="website">
-<meta property="og:title" content="happycodinggirl">
-<meta property="og:url" content="http://yoursite.com/tags/RxJava/index.html">
+    <meta name="description" content="一直对android的事件分发机制很困惑的，最近又重新看了下这块的知识，配合自己写个小demo，打log研究了下，做个读书笔记，备忘,如有错误，欢迎批评指正。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android事件分发机制研究">
+<meta property="og:url" content="http://yoursite.com/2015/12/20/Android事件分发机制研究/index.html">
 <meta property="og:site_name" content="happycodinggirl">
+<meta property="og:description" content="一直对android的事件分发机制很困惑的，最近又重新看了下这块的知识，配合自己写个小demo，打log研究了下，做个读书笔记，备忘,如有错误，欢迎批评指正。">
+<meta property="og:image" content="http://7xs2th.com1.z0.glb.clouddn.com/woniu.jpg">
+<meta property="og:updated_time" content="2016-09-25T01:41:30.096Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="happycodinggirl">
+<meta name="twitter:title" content="Android事件分发机制研究">
+<meta name="twitter:description" content="一直对android的事件分发机制很困惑的，最近又重新看了下这块的知识，配合自己写个小demo，打log研究了下，做个读书笔记，备忘,如有错误，欢迎批评指正。">
+<meta name="twitter:image" content="http://7xs2th.com1.z0.glb.clouddn.com/woniu.jpg">
     
 
     
@@ -189,122 +195,164 @@
 </aside>
 
             
-            <section id="main">
-<div class="timeline timeline-wrap">
-    <div class="timeline-row timeline-row-major">
-        <span class="node"><i class="fa fa-tag"></i></span>
-        <h1 class="title">#RxJava</h1>
-    </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+            <section id="main"><article id="post-Android事件分发机制研究" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            
+	
+		<img src="http://7xs2th.com1.z0.glb.clouddn.com/sea.jpg" class="article-banner" />
+	
+
+
+
+        
+        
+            <header class="article-header">
                 
     
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2016/03/21/Rx学习历程（二）：defer、just、create区别和运行线程/">RxJava学习历程（二）:defer、just、create区别和运行线程</a>
+        <h1 class="article-title" itemprop="name">
+            Android事件分发机制研究
         </h1>
     
 
-                <div class="article-meta">
-                    
+                
+                    <div class="article-meta">
+                        
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2016/03/21/Rx学习历程（二）：defer、just、create区别和运行线程/">
-            <time datetime="2016-03-21T13:55:37.000Z" itemprop="datePublished">2016-03-21</time>
+        <a href="/2015/12/20/Android事件分发机制研究/">
+            <time datetime="2015-12-20T13:55:37.000Z" itemprop="datePublished">2015-12-20</time>
         </a>
     </div>
 
 
-                    
+                        
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/RxJava/">RxJava</a>
+        <a class="article-category-link" href="/categories/Android事件分发/">Android事件分发</a>
     </div>
 
-                    
+                        
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/RxJava/">RxJava</a>
+        <a class="tag-link" href="/tags/Android事件分发/">Android事件分发</a>
     </div>
 
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+                    </div>
                 
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2016/03/10/RxJava学习历程(三) Rx操作符之创建操作符/">RxJava学习历程（三）:Rx操作符之：创建操作符</a>
-        </h1>
-    
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p>一直对android的事件分发机制很困惑的，最近又重新看了下这块的知识，配合自己写个小demo，打log研究了下，做个读书笔记，备忘,如有错误，欢迎批评指正。<br><a id="more"></a></p>
+<h2 id="结论一："><a href="#结论一：" class="headerlink" title="结论一："></a>结论一：</h2><p>如果在父容器中这样写：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onInterceptTouchEvent</span><span class="params">(MotionEvent ev)</span> </span>&#123;</div><div class="line"><span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>onInterceptTouchEvent表示是否拦截触摸事件，如果返回true,则其内的子控件的触摸事件，onClick事件都执行不到了。但可通过ViewGroup的requestDisallowInterceptTouchEvent方法干预父控件的事件分发.例如ViewPager来实现左右滑动切换tab，如果tab的某一项中嵌入了水平可滑动的View，比如想滑动tab项中的可水平滑动的控件，却导致tab切换。<br>你就可以在tab页里面注入viewpager实例，然后在onTouch事件中这么处理。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onTouch</span><span class="params">(View v, MotionEvent event)</span> </span>&#123;</div><div class="line">    <span class="keyword">switch</span> (event.getAction()) &#123;</div><div class="line">    <span class="keyword">case</span> MotionEvent.ACTION_MOVE:</div><div class="line">        pager.requestDisallowInterceptTouchEvent(<span class="keyword">true</span>);</div><div class="line">        <span class="keyword">break</span>;</div><div class="line">    <span class="keyword">case</span> MotionEvent.ACTION_UP:</div><div class="line">    <span class="keyword">case</span> MotionEvent.ACTION_CANCEL:</div><div class="line">        pager.requestDisallowInterceptTouchEvent(<span class="keyword">false</span>);</div><div class="line">        <span class="keyword">break</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这时move事件里pager.requestDisallowInterceptTouchEvent(true);看字面意思就是告诉viewpager不要拦截改事件（此时由tab响应滚动事件）。然后在手指抬起的时候viewpager处理抬起事件。</p>
+<h2 id="结论二："><a href="#结论二：" class="headerlink" title="结论二："></a>结论二：</h2><p>如果一个触摸事件传递到一个控件上，它的dispatchTouchEvent会被调用，如果在父控件的onInterceptTouchEvent返回false的前提下，子控件dispatchTouchEvent返回true,代表该子控件自己消费到该触摸事件（onTouchListener会被执行，如果有的话），即触摸事件不会被父控件处理，父控件的onTouchListener和onTouchEvent方法都走不到。</p>
+<h2 id="结论三："><a href="#结论三：" class="headerlink" title="结论三："></a>结论三：</h2><p>触摸事件的分发是从上往下分发的，Activity-&gt;Window-&gt;View.在View之间也是是从上往下分发的，触摸事件先到达父容器，然后父容器再下发给子View.所以响应触摸事件去执行事情的顺序就反过来了，从子View开始处理起，如果子view的dispatchTouchEvent方法返回了false,则就传递给父容器处理（父容器的onTouchListener会被调到）。注意此时子view的onTouchListener和onTouchEvent（如果onTouchListener返回false）事件依然会被调到,只是调完后给父控件接着调用，如果父容器的dispatchTouchEvent方法也返回了false,则事件继续往上传递，如果dispatchTouchEvent都返回了，false,则Activity的onTouchEvent会被掉到。</p>
+<h2 id="结论四："><a href="#结论四：" class="headerlink" title="结论四："></a>结论四：</h2><p>onTouchListener方法在事件分发过程中的优先级最高，如果一个view设置了onTouchListener方法且返回了true,代表事件已被消费，则他的onTouchEvent方法就走不到了。<br>注意：我看任大神的书上说如果子View的onTouchEvent方法返回false,则父容器的触摸事件会被调的，而我测下来，不是这样，将子View的onTouchEvent返回了fasle,此时查看子view的dispatchTouchEvent的默认返回值也为false,此时事件确实传到父容器里面调用去了，但如果此时我把子View的diapatchTouchEvent方法强制返回true,（不是默认的返回super.dispatchTouchEvent，而是先是调用super.dispatchTouchEvent，然后返回true），此时即使onTouchEvent返回了false，父控件的触摸和点击事件都没有调到。</p>
+<p>所以感觉onTouchEvent返回false父容器的触摸事件会被掉到不准确，应该是dispatchTouchEvent返回false,父容器的触摸事件才会被掉到。不管onTouchEvent返回true or false，只要dispatchTouchEvent返回false,父容器的触摸事件就会被调到。</p>
+<p>我的测试demo地址放到github上去了，有需要的可以下载试下，很例子粗糙，仅作测试所用。地址：<a href="https://github.com/happycodinggirl/TestTouchEvent" target="_blank" rel="external">https://github.com/happycodinggirl/TestTouchEvent</a><br>本文文章如有不对的地方，还望指出。</p>
 
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2016/03/10/RxJava学习历程(三) Rx操作符之创建操作符/">
-            <time datetime="2016-03-10T13:55:37.000Z" itemprop="datePublished">2016-03-10</time>
-        </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/RxJava/">RxJava</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/RxJava/">RxJava</a>
-    </div>
-
-                </div>
-            </div>
+        
         </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2016/03/09/RxJava学习历程(一)初识观察者与被观察者/">RxJava学习历程(一)：初识观察者和被观察者</a>
-        </h1>
-    
+        <footer class="article-footer">
+            <div class="share-container">
 
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2016/03/09/RxJava学习历程(一)初识观察者与被观察者/">
-            <time datetime="2016-03-09T13:55:37.000Z" itemprop="datePublished">2016-03-09</time>
-        </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/RxJava/">RxJava</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/RxJava/">RxJava</a>
-    </div>
-
-                </div>
-            </div>
-        </div>
-    
+    <div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_qzone">QQ空间</a>
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_tqq">腾讯微博</a>
+    <a class="jiathis_button_weixin">微信</a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+    <a class="jiathis_counter_style"></a>
 </div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<style>
+    .jiathis_style div:first-child:not(.jiadiv_01) {
+        width: auto !important;
+        border: none !important;
+    }
+    .jiathis_style .jiadiv_01 {
+        margin: 10px 0;
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .jiathis_style .jiadiv_01 div:first-child {
+        display: none;
+    }
+    .jiathis_style .jiadiv_02 {
+        padding: 7px 0 !important;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle {
+        width: 85px;
+        border: none;
+        height: auto;
+        margin: 3px 10px;
+        padding: 6px 10px;
+        border-radius: 4px;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:hover {
+        border: none;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
+        margin-left: 0;
+    }
+    .jiathis_style .jtico:hover {
+        opacity: 1;
+    }
+    .jiathis_style .ckepopBottom,
+    .jiathis_style .centerBottom {
+        width: auto !important;
+        padding: 5px;
+        background: #f7f7f7;
+    }
+</style>
+
+
+
+</div>
+
+            
+    
+        <a href="http://yoursite.com/2015/12/20/Android事件分发机制研究/#comments" class="article-comment-link">评论</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2016/02/21/我的第一篇Hexo博客/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    我的第一篇hexo博客
+                
+            </div>
+        </a>
+    
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div id="uyan_frame"></div>
+
+    
+    </section>
+
 </section>
             
                 <aside id="sidebar">
