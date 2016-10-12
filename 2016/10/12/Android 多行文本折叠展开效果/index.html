@@ -5,22 +5,22 @@
     
     <title>happycodinggirl</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="Android 多行文本折叠展开效果标签（空格分隔）： TextView AndroidUI 
-
-项目里面有个多行文本时默认显示2行,点击全文按钮显示全部的需求.参考参考链接 实现,以下是自己的一些思考.">
+    <meta name="description" content="Android 多行文本折叠展开效果
+title: Android 多行文本折叠展开效果date: 2016-09-25 21:26:37tags: TextView AndroidUIcategories: Android UIbanner: http://7xs2th.com1.z0.glb.clouddn.com/19541_150804113957_1.jpg
+thumbnail: htt">
 <meta property="og:type" content="article">
 <meta property="og:title" content="happycodinggirl">
 <meta property="og:url" content="http://yoursite.com/2016/10/12/Android 多行文本折叠展开效果/index.html">
 <meta property="og:site_name" content="happycodinggirl">
-<meta property="og:description" content="Android 多行文本折叠展开效果标签（空格分隔）： TextView AndroidUI 
-
-项目里面有个多行文本时默认显示2行,点击全文按钮显示全部的需求.参考参考链接 实现,以下是自己的一些思考.">
-<meta property="og:updated_time" content="2016-10-12T00:29:41.251Z">
+<meta property="og:description" content="Android 多行文本折叠展开效果
+title: Android 多行文本折叠展开效果date: 2016-09-25 21:26:37tags: TextView AndroidUIcategories: Android UIbanner: http://7xs2th.com1.z0.glb.clouddn.com/19541_150804113957_1.jpg
+thumbnail: htt">
+<meta property="og:updated_time" content="2016-10-12T00:44:17.689Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="happycodinggirl">
-<meta name="twitter:description" content="Android 多行文本折叠展开效果标签（空格分隔）： TextView AndroidUI 
-
-项目里面有个多行文本时默认显示2行,点击全文按钮显示全部的需求.参考参考链接 实现,以下是自己的一些思考.">
+<meta name="twitter:description" content="Android 多行文本折叠展开效果
+title: Android 多行文本折叠展开效果date: 2016-09-25 21:26:37tags: TextView AndroidUIcategories: Android UIbanner: http://7xs2th.com1.z0.glb.clouddn.com/19541_150804113957_1.jpg
+thumbnail: htt">
     
 
     
@@ -207,9 +207,9 @@
         <div class="article-entry" itemprop="articleBody">
         
             
-            <h1 id="Android-多行文本折叠展开效果"><a href="#Android-多行文本折叠展开效果" class="headerlink" title="Android 多行文本折叠展开效果"></a>Android 多行文本折叠展开效果</h1><p>标签（空格分隔）： TextView AndroidUI </p>
-<hr>
-<p>项目里面有个多行文本时默认显示2行,点击全文按钮显示全部的需求.<br>参考<a href="http://blog.csdn.net/qiaoidea/article/details/45568653" target="_blank" rel="external">参考链接</a> 实现,以下是自己的一些思考.<br><a id="more"></a><br>显示文本肯定还是使用textview来实现,但如果文本多的时候默认显示2行是怎么做到呢.我们是从网络获取数据,获取到数据后让其显示,超过2行只显示2行,怎么做到超过2行只显示2行了,直接setText,内容会完全显示出来,可能会超过2行.<br>textView显示多高是height属性控制,如果我们把textView的高度设置为2行的高度,那是不是textView就显示2行了呢,是的,是这样的.思路就是这样,那怎么知道2行多高呢.看textView的api里面有个getLineHeight()方法,是的,这个方法就是1行的高度,正是我们需要的.这样我们直接就textView的高度设置为getLineHeight()<em>2,可不是所有的内容都能达到2行的高度,所以我们需要先判断textView显示了总共多少行,当显示行数超过2行的时候再设置textView的高度为单行高度</em>2,再次查看textView的Api,发现了getLineCount()方法,正如我们期望的,改方法返回的就是textView显示的总行数.注意肯定是先setText内容显示出来之后,再立刻获取改值.所以我们直接:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">tvContent.post(<span class="keyword">new</span> Runnable() &#123;</div><div class="line">          <span class="meta">@Override</span></div><div class="line">          <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">              <span class="keyword">int</span> showCount = tvContent.getLineCount();</div><div class="line">              tvAllSign.setVisibility(maxLine &lt;showCount ? VISIBLE : GONE);</div><div class="line">              <span class="keyword">if</span> (showCount &gt; maxLine) &#123;</div><div class="line">                  <span class="keyword">int</span> singleHeight = tvContent.getLineHeight();</div><div class="line">                  tvContent.setHeight(maxLine * singleHeight);</div><div class="line">              &#125;</div><div class="line"></div><div class="line">          &#125;</div><div class="line">      &#125;);</div></pre></td></tr></table></figure></p>
+            <h1 id="Android-多行文本折叠展开效果"><a href="#Android-多行文本折叠展开效果" class="headerlink" title="Android 多行文本折叠展开效果"></a>Android 多行文本折叠展开效果</h1><hr>
+<p>title: Android 多行文本折叠展开效果<br>date: 2016-09-25 21:26:37<br>tags: TextView AndroidUI<br>categories: Android UI<br>banner: <a href="http://7xs2th.com1.z0.glb.clouddn.com/19541_150804113957_1.jpg" target="_blank" rel="external">http://7xs2th.com1.z0.glb.clouddn.com/19541_150804113957_1.jpg</a></p>
+<h2 id="thumbnail-http-7xs2th-com1-z0-glb-clouddn-com-index-jpg"><a href="#thumbnail-http-7xs2th-com1-z0-glb-clouddn-com-index-jpg" class="headerlink" title="thumbnail: http://7xs2th.com1.z0.glb.clouddn.com/index.jpg"></a>thumbnail: <a href="http://7xs2th.com1.z0.glb.clouddn.com/index.jpg" target="_blank" rel="external">http://7xs2th.com1.z0.glb.clouddn.com/index.jpg</a></h2><p>项目里面有个多行文本时默认显示2行,点击全文按钮显示全部的需求.<br>参考<a href="http://blog.csdn.net/qiaoidea/article/details/45568653" target="_blank" rel="external">参考链接</a> 实现,以下是自己的一些思考.<br><a id="more"></a><br>显示文本肯定还是使用textview来实现,但如果文本多的时候默认显示2行是怎么做到呢.我们是从网络获取数据,获取到数据后让其显示,超过2行只显示2行,怎么做到超过2行只显示2行了,直接setText,内容会完全显示出来,可能会超过2行.<br>textView显示多高是height属性控制,如果我们把textView的高度设置为2行的高度,那是不是textView就显示2行了呢,是的,是这样的.思路就是这样,那怎么知道2行多高呢.看textView的api里面有个getLineHeight()方法,是的,这个方法就是1行的高度,正是我们需要的.这样我们直接就textView的高度设置为getLineHeight()<em>2,可不是所有的内容都能达到2行的高度,所以我们需要先判断textView显示了总共多少行,当显示行数超过2行的时候再设置textView的高度为单行高度</em>2,再次查看textView的Api,发现了getLineCount()方法,正如我们期望的,改方法返回的就是textView显示的总行数.注意肯定是先setText内容显示出来之后,再立刻获取改值.所以我们直接:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">tvContent.post(<span class="keyword">new</span> Runnable() &#123;</div><div class="line">          <span class="meta">@Override</span></div><div class="line">          <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">              <span class="keyword">int</span> showCount = tvContent.getLineCount();</div><div class="line">              tvAllSign.setVisibility(maxLine &lt;showCount ? VISIBLE : GONE);</div><div class="line">              <span class="keyword">if</span> (showCount &gt; maxLine) &#123;</div><div class="line">                  <span class="keyword">int</span> singleHeight = tvContent.getLineHeight();</div><div class="line">                  tvContent.setHeight(maxLine * singleHeight);</div><div class="line">              &#125;</div><div class="line"></div><div class="line">          &#125;</div><div class="line">      &#125;);</div></pre></td></tr></table></figure></p>
 <p>有了上面2个方法的支撑,展开折叠的思路就非常明显了,当显示行数超过2行时,点击折叠将textview的高度设置为2行的高度,这样就实现了折叠.当显示行数为2行时,点击全文将textView的高度设置为getLineCount()*getLineHeight();直接设置变化有点突兀,给个时间使用ValueAnimator将高度渐变达到要求值.</p>
 <h4 id="坑1-注意在使用自定义属性textSize属性的时候"><a href="#坑1-注意在使用自定义属性textSize属性的时候" class="headerlink" title="坑1:注意在使用自定义属性textSize属性的时候"></a>坑1:注意在使用自定义属性textSize属性的时候</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">textSize = typedArray.getDimensionPixelSize(R.styleable.ExpandableTextview_textSize,<span class="number">11</span>);</div></pre></td></tr></table></figure>
 <p>获取到textSize后要使用<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tvAllSign.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSignSize);</div></pre></td></tr></table></figure></p>
