@@ -3,20 +3,24 @@
 <head>
     <meta charset="utf-8">
     
-    <title>aar的生成与引用 | happycodinggirl</title>
+    <title>happycodinggirl</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="最近项目中使用了aar，网上介绍的aar的使用方法都是最基本的使用方法，自己在实际使用的时候遇到一些问题，google,百度都无果，后来自己摸索出来了，记录一下。最基本的用法：">
+    <meta name="description" content="Android 多行文本折叠展开效果标签（空格分隔）： TextView AndroidUI 
+
+项目里面有个多行文本时默认显示2行,点击全文按钮显示全部的需求.参考参考链接 实现,以下是自己的一些思考.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="aar的生成与引用">
-<meta property="og:url" content="http://yoursite.com/2016/05/03/aar的生成与引用/index.html">
+<meta property="og:title" content="happycodinggirl">
+<meta property="og:url" content="http://yoursite.com/2016/10/12/Android 多行文本折叠展开效果/index.html">
 <meta property="og:site_name" content="happycodinggirl">
-<meta property="og:description" content="最近项目中使用了aar，网上介绍的aar的使用方法都是最基本的使用方法，自己在实际使用的时候遇到一些问题，google,百度都无果，后来自己摸索出来了，记录一下。最基本的用法：">
-<meta property="og:image" content="http://7xs2th.com1.z0.glb.clouddn.com/fengye.jpg">
-<meta property="og:updated_time" content="2016-09-25T06:07:33.960Z">
+<meta property="og:description" content="Android 多行文本折叠展开效果标签（空格分隔）： TextView AndroidUI 
+
+项目里面有个多行文本时默认显示2行,点击全文按钮显示全部的需求.参考参考链接 实现,以下是自己的一些思考.">
+<meta property="og:updated_time" content="2016-10-12T00:29:41.251Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="aar的生成与引用">
-<meta name="twitter:description" content="最近项目中使用了aar，网上介绍的aar的使用方法都是最基本的使用方法，自己在实际使用的时候遇到一些问题，google,百度都无果，后来自己摸索出来了，记录一下。最基本的用法：">
-<meta name="twitter:image" content="http://7xs2th.com1.z0.glb.clouddn.com/fengye.jpg">
+<meta name="twitter:title" content="happycodinggirl">
+<meta name="twitter:description" content="Android 多行文本折叠展开效果标签（空格分隔）： TextView AndroidUI 
+
+项目里面有个多行文本时默认显示2行,点击全文按钮显示全部的需求.参考参考链接 实现,以下是自己的一些思考.">
     
 
     
@@ -195,68 +199,24 @@
 </aside>
 
             
-            <section id="main"><article id="post-aar的生成与引用" class="article article-type-post" itemscope itemprop="blogPost">
+            <section id="main"><article id="post-Android 多行文本折叠展开效果" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
-            
-	
-		<img src="http://7xs2th.com1.z0.glb.clouddn.com/1-140610151318.jpg" class="article-banner" />
-	
-
-
-
-        
-        
-            <header class="article-header">
-                
-    
-        <h1 class="article-title" itemprop="name">
-            aar的生成与引用
-        </h1>
-    
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2016/05/03/aar的生成与引用/">
-            <time datetime="2016-05-03T13:55:37.000Z" itemprop="datePublished">2016-05-03</time>
-        </a>
-    </div>
-
-
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Android/">Android</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/aar/">aar</a>
-    </div>
-
-                    </div>
-                
-            </header>
         
         
         <div class="article-entry" itemprop="articleBody">
         
             
-            <p>最近项目中使用了aar，网上介绍的aar的使用方法都是最基本的使用方法，自己在实际使用的时候遇到一些问题，google,百度都无果，后来自己摸索出来了，记录一下。<br>最基本的用法：<br><a id="more"></a></p>
-<h2 id="一-、aar的生成："><a href="#一-、aar的生成：" class="headerlink" title="一 、aar的生成："></a>一 、aar的生成：</h2><p>1.生成一个library类型的mould.<br>2.执行 ./gradlew assembleRelease(windows下直接gradlew assembleRelease)，然后aar文件生成在build/outputs/aar里面</p>
-<h2 id="二-、aar文件的引用："><a href="#二-、aar文件的引用：" class="headerlink" title="二 、aar文件的引用："></a>二 、aar文件的引用：</h2><h4 id="1-在build-gradle文件的android-里面加入"><a href="#1-在build-gradle文件的android-里面加入" class="headerlink" title="1.在build.gradle文件的android{}里面加入"></a>1.在build.gradle文件的android{}里面加入</h4><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">repositories &#123;</div><div class="line">flatDir &#123;</div><div class="line">dirs <span class="string">'libs'</span> <span class="comment">// this way we can find the .aar file in libs folder 到libs文件夹下寻找.aar包</span></div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="2-在dependencies-里面加入："><a href="#2-在dependencies-里面加入：" class="headerlink" title="2.在dependencies {}里面加入："></a>2.在dependencies {}里面加入：</h4><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">compile(<span class="string">name:</span>’aartest-debug’, <span class="string">ext:</span>’aar’)</div></pre></td></tr></table></figure>
-<p>name后面是aar的name,这里我的aar名字叫aartest-debug.aar ，去后缀名<br>这样你就可以应用aar里面的类和方法了。是不是so easy.</p>
-<h2 id="三、自己遇到的坑："><a href="#三、自己遇到的坑：" class="headerlink" title="三、自己遇到的坑："></a>三、自己遇到的坑：</h2><p>上述这些也都是网上大多数介绍的aar的生成与引用方法。在我们的项目里面，项目结构是十分复杂的。我们有个libray的mould ,暂且叫mould useaartest吧。mould useaartest里面主要是实现了某一功能的一个独立的模块，作为一个library让其他mould引用的。该模块的实现现在需要依赖另一个aar模块，起初我按照网上介绍的方法即上述的2步在mould A里面实行。结果一直报找不到aar文件。郁闷至极。这是为啥呢。在非libray的mould里面按照上述2步就可以成功。但我们的aar必须在作为library的mould A里面引用实现。后来几经辗转，想到了，我将aar放到一个单独的libray mould里面，是不是可行呢，后来一试，果然可以。完美通过，好开心。</p>
-<p>现在目录结构是这样的。比如我们在mould useaartest里面需要使用的aar叫aartest-debug.aar,单独建的存放该aar文件的library类型的mould叫originaarforuse，mould useaartest还是叫mould useaartest,主入口mould叫mould app ,<br>则存放aar文件的library mould 的build.gradle 文件啥都不用该，其仅仅起了一个存放aar文件的作用（不单独建个library mould 放它还不行，如上所述，一直报找不到),mould useaartest的build.gradle关于aar引入的实现如下：</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">apply <span class="string">plugin:</span> <span class="string">'com.android.library'</span></div><div class="line"></div><div class="line">android &#123;</div><div class="line">compileSdkVersion <span class="number">23</span></div><div class="line">buildToolsVersion <span class="string">"23.0.2"</span></div><div class="line"></div><div class="line">defaultConfig &#123;</div><div class="line">    minSdkVersion <span class="number">15</span></div><div class="line">    targetSdkVersion <span class="number">23</span></div><div class="line">    versionCode <span class="number">1</span></div><div class="line">    versionName <span class="string">"1.0"</span></div><div class="line">&#125;</div><div class="line">buildTypes &#123;</div><div class="line">    release &#123;</div><div class="line">        minifyEnabled <span class="literal">false</span></div><div class="line">        proguardFiles getDefaultProguardFile(<span class="string">'proguard-android.txt'</span>), <span class="string">'proguard-rules.pro'</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">repositories &#123;</div><div class="line">    flatDir &#123;</div><div class="line">        dirs project(<span class="string">':originaarforuse'</span>).file(<span class="string">'libs'</span>) <span class="comment">// this way we can find the .aar file in libs folder 到libs文件夹下寻找.aar包</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">dependencies &#123;</div><div class="line">compile fileTree(<span class="string">include:</span> [<span class="string">'*.jar'</span>], <span class="string">dir:</span> <span class="string">'libs'</span>)</div><div class="line">testCompile <span class="string">'junit:junit:4.12'</span></div><div class="line">compile <span class="string">'com.android.support:appcompat-v7:23.2.1'</span></div><div class="line">compile(<span class="string">name:</span> <span class="string">'aartest-debug'</span>, <span class="string">ext:</span> <span class="string">'aar'</span>)</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>主mould app 的build.gradle文件就不贴了，主要是在android{}里面跟上面的一样，加了</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">repositories &#123;</div><div class="line">	    flatDir &#123;</div><div class="line">	        dirs project(<span class="string">':originaarforuse'</span>).file(<span class="string">'libs'</span>) <span class="comment">// this way we can find the .aar file in libs folder 到libs文件夹下寻找.aar包</span></div><div class="line">	    &#125;</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
-<h2 id="注意这个一定要加否则找不到aar文件。dependencies里面加了对mould-useaartest的依赖。如此在mould-app和mould-useaartest就都能引用aar里面的类和方法了。欧耶！so-great"><a href="#注意这个一定要加否则找不到aar文件。dependencies里面加了对mould-useaartest的依赖。如此在mould-app和mould-useaartest就都能引用aar里面的类和方法了。欧耶！so-great" class="headerlink" title="注意这个一定要加否则找不到aar文件。dependencies里面加了对mould useaartest的依赖。如此在mould app和mould useaartest就都能引用aar里面的类和方法了。欧耶！so great!"></a>注意这个一定要加否则找不到aar文件。dependencies里面加了对mould useaartest的依赖。如此在mould app和mould useaartest就都能引用aar里面的类和方法了。欧耶！so great!</h2><h3 id="每日美句"><a href="#每日美句" class="headerlink" title="每日美句:"></a>每日美句:</h3><p>人生的路，走走停停是一种闲适，边走边看是一种优雅，边走边忘，是一种豁达。</p>
+            <h1 id="Android-多行文本折叠展开效果"><a href="#Android-多行文本折叠展开效果" class="headerlink" title="Android 多行文本折叠展开效果"></a>Android 多行文本折叠展开效果</h1><p>标签（空格分隔）： TextView AndroidUI </p>
+<hr>
+<p>项目里面有个多行文本时默认显示2行,点击全文按钮显示全部的需求.<br>参考<a href="http://blog.csdn.net/qiaoidea/article/details/45568653" target="_blank" rel="external">参考链接</a> 实现,以下是自己的一些思考.<br><a id="more"></a><br>显示文本肯定还是使用textview来实现,但如果文本多的时候默认显示2行是怎么做到呢.我们是从网络获取数据,获取到数据后让其显示,超过2行只显示2行,怎么做到超过2行只显示2行了,直接setText,内容会完全显示出来,可能会超过2行.<br>textView显示多高是height属性控制,如果我们把textView的高度设置为2行的高度,那是不是textView就显示2行了呢,是的,是这样的.思路就是这样,那怎么知道2行多高呢.看textView的api里面有个getLineHeight()方法,是的,这个方法就是1行的高度,正是我们需要的.这样我们直接就textView的高度设置为getLineHeight()<em>2,可不是所有的内容都能达到2行的高度,所以我们需要先判断textView显示了总共多少行,当显示行数超过2行的时候再设置textView的高度为单行高度</em>2,再次查看textView的Api,发现了getLineCount()方法,正如我们期望的,改方法返回的就是textView显示的总行数.注意肯定是先setText内容显示出来之后,再立刻获取改值.所以我们直接:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">tvContent.post(<span class="keyword">new</span> Runnable() &#123;</div><div class="line">          <span class="meta">@Override</span></div><div class="line">          <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">              <span class="keyword">int</span> showCount = tvContent.getLineCount();</div><div class="line">              tvAllSign.setVisibility(maxLine &lt;showCount ? VISIBLE : GONE);</div><div class="line">              <span class="keyword">if</span> (showCount &gt; maxLine) &#123;</div><div class="line">                  <span class="keyword">int</span> singleHeight = tvContent.getLineHeight();</div><div class="line">                  tvContent.setHeight(maxLine * singleHeight);</div><div class="line">              &#125;</div><div class="line"></div><div class="line">          &#125;</div><div class="line">      &#125;);</div></pre></td></tr></table></figure></p>
+<p>有了上面2个方法的支撑,展开折叠的思路就非常明显了,当显示行数超过2行时,点击折叠将textview的高度设置为2行的高度,这样就实现了折叠.当显示行数为2行时,点击全文将textView的高度设置为getLineCount()*getLineHeight();直接设置变化有点突兀,给个时间使用ValueAnimator将高度渐变达到要求值.</p>
+<h4 id="坑1-注意在使用自定义属性textSize属性的时候"><a href="#坑1-注意在使用自定义属性textSize属性的时候" class="headerlink" title="坑1:注意在使用自定义属性textSize属性的时候"></a>坑1:注意在使用自定义属性textSize属性的时候</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">textSize = typedArray.getDimensionPixelSize(R.styleable.ExpandableTextview_textSize,<span class="number">11</span>);</div></pre></td></tr></table></figure>
+<p>获取到textSize后要使用<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tvAllSign.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSignSize);</div></pre></td></tr></table></figure></p>
+<p>设置文字大小,获取值与设置textSize使用同一方式,否则你的textView大小不是你期望的.<br>因为setText的源码:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setTextSize</span><span class="params">(<span class="keyword">float</span> size)</span> </span>&#123;</div><div class="line">      setTextSize(TypedValue.COMPLEX_UNIT_SP, size);</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
+<p>默认采用的单位是sp.</p>
+<p>经过自己测试发现:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">typedArray.getDimensionPixelOffset(R.styleable.TestTextSize_customSize,<span class="number">11</span>);</div></pre></td></tr></table></figure></p>
+<p>获取到的是数值的整数部分,没有四舍五入奥. 比如11.8获取到的也是11.</p>
 
         
         </div>
@@ -320,7 +280,7 @@
 
             
     
-        <a href="http://yoursite.com/2016/05/03/aar的生成与引用/#comments" class="article-comment-link">评论</a>
+        <a href="http://yoursite.com/2016/10/12/Android 多行文本折叠展开效果/#comments" class="article-comment-link">评论</a>
     
 
         </footer>
@@ -329,19 +289,10 @@
         
 <nav id="article-nav">
     
-        <a href="/2016/07/13/《追风筝的人》读后感/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">上一篇</strong>
-            <div class="article-nav-title">
-                
-                    《追风筝的人》读后感
-                
-            </div>
-        </a>
     
-    
-        <a href="/2016/05/02/startActivityForResult注意点/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2016/09/25/Android事件分发机制研究/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">下一篇</strong>
-            <div class="article-nav-title">startActivityForResult注意点</div>
+            <div class="article-nav-title">Android事件分发机制研究</div>
         </a>
     
 </nav>
