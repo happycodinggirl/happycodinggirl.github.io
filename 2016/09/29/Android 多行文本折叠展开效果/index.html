@@ -3,14 +3,20 @@
 <head>
     <meta charset="utf-8">
     
-    <title>标签: Android | happycodinggirl</title>
+    <title>Android 多行文本折叠展开效果 | happycodinggirl</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta property="og:type" content="website">
-<meta property="og:title" content="happycodinggirl">
-<meta property="og:url" content="http://yoursite.com/tags/Android/index.html">
+    <meta name="description" content="项目里面有个多行文本时默认显示2行,点击全文按钮显示全部的需求.参考参考链接 实现,以下是自己的一些思考.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 多行文本折叠展开效果">
+<meta property="og:url" content="http://yoursite.com/2016/09/29/Android 多行文本折叠展开效果/index.html">
 <meta property="og:site_name" content="happycodinggirl">
+<meta property="og:description" content="项目里面有个多行文本时默认显示2行,点击全文按钮显示全部的需求.参考参考链接 实现,以下是自己的一些思考.">
+<meta property="og:image" content="http://7xs2th.com1.z0.glb.clouddn.com/index.jpg">
+<meta property="og:updated_time" content="2016-10-12T00:50:26.871Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="happycodinggirl">
+<meta name="twitter:title" content="Android 多行文本折叠展开效果">
+<meta name="twitter:description" content="项目里面有个多行文本时默认显示2行,点击全文按钮显示全部的需求.参考参考链接 实现,以下是自己的一些思考.">
+<meta name="twitter:image" content="http://7xs2th.com1.z0.glb.clouddn.com/index.jpg">
     
 
     
@@ -189,50 +195,168 @@
 </aside>
 
             
-            <section id="main">
-<div class="timeline timeline-wrap">
-    <div class="timeline-row timeline-row-major">
-        <span class="node"><i class="fa fa-tag"></i></span>
-        <h1 class="title">#Android</h1>
-    </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+            <section id="main"><article id="post-Android 多行文本折叠展开效果" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            
+	
+		<img src="http://7xs2th.com1.z0.glb.clouddn.com/19541_150804113957_1.jpg" class="article-banner" />
+	
+
+
+
+        
+        
+            <header class="article-header">
                 
     
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2016/05/02/startActivityForResult注意点/">startActivityForResult注意点</a>
+        <h1 class="article-title" itemprop="name">
+            Android 多行文本折叠展开效果
         </h1>
     
 
-                <div class="article-meta">
-                    
+                
+                    <div class="article-meta">
+                        
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2016/05/02/startActivityForResult注意点/">
-            <time datetime="2016-05-02T13:55:37.000Z" itemprop="datePublished">2016-05-02</time>
+        <a href="/2016/09/29/Android 多行文本折叠展开效果/">
+            <time datetime="2016-09-29T13:26:37.000Z" itemprop="datePublished">2016-09-29</time>
         </a>
     </div>
 
 
-                    
+                        
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Android易入坑集合/">Android易入坑集合</a>
+        <a class="article-category-link" href="/categories/Android-UI/">Android UI</a>
     </div>
 
-                    
+                        
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Android/">Android</a>
+        <a class="tag-link" href="/tags/TextView-AndroidUI/">TextView AndroidUI</a>
     </div>
 
-                </div>
-            </div>
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p>项目里面有个多行文本时默认显示2行,点击全文按钮显示全部的需求.<br>参考<a href="http://blog.csdn.net/qiaoidea/article/details/45568653" target="_blank" rel="external">参考链接</a> 实现,以下是自己的一些思考.<br><a id="more"></a><br>显示文本肯定还是使用textview来实现,但如果文本多的时候默认显示2行是怎么做到呢.我们是从网络获取数据,获取到数据后让其显示,超过2行只显示2行,怎么做到超过2行只显示2行了,直接setText,内容会完全显示出来,可能会超过2行.<br>textView显示多高是height属性控制,如果我们把textView的高度设置为2行的高度,那是不是textView就显示2行了呢,是的,是这样的.思路就是这样,那怎么知道2行多高呢.看textView的api里面有个getLineHeight()方法,是的,这个方法就是1行的高度,正是我们需要的.这样我们直接就textView的高度设置为getLineHeight()<em>2,可不是所有的内容都能达到2行的高度,所以我们需要先判断textView显示了总共多少行,当显示行数超过2行的时候再设置textView的高度为单行高度</em>2,再次查看textView的Api,发现了getLineCount()方法,正如我们期望的,改方法返回的就是textView显示的总行数.注意肯定是先setText内容显示出来之后,再立刻获取改值.所以我们直接:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">tvContent.post(<span class="keyword">new</span> Runnable() &#123;</div><div class="line">          <span class="meta">@Override</span></div><div class="line">          <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">              <span class="keyword">int</span> showCount = tvContent.getLineCount();</div><div class="line">              tvAllSign.setVisibility(maxLine &lt;showCount ? VISIBLE : GONE);</div><div class="line">              <span class="keyword">if</span> (showCount &gt; maxLine) &#123;</div><div class="line">                  <span class="keyword">int</span> singleHeight = tvContent.getLineHeight();</div><div class="line">                  tvContent.setHeight(maxLine * singleHeight);</div><div class="line">              &#125;</div><div class="line"></div><div class="line">          &#125;</div><div class="line">      &#125;);</div></pre></td></tr></table></figure></p>
+<p>有了上面2个方法的支撑,展开折叠的思路就非常明显了,当显示行数超过2行时,点击折叠将textview的高度设置为2行的高度,这样就实现了折叠.当显示行数为2行时,点击全文将textView的高度设置为getLineCount()*getLineHeight();直接设置变化有点突兀,给个时间使用ValueAnimator将高度渐变达到要求值.</p>
+<h4 id="坑1-注意在使用自定义属性textSize属性的时候"><a href="#坑1-注意在使用自定义属性textSize属性的时候" class="headerlink" title="坑1:注意在使用自定义属性textSize属性的时候"></a>坑1:注意在使用自定义属性textSize属性的时候</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">textSize = typedArray.getDimensionPixelSize(R.styleable.ExpandableTextview_textSize,<span class="number">11</span>);</div></pre></td></tr></table></figure>
+<p>获取到textSize后要使用<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tvAllSign.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSignSize);</div></pre></td></tr></table></figure></p>
+<p>设置文字大小,获取值与设置textSize使用同一方式,否则你的textView大小不是你期望的.<br>因为setText的源码:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setTextSize</span><span class="params">(<span class="keyword">float</span> size)</span> </span>&#123;</div><div class="line">      setTextSize(TypedValue.COMPLEX_UNIT_SP, size);</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
+<p>默认采用的单位是sp.</p>
+<p>经过自己测试发现:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">typedArray.getDimensionPixelOffset(R.styleable.TestTextSize_customSize,<span class="number">11</span>);</div></pre></td></tr></table></figure></p>
+<p>获取到的是数值的整数部分,没有四舍五入奥. 比如11.8获取到的也是11.</p>
+
+        
         </div>
-    
+        <footer class="article-footer">
+            <div class="share-container">
+
+    <div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_qzone">QQ空间</a>
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_tqq">腾讯微博</a>
+    <a class="jiathis_button_weixin">微信</a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+    <a class="jiathis_counter_style"></a>
 </div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<style>
+    .jiathis_style div:first-child:not(.jiadiv_01) {
+        width: auto !important;
+        border: none !important;
+    }
+    .jiathis_style .jiadiv_01 {
+        margin: 10px 0;
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .jiathis_style .jiadiv_01 div:first-child {
+        display: none;
+    }
+    .jiathis_style .jiadiv_02 {
+        padding: 7px 0 !important;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle {
+        width: 85px;
+        border: none;
+        height: auto;
+        margin: 3px 10px;
+        padding: 6px 10px;
+        border-radius: 4px;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:hover {
+        border: none;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
+        margin-left: 0;
+    }
+    .jiathis_style .jtico:hover {
+        opacity: 1;
+    }
+    .jiathis_style .ckepopBottom,
+    .jiathis_style .centerBottom {
+        width: auto !important;
+        padding: 5px;
+        background: #f7f7f7;
+    }
+</style>
+
+
+
+</div>
+
+            
+    
+        <a href="http://yoursite.com/2016/09/29/Android 多行文本折叠展开效果/#comments" class="article-comment-link">评论</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2016/09/30/Retrofit Put的一次使用经历/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    Retrofit PUT的一次使用经历
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2016/09/25/Android事件分发机制研究/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">Android事件分发机制研究</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div id="uyan_frame"></div>
+
+    
+    </section>
+
 </section>
             
                 <aside id="sidebar">
