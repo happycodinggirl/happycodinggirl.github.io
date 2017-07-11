@@ -3,14 +3,21 @@
 <head>
     <meta charset="utf-8">
     
-    <title>分类: Android | happycodinggirl</title>
+    <title>happycodinggirl</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta property="og:type" content="website">
+    <meta name="description" content="仿360应用助手5.1.66版本游戏详情页滚动效果
+效果视频工作中需要实现类似360手机助手的游戏详情页上滚动效果,花了1天的时间研究了下,实现出来了.记录下.拿到效果后用uiautomatorviewer工具窥探了下360的实现方式,发现它是用RecycleView实现的,那么要实现这种效果估计就是通过自定义LayoutManager来实现的了.视频中每一张图片缩小为一个点,然后可以看成是点沿着">
+<meta property="og:type" content="article">
 <meta property="og:title" content="happycodinggirl">
-<meta property="og:url" content="http://yoursite.com/categories/Android/index.html">
+<meta property="og:url" content="http://yoursite.com/2017/07/11/仿360应用助手5.1.66版本游戏详情页滚动效果/index.html">
 <meta property="og:site_name" content="happycodinggirl">
+<meta property="og:description" content="仿360应用助手5.1.66版本游戏详情页滚动效果
+效果视频工作中需要实现类似360手机助手的游戏详情页上滚动效果,花了1天的时间研究了下,实现出来了.记录下.拿到效果后用uiautomatorviewer工具窥探了下360的实现方式,发现它是用RecycleView实现的,那么要实现这种效果估计就是通过自定义LayoutManager来实现的了.视频中每一张图片缩小为一个点,然后可以看成是点沿着">
+<meta property="og:updated_time" content="2017-07-11T13:53:57.303Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="happycodinggirl">
+<meta name="twitter:description" content="仿360应用助手5.1.66版本游戏详情页滚动效果
+效果视频工作中需要实现类似360手机助手的游戏详情页上滚动效果,花了1天的时间研究了下,实现出来了.记录下.拿到效果后用uiautomatorviewer工具窥探了下360的实现方式,发现它是用RecycleView实现的,那么要实现这种效果估计就是通过自定义LayoutManager来实现的了.视频中每一张图片缩小为一个点,然后可以看成是点沿着">
     
 
     
@@ -189,86 +196,137 @@
 </aside>
 
             
-            <section id="main">
-<div class="timeline timeline-wrap">
-    <div class="timeline-row timeline-row-major">
-        <span class="node"><i class="fa fa-folder"></i></span>
-        <h1 class="title">Android</h1>
-    </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2016/07/24/android 内存泄露产生原因分析/">android 内存泄露产生原因分析</a>
-        </h1>
-    
+            <section id="main"><article id="post-仿360应用助手5.1.66版本游戏详情页滚动效果" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h1 id="仿360应用助手5-1-66版本游戏详情页滚动效果"><a href="#仿360应用助手5-1-66版本游戏详情页滚动效果" class="headerlink" title="仿360应用助手5.1.66版本游戏详情页滚动效果"></a>仿360应用助手5.1.66版本游戏详情页滚动效果</h1><hr>
+<p><a href="http://7xs2th.com1.z0.glb.clouddn.com/360scrolling.mp4" target="_blank" rel="external">效果视频</a><br>工作中需要实现类似360手机助手的游戏详情页上滚动效果,花了1天的时间研究了下,实现出来了.记录下.<br>拿到效果后用uiautomatorviewer工具窥探了下360的实现方式,发现它是用RecycleView实现的,那么要实现这种效果估计就是通过自定义LayoutManager来实现的了.<br>视频中每一张图片缩小为一个点,然后可以看成是点沿着一个圆弧运动.自定义LayoutManager将不同的item根据index放到位于圆弧的相应位置.思考到之前用到的PathMeasure类的使用跟自定义LayoutManager接合起来使用刚好能达到这种效果.</p>
+<p>实现这种效果用到的主要知识点</p>
+<p><strong>1.自定义LayoutManager 2.Path,PathMeasure系列Api的运用</strong> </p>
+<pre><code> RectF rectF=new RectF(0,dp2px(220),screenWidth,dp2px(290));//第2个和第
+ path.addArc(rectF,0,-180); //添加一个逆时针180度的弧度，从3点钟方向为起点
+ pathMeasure.setPath(path,false); 
+//注意次处要设置为false,否则pathMeasure.getLength,返回的长度包括封闭扇形的2条半径
+</code></pre><p> PathMeasure的getPosTan方法,通过传入在path的length范围内的值,然后计算出相应位置和角度值分别放到了pos数组和tan数组里面.</p>
+<p> <strong>关键代码:自定义LayoutManager重新防置子item的代码</strong></p>
+<pre><code>for (int i = 0; i &lt; getItemCount(); i++) {
+    if (Rect.intersects(displayFrame, allItemFrames.get(i))) {
+        View scrap = recycler.getViewForPosition(i);
+        measureChildWithMargins(scrap, 0, 0);
+        addView(scrap);
+        float percent=(scrap.getLeft()+scrap.getMeasuredWidth()*1.00f/2.00f)/screenWidth*1.00f; //以每个item的宽度一半位置为中心点
+        float pathMeasureLength=pathMeasure.getLength();
+        pathMeasure.getPosTan( (pathMeasureLength*percent),pos,tan);
+        Rect frame = allItemFrames.get(i);
+        //将这个item布局出来
+        layoutDecorated(scrap,
+                frame.left-horizontalScrollOffset,
+                frame.top ,
+                frame.right- horizontalScrollOffset,
+                (int) pos[1]);//此处直接使用获得到的y值
+    }
+}
+</code></pre><p> 完整代码:<a href="https://github.com/happycodinggirl/ArcScroll" target="_blank" rel="external">例子</a><br> <strong>在这里有个无耻请求,-_-,如果你觉得对你有点帮助,欢迎star</strong></p>
+<p>  感谢<a href="https://juejin.im/entry/57597452a34131006133369e" target="_blank" rel="external">稀土掘金</a>的这篇文章对自定义LayoutManager的讲解,自己从里面学到了不少.</p>
 
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2016/07/24/android 内存泄露产生原因分析/">
-            <time datetime="2016-07-24T13:55:37.000Z" itemprop="datePublished">2016-07-24</time>
-        </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Android/">Android</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Android内存泄漏/">Android内存泄漏</a>
-    </div>
-
-                </div>
-            </div>
+        
         </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2016/05/03/aar的生成与引用/">aar的生成与引用</a>
-        </h1>
-    
+        <footer class="article-footer">
+            <div class="share-container">
 
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2016/05/03/aar的生成与引用/">
-            <time datetime="2016-05-03T13:55:37.000Z" itemprop="datePublished">2016-05-03</time>
-        </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Android/">Android</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/aar/">aar</a>
-    </div>
-
-                </div>
-            </div>
-        </div>
-    
+    <div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_qzone">QQ空间</a>
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_tqq">腾讯微博</a>
+    <a class="jiathis_button_weixin">微信</a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+    <a class="jiathis_counter_style"></a>
 </div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<style>
+    .jiathis_style div:first-child:not(.jiadiv_01) {
+        width: auto !important;
+        border: none !important;
+    }
+    .jiathis_style .jiadiv_01 {
+        margin: 10px 0;
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .jiathis_style .jiadiv_01 div:first-child {
+        display: none;
+    }
+    .jiathis_style .jiadiv_02 {
+        padding: 7px 0 !important;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle {
+        width: 85px;
+        border: none;
+        height: auto;
+        margin: 3px 10px;
+        padding: 6px 10px;
+        border-radius: 4px;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:hover {
+        border: none;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
+        margin-left: 0;
+    }
+    .jiathis_style .jtico:hover {
+        opacity: 1;
+    }
+    .jiathis_style .ckepopBottom,
+    .jiathis_style .centerBottom {
+        width: auto !important;
+        padding: 5px;
+        background: #f7f7f7;
+    }
+</style>
+
+
+
+</div>
+
+            
+    
+        <a href="http://yoursite.com/2017/07/11/仿360应用助手5.1.66版本游戏详情页滚动效果/#comments" class="article-comment-link">评论</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2017/05/06/做一个不听话的孩子/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title"></div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div id="uyan_frame"></div>
+
+    
+    </section>
+
 </section>
             
                 <aside id="sidebar">
