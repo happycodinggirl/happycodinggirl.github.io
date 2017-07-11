@@ -5,17 +5,17 @@
     
     <title>仿360应用助手5.1.66版本游戏详情页滚动效果 | happycodinggirl</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="效果视频工作中需要实现类似360手机助手的游戏详情页上滚动效果,花了1天的时间研究了下,实现出来了.记录下.拿到效果后用uiautomatorviewer工具窥探了下360的实现方式,发现它是用RecycleView实现的,那么要实现这种效果估计就是通过自定义LayoutManager来实现的了.视频中每一张图片缩小为一个点,然后可以看成是点沿着一个圆弧运动.自定义LayoutManager将不同">
+    <meta name="description" content="工作中需要实现类似360手机助手的游戏详情页上滚动效果,花了1天的时间研究了下,实现出来了.记录下.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="仿360应用助手5.1.66版本游戏详情页滚动效果">
 <meta property="og:url" content="http://yoursite.com/2017/07/11/仿360应用助手5.1.66版本游戏详情页滚动效果/index.html">
 <meta property="og:site_name" content="happycodinggirl">
-<meta property="og:description" content="效果视频工作中需要实现类似360手机助手的游戏详情页上滚动效果,花了1天的时间研究了下,实现出来了.记录下.拿到效果后用uiautomatorviewer工具窥探了下360的实现方式,发现它是用RecycleView实现的,那么要实现这种效果估计就是通过自定义LayoutManager来实现的了.视频中每一张图片缩小为一个点,然后可以看成是点沿着一个圆弧运动.自定义LayoutManager将不同">
+<meta property="og:description" content="工作中需要实现类似360手机助手的游戏详情页上滚动效果,花了1天的时间研究了下,实现出来了.记录下.">
 <meta property="og:image" content="http://7xs2th.com1.z0.glb.clouddn.com/19541_150804113957_1.jpg">
-<meta property="og:updated_time" content="2017-07-11T14:02:19.128Z">
+<meta property="og:updated_time" content="2017-07-11T14:12:41.992Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="仿360应用助手5.1.66版本游戏详情页滚动效果">
-<meta name="twitter:description" content="效果视频工作中需要实现类似360手机助手的游戏详情页上滚动效果,花了1天的时间研究了下,实现出来了.记录下.拿到效果后用uiautomatorviewer工具窥探了下360的实现方式,发现它是用RecycleView实现的,那么要实现这种效果估计就是通过自定义LayoutManager来实现的了.视频中每一张图片缩小为一个点,然后可以看成是点沿着一个圆弧运动.自定义LayoutManager将不同">
+<meta name="twitter:description" content="工作中需要实现类似360手机助手的游戏详情页上滚动效果,花了1天的时间研究了下,实现出来了.记录下.">
 <meta name="twitter:image" content="http://7xs2th.com1.z0.glb.clouddn.com/19541_150804113957_1.jpg">
     
 
@@ -246,7 +246,9 @@
         <div class="article-entry" itemprop="articleBody">
         
             
-            <p><a href="http://7xs2th.com1.z0.glb.clouddn.com/360scrolling.mp4" target="_blank" rel="external">效果视频</a><br>工作中需要实现类似360手机助手的游戏详情页上滚动效果,花了1天的时间研究了下,实现出来了.记录下.<br>拿到效果后用uiautomatorviewer工具窥探了下360的实现方式,发现它是用RecycleView实现的,那么要实现这种效果估计就是通过自定义LayoutManager来实现的了.<br>视频中每一张图片缩小为一个点,然后可以看成是点沿着一个圆弧运动.自定义LayoutManager将不同的item根据index放到位于圆弧的相应位置.思考到之前用到的PathMeasure类的使用跟自定义LayoutManager接合起来使用刚好能达到这种效果.</p>
+            <p>工作中需要实现类似360手机助手的游戏详情页上滚动效果,花了1天的时间研究了下,实现出来了.记录下.<br><a id="more"></a></p>
+<p><a href="http://7xs2th.com1.z0.glb.clouddn.com/device-2017-07-11-220855.mp4" target="_blank" rel="external">实现的效果视频</a></p>
+<p>拿到效果后用uiautomatorviewer工具窥探了下360的实现方式,发现它是用RecycleView实现的,那么要实现这种效果估计就是通过自定义LayoutManager来实现的了.<br>视频中每一张图片缩小为一个点,然后可以看成是点沿着一个圆弧运动.自定义LayoutManager将不同的item根据index放到位于圆弧的相应位置.思考到之前用到的PathMeasure类的使用跟自定义LayoutManager接合起来使用刚好能达到这种效果.</p>
 <p>实现这种效果用到的主要知识点</p>
 <p><strong>1.自定义LayoutManager 2.Path,PathMeasure系列Api的运用</strong> </p>
 <pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"> RectF rectF=<span class="keyword">new</span> RectF(<span class="number">0</span>,dp2px(<span class="number">220</span>),screenWidth,dp2px(<span class="number">290</span>));<span class="comment">//第2个和第</span></div><div class="line"> path.addArc(rectF,<span class="number">0</span>,-<span class="number">180</span>); <span class="comment">//添加一个逆时针180度的弧度，从3点钟方向为起点</span></div><div class="line"> pathMeasure.setPath(path,<span class="keyword">false</span>); </div><div class="line"><span class="comment">//注意次处要设置为false,否则pathMeasure.getLength,返回的长度包括封闭扇形的2条半径</span></div></pre></td></tr></table></figure>
