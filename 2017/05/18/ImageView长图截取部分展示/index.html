@@ -3,14 +3,23 @@
 <head>
     <meta charset="utf-8">
     
-    <title>归档: 2016/2 | happycodinggirl</title>
+    <title>ImageView长图截取部分展示 | happycodinggirl</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta property="og:type" content="website">
-<meta property="og:title" content="happycodinggirl">
-<meta property="og:url" content="http://yoursite.com/archives/2016/02/index.html">
+    <meta name="description" content="开发中有需求，类似百度贴吧发图时，图片的备选面板，对于特别长的图，如果不加以处理因图片太大，会出现加载不出来，解决策略是对于长图先根据宽度缩放比，等比缩放到期望尺寸，注意这样等比缩放，是防止图片变形。缩放好后根据需要高度截取需要的高度图片。代码如下
+123456789101112131415161718192021222324252627282930313233343536373839/**">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ImageView长图截取部分展示">
+<meta property="og:url" content="http://yoursite.com/2017/05/18/ImageView长图截取部分展示/index.html">
 <meta property="og:site_name" content="happycodinggirl">
+<meta property="og:description" content="开发中有需求，类似百度贴吧发图时，图片的备选面板，对于特别长的图，如果不加以处理因图片太大，会出现加载不出来，解决策略是对于长图先根据宽度缩放比，等比缩放到期望尺寸，注意这样等比缩放，是防止图片变形。缩放好后根据需要高度截取需要的高度图片。代码如下
+123456789101112131415161718192021222324252627282930313233343536373839/**">
+<meta property="og:image" content="http://7xs2th.com1.z0.glb.clouddn.com/19541_150804113957_1.jpg">
+<meta property="og:updated_time" content="2017-07-11T14:39:50.121Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="happycodinggirl">
+<meta name="twitter:title" content="ImageView长图截取部分展示">
+<meta name="twitter:description" content="开发中有需求，类似百度贴吧发图时，图片的备选面板，对于特别长的图，如果不加以处理因图片太大，会出现加载不出来，解决策略是对于长图先根据宽度缩放比，等比缩放到期望尺寸，注意这样等比缩放，是防止图片变形。缩放好后根据需要高度截取需要的高度图片。代码如下
+123456789101112131415161718192021222324252627282930313233343536373839/**">
+<meta name="twitter:image" content="http://7xs2th.com1.z0.glb.clouddn.com/19541_150804113957_1.jpg">
     
 
     
@@ -189,45 +198,165 @@
 </aside>
 
             
-            <section id="main"><div class="timeline timeline-wrap">
-    
-            <div class="timeline-row timeline-row-major">
-                <span class="node"><i class="fa fa-calendar"></i></span>
-                <h1 class="title">2016</h1>
-            </div>
+            <section id="main"><article id="post-ImageView长图截取部分展示" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
         
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+            
+	
+		<img src="http://7xs2th.com1.z0.glb.clouddn.com/hand.jpg" class="article-banner" />
+	
+
+
+
+        
+        
+            <header class="article-header">
                 
     
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2016/02/21/我的第一篇Hexo博客/">我的第一篇hexo博客</a>
+        <h1 class="article-title" itemprop="name">
+            ImageView长图截取部分展示
         </h1>
     
 
-                <div class="article-meta">
-                    
+                
+                    <div class="article-meta">
+                        
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2016/02/21/我的第一篇Hexo博客/">
-            <time datetime="2016-02-21T13:55:37.000Z" itemprop="datePublished">2016-02-21</time>
+        <a href="/2017/05/18/ImageView长图截取部分展示/">
+            <time datetime="2017-05-18T13:02:37.000Z" itemprop="datePublished">2017-05-18</time>
         </a>
     </div>
 
 
-                    
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Hexo/">Hexo</a>
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Android-UI/">Android UI</a>
     </div>
 
-                </div>
-            </div>
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/ui/">ui</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p>开发中有需求，类似百度贴吧发图时，图片的备选面板，对于特别长的图，如果不加以处理因图片太大，会出现加载不出来，解决策略是对于长图先根据宽度缩放比，等比缩放到期望尺寸，注意这样等比缩放，是防止图片变形。<br>缩放好后根据需要高度截取需要的高度图片。代码如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">   * 根据期望宽高度截取图片</div><div class="line">   *</div><div class="line">   * <span class="doctag">@param</span> sourceBitmap</div><div class="line">   * <span class="doctag">@param</span> targetWidth  目标宽度</div><div class="line">   * <span class="doctag">@param</span> targetHeight  目标高度             </div><div class="line">   * <span class="doctag">@return</span></div><div class="line">   */</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Bitmap <span class="title">scaledBitmapByWidth</span><span class="params">(Bitmap sourceBitmap, <span class="keyword">int</span> targetWidth, <span class="keyword">int</span> targetHeight)</span> </span>&#123;</div><div class="line">      <span class="keyword">int</span> bitmapWidth = sourceBitmap.getWidth();</div><div class="line">      <span class="keyword">int</span> bitmapHeight = sourceBitmap.getHeight();</div><div class="line">      <span class="keyword">if</span> (bitmapHeight == <span class="number">0</span>) &#123;</div><div class="line">          <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">      &#125;</div><div class="line"></div><div class="line">      <span class="keyword">float</span> widthRatio = targetWidth * <span class="number">1.0f</span> / bitmapWidth * <span class="number">1.0f</span>;</div><div class="line">      Bitmap scaleBitmap = <span class="keyword">null</span>;</div><div class="line">      <span class="keyword">try</span> &#123;</div><div class="line">          scaleBitmap = Bitmap.createScaledBitmap(sourceBitmap, targetWidth, (<span class="keyword">int</span>) (bitmapHeight * widthRatio), <span class="keyword">true</span>); <span class="comment">//先根据宽度比，等比缩放，然后截取需要的部分</span></div><div class="line"></div><div class="line">      &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">          LogUtil.e(<span class="string">"--e is "</span> + e);</div><div class="line">          <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">      &#125;</div><div class="line">      <span class="keyword">int</span> sourceWidth = scaleBitmap.getWidth();</div><div class="line">      <span class="keyword">int</span> soureHeight = scaleBitmap.getHeight();</div><div class="line">      LogUtil.d(<span class="string">"--width radio is "</span> + widthRatio + <span class="string">" targeWidth is "</span> + targetWidth + <span class="string">" bitmapWidth is "</span> + bitmapWidth);</div><div class="line">      <span class="keyword">int</span> needHeight = targetHeight &gt; soureHeight ? soureHeight : targetHeight;<span class="comment">//如果需要的高度比图片原图的高度大，则用原图高度，否则使用期望的高度</span></div><div class="line">      Bitmap resultBitmap = <span class="keyword">null</span>;</div><div class="line">      <span class="keyword">try</span> &#123;</div><div class="line">          resultBitmap = Bitmap.createBitmap(scaleBitmap, <span class="number">0</span>, <span class="number">0</span>, sourceWidth, needHeight);</div><div class="line">          scaleBitmap.recycle();</div><div class="line">      &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">          LogUtil.e(<span class="string">"----e is "</span> + e);</div><div class="line">      &#125;</div><div class="line">      <span class="keyword">return</span> resultBitmap;</div><div class="line"></div><div class="line"></div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>探究下Bitmap.createScaledBitmap的源码。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">     * Creates a new bitmap, scaled from an existing bitmap, when possible. If the</div><div class="line">     * specified width and height are the same as the current width and height of</div><div class="line">     * the source bitmap, the source bitmap is returned and no new bitmap is</div><div class="line">     * created.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> src       The source bitmap.</div><div class="line">     * <span class="doctag">@param</span> dstWidth  The new bitmap's desired width.(目标宽度)</div><div class="line">     * <span class="doctag">@param</span> dstHeight The new bitmap's desired height.(目标高度)</div><div class="line">     * <span class="doctag">@param</span> filter    true if the source should be filtered.</div><div class="line">     * <span class="doctag">@return</span> The new scaled bitmap or the source bitmap if no scaling is required.</div><div class="line">     * <span class="doctag">@throws</span> IllegalArgumentException if width is &lt;= 0, or height is &lt;= 0</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Bitmap <span class="title">createScaledBitmap</span><span class="params">(Bitmap src, <span class="keyword">int</span> dstWidth, <span class="keyword">int</span> dstHeight,</span></span></div><div class="line">            <span class="keyword">boolean</span> filter) &#123;</div><div class="line">        Matrix m;</div><div class="line">        <span class="keyword">synchronized</span> (Bitmap.class) &#123;</div><div class="line">            <span class="comment">// small pool of just 1 matrix</span></div><div class="line">            m = sScaleMatrix;</div><div class="line">            sScaleMatrix = <span class="keyword">null</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (m == <span class="keyword">null</span>) &#123;</div><div class="line">            m = <span class="keyword">new</span> Matrix();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">final</span> <span class="keyword">int</span> width = src.getWidth();</div><div class="line">        <span class="keyword">final</span> <span class="keyword">int</span> height = src.getHeight();</div><div class="line">        <span class="keyword">final</span> <span class="keyword">float</span> sx = dstWidth  / (<span class="keyword">float</span>)width;</div><div class="line">        <span class="keyword">final</span> <span class="keyword">float</span> sy = dstHeight / (<span class="keyword">float</span>)height;</div><div class="line">        m.setScale(sx, sy);<span class="comment">//(此处直接使用matrix.setScale)</span></div><div class="line">        Bitmap b = Bitmap.createBitmap(src, <span class="number">0</span>, <span class="number">0</span>, width, height, m, filter);</div><div class="line"></div><div class="line">        <span class="keyword">synchronized</span> (Bitmap.class) &#123;</div><div class="line">            <span class="comment">// do we need to check for null? why not just assign everytime?</span></div><div class="line">            <span class="keyword">if</span> (sScaleMatrix == <span class="keyword">null</span>) &#123;</div><div class="line">                sScaleMatrix = m;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">return</span> b;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>Bitmap.createBitmap的参数含义<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">/</div><div class="line">  * Returns an immutable bitmap from the specified subset of the source</div><div class="line">  * bitmap. The <span class="keyword">new</span> bitmap may be the same object as source, or a copy may</div><div class="line">  * have been made. It is initialized with the same density as the original</div><div class="line">  * bitmap.</div><div class="line">  *</div><div class="line">  * <span class="meta">@param</span> source   The bitmap we are subsetting</div><div class="line">  * <span class="meta">@param</span> <span class="function">x        The x coordinate of the first pixel in <span class="title">source</span><span class="params">(x方向上从哪个像素点开始截取图片)</span></span></div><div class="line">  * @param y        The y coordinate of the first pixel in <span class="title">source</span><span class="params">(y方向上从哪个像素点开始截取图片)</span></div><div class="line">  * @param width    The number of pixels in each row </div><div class="line">  * @param height   The number of rows</div><div class="line">  * @return A copy of a subset of the source bitmap or the source bitmap itself.</div><div class="line">  * @<span class="keyword">throws</span> IllegalArgumentException <span class="keyword">if</span> the x, y, width, height values are</div><div class="line">  *         outside of the dimensions of the source bitmap, or width is &lt;= <span class="number">0</span>,</div><div class="line">  *         or height is &lt;= <span class="number">0</span></div><div class="line">  */</div><div class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Bitmap <span class="title">createBitmap</span><span class="params">(Bitmap source, <span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> width, <span class="keyword">int</span> height)</span> </span>&#123;</div><div class="line">     <span class="keyword">return</span> createBitmap(source, x, y, width, height, <span class="keyword">null</span>, <span class="keyword">false</span>);</div><div class="line"> &#125;</div></pre></td></tr></table></figure></p>
+<p><strong>width参数注意不应该超过sourceBitmap的getWidth大小，否则会报错。</strong><br>height参数注意不应该超过sourceBitmap的getHeight大小，若height=sourece.getHeight,则截取整个bitmap的高度，若<strong>height=source.getHeight()/2,则截取图片高度的一半，截取到的bitmap只能展示原图的一半。</strong></p>
+
+        
         </div>
-    
+        <footer class="article-footer">
+            <div class="share-container">
+
+    <div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_qzone">QQ空间</a>
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_tqq">腾讯微博</a>
+    <a class="jiathis_button_weixin">微信</a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+    <a class="jiathis_counter_style"></a>
 </div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<style>
+    .jiathis_style div:first-child:not(.jiadiv_01) {
+        width: auto !important;
+        border: none !important;
+    }
+    .jiathis_style .jiadiv_01 {
+        margin: 10px 0;
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .jiathis_style .jiadiv_01 div:first-child {
+        display: none;
+    }
+    .jiathis_style .jiadiv_02 {
+        padding: 7px 0 !important;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle {
+        width: 85px;
+        border: none;
+        height: auto;
+        margin: 3px 10px;
+        padding: 6px 10px;
+        border-radius: 4px;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:hover {
+        border: none;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
+        margin-left: 0;
+    }
+    .jiathis_style .jtico:hover {
+        opacity: 1;
+    }
+    .jiathis_style .ckepopBottom,
+    .jiathis_style .centerBottom {
+        width: auto !important;
+        padding: 5px;
+        background: #f7f7f7;
+    }
+</style>
+
+
+
+</div>
+
+            
+    
+        <a href="http://yoursite.com/2017/05/18/ImageView长图截取部分展示/#comments" class="article-comment-link">评论</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2017/07/11/仿360应用助手5.1.66版本游戏详情页滚动效果/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    仿360应用助手5.1.66版本游戏详情页滚动效果
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2016/09/30/Retrofit Put的一次使用经历/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">Retrofit PUT的一次使用经历</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div id="uyan_frame"></div>
+
+    
+    </section>
+
 </section>
             
                 <aside id="sidebar">

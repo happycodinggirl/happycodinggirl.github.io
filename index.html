@@ -149,7 +149,7 @@
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                17
+                18
                 <span>文章</span>
             </div>
             <div class="article-info-block">
@@ -309,6 +309,137 @@
             
     
         <a href="http://yoursite.com/2017/07/11/仿360应用助手5.1.66版本游戏详情页滚动效果/#comments" class="article-comment-link">评论</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
+    <article id="post-ImageView长图截取部分展示" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            
+	
+		<a href="/2017/05/18/ImageView长图截取部分展示/" itemprop="url">
+            <img src="http://7xs2th.com1.z0.glb.clouddn.com/hand.jpg" class="article-banner" />
+        </a>
+	
+
+
+
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2017/05/18/ImageView长图截取部分展示/">ImageView长图截取部分展示</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/05/18/ImageView长图截取部分展示/">
+            <time datetime="2017-05-18T13:02:37.000Z" itemprop="datePublished">2017-05-18</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Android-UI/">Android UI</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/ui/">ui</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p>开发中有需求，类似百度贴吧发图时，图片的备选面板，对于特别长的图，如果不加以处理因图片太大，会出现加载不出来，解决策略是对于长图先根据宽度缩放比，等比缩放到期望尺寸，注意这样等比缩放，是防止图片变形。<br>缩放好后根据需要高度截取需要的高度图片。代码如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">   * 根据期望宽高度截取图片</div><div class="line">   *</div><div class="line">   * <span class="doctag">@param</span> sourceBitmap</div><div class="line">   * <span class="doctag">@param</span> targetWidth  目标宽度</div><div class="line">   * <span class="doctag">@param</span> targetHeight  目标高度             </div><div class="line">   * <span class="doctag">@return</span></div><div class="line">   */</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Bitmap <span class="title">scaledBitmapByWidth</span><span class="params">(Bitmap sourceBitmap, <span class="keyword">int</span> targetWidth, <span class="keyword">int</span> targetHeight)</span> </span>&#123;</div><div class="line">      <span class="keyword">int</span> bitmapWidth = sourceBitmap.getWidth();</div><div class="line">      <span class="keyword">int</span> bitmapHeight = sourceBitmap.getHeight();</div><div class="line">      <span class="keyword">if</span> (bitmapHeight == <span class="number">0</span>) &#123;</div><div class="line">          <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">      &#125;</div><div class="line"></div><div class="line">      <span class="keyword">float</span> widthRatio = targetWidth * <span class="number">1.0f</span> / bitmapWidth * <span class="number">1.0f</span>;</div><div class="line">      Bitmap scaleBitmap = <span class="keyword">null</span>;</div><div class="line">      <span class="keyword">try</span> &#123;</div><div class="line">          scaleBitmap = Bitmap.createScaledBitmap(sourceBitmap, targetWidth, (<span class="keyword">int</span>) (bitmapHeight * widthRatio), <span class="keyword">true</span>); <span class="comment">//先根据宽度比，等比缩放，然后截取需要的部分</span></div><div class="line"></div><div class="line">      &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">          LogUtil.e(<span class="string">"--e is "</span> + e);</div><div class="line">          <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">      &#125;</div><div class="line">      <span class="keyword">int</span> sourceWidth = scaleBitmap.getWidth();</div><div class="line">      <span class="keyword">int</span> soureHeight = scaleBitmap.getHeight();</div><div class="line">      LogUtil.d(<span class="string">"--width radio is "</span> + widthRatio + <span class="string">" targeWidth is "</span> + targetWidth + <span class="string">" bitmapWidth is "</span> + bitmapWidth);</div><div class="line">      <span class="keyword">int</span> needHeight = targetHeight &gt; soureHeight ? soureHeight : targetHeight;<span class="comment">//如果需要的高度比图片原图的高度大，则用原图高度，否则使用期望的高度</span></div><div class="line">      Bitmap resultBitmap = <span class="keyword">null</span>;</div><div class="line">      <span class="keyword">try</span> &#123;</div><div class="line">          resultBitmap = Bitmap.createBitmap(scaleBitmap, <span class="number">0</span>, <span class="number">0</span>, sourceWidth, needHeight);</div><div class="line">          scaleBitmap.recycle();</div><div class="line">      &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">          LogUtil.e(<span class="string">"----e is "</span> + e);</div><div class="line">      &#125;</div><div class="line">      <span class="keyword">return</span> resultBitmap;</div><div class="line"></div><div class="line"></div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>探究下Bitmap.createScaledBitmap的源码。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">     * Creates a new bitmap, scaled from an existing bitmap, when possible. If the</div><div class="line">     * specified width and height are the same as the current width and height of</div><div class="line">     * the source bitmap, the source bitmap is returned and no new bitmap is</div><div class="line">     * created.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> src       The source bitmap.</div><div class="line">     * <span class="doctag">@param</span> dstWidth  The new bitmap's desired width.(目标宽度)</div><div class="line">     * <span class="doctag">@param</span> dstHeight The new bitmap's desired height.(目标高度)</div><div class="line">     * <span class="doctag">@param</span> filter    true if the source should be filtered.</div><div class="line">     * <span class="doctag">@return</span> The new scaled bitmap or the source bitmap if no scaling is required.</div><div class="line">     * <span class="doctag">@throws</span> IllegalArgumentException if width is &lt;= 0, or height is &lt;= 0</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Bitmap <span class="title">createScaledBitmap</span><span class="params">(Bitmap src, <span class="keyword">int</span> dstWidth, <span class="keyword">int</span> dstHeight,</span></span></div><div class="line">            <span class="keyword">boolean</span> filter) &#123;</div><div class="line">        Matrix m;</div><div class="line">        <span class="keyword">synchronized</span> (Bitmap.class) &#123;</div><div class="line">            <span class="comment">// small pool of just 1 matrix</span></div><div class="line">            m = sScaleMatrix;</div><div class="line">            sScaleMatrix = <span class="keyword">null</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (m == <span class="keyword">null</span>) &#123;</div><div class="line">            m = <span class="keyword">new</span> Matrix();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">final</span> <span class="keyword">int</span> width = src.getWidth();</div><div class="line">        <span class="keyword">final</span> <span class="keyword">int</span> height = src.getHeight();</div><div class="line">        <span class="keyword">final</span> <span class="keyword">float</span> sx = dstWidth  / (<span class="keyword">float</span>)width;</div><div class="line">        <span class="keyword">final</span> <span class="keyword">float</span> sy = dstHeight / (<span class="keyword">float</span>)height;</div><div class="line">        m.setScale(sx, sy);<span class="comment">//(此处直接使用matrix.setScale)</span></div><div class="line">        Bitmap b = Bitmap.createBitmap(src, <span class="number">0</span>, <span class="number">0</span>, width, height, m, filter);</div><div class="line"></div><div class="line">        <span class="keyword">synchronized</span> (Bitmap.class) &#123;</div><div class="line">            <span class="comment">// do we need to check for null? why not just assign everytime?</span></div><div class="line">            <span class="keyword">if</span> (sScaleMatrix == <span class="keyword">null</span>) &#123;</div><div class="line">                sScaleMatrix = m;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">return</span> b;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>Bitmap.createBitmap的参数含义<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">/</div><div class="line">  * Returns an immutable bitmap from the specified subset of the source</div><div class="line">  * bitmap. The <span class="keyword">new</span> bitmap may be the same object as source, or a copy may</div><div class="line">  * have been made. It is initialized with the same density as the original</div><div class="line">  * bitmap.</div><div class="line">  *</div><div class="line">  * <span class="meta">@param</span> source   The bitmap we are subsetting</div><div class="line">  * <span class="meta">@param</span> <span class="function">x        The x coordinate of the first pixel in <span class="title">source</span><span class="params">(x方向上从哪个像素点开始截取图片)</span></span></div><div class="line">  * @param y        The y coordinate of the first pixel in <span class="title">source</span><span class="params">(y方向上从哪个像素点开始截取图片)</span></div><div class="line">  * @param width    The number of pixels in each row </div><div class="line">  * @param height   The number of rows</div><div class="line">  * @return A copy of a subset of the source bitmap or the source bitmap itself.</div><div class="line">  * @<span class="keyword">throws</span> IllegalArgumentException <span class="keyword">if</span> the x, y, width, height values are</div><div class="line">  *         outside of the dimensions of the source bitmap, or width is &lt;= <span class="number">0</span>,</div><div class="line">  *         or height is &lt;= <span class="number">0</span></div><div class="line">  */</div><div class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Bitmap <span class="title">createBitmap</span><span class="params">(Bitmap source, <span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> width, <span class="keyword">int</span> height)</span> </span>&#123;</div><div class="line">     <span class="keyword">return</span> createBitmap(source, x, y, width, height, <span class="keyword">null</span>, <span class="keyword">false</span>);</div><div class="line"> &#125;</div></pre></td></tr></table></figure></p>
+<p><strong>width参数注意不应该超过sourceBitmap的getWidth大小，否则会报错。</strong><br>height参数注意不应该超过sourceBitmap的getHeight大小，若height=sourece.getHeight,则截取整个bitmap的高度，若<strong>height=source.getHeight()/2,则截取图片高度的一半，截取到的bitmap只能展示原图的一半。</strong></p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+    <div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_qzone">QQ空间</a>
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_tqq">腾讯微博</a>
+    <a class="jiathis_button_weixin">微信</a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+    <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<style>
+    .jiathis_style div:first-child:not(.jiadiv_01) {
+        width: auto !important;
+        border: none !important;
+    }
+    .jiathis_style .jiadiv_01 {
+        margin: 10px 0;
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .jiathis_style .jiadiv_01 div:first-child {
+        display: none;
+    }
+    .jiathis_style .jiadiv_02 {
+        padding: 7px 0 !important;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle {
+        width: 85px;
+        border: none;
+        height: auto;
+        margin: 3px 10px;
+        padding: 6px 10px;
+        border-radius: 4px;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:hover {
+        border: none;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
+        margin-left: 0;
+    }
+    .jiathis_style .jtico:hover {
+        opacity: 1;
+    }
+    .jiathis_style .ckepopBottom,
+    .jiathis_style .centerBottom {
+        width: auto !important;
+        padding: 5px;
+        background: #f7f7f7;
+    }
+</style>
+
+
+
+</div>
+
+            
+    
+        <a href="http://yoursite.com/2017/05/18/ImageView长图截取部分展示/#comments" class="article-comment-link">评论</a>
     
 
         </footer>
@@ -1342,134 +1473,6 @@
 
 
 
-    <article id="post-aar的生成与引用" class="article article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
-        
-            
-	
-		<a href="/2016/05/03/aar的生成与引用/" itemprop="url">
-            <img src="http://7xs2th.com1.z0.glb.clouddn.com/1-140610151318.jpg" class="article-banner" />
-        </a>
-	
-
-
-
-        
-        
-            <header class="article-header">
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2016/05/03/aar的生成与引用/">aar的生成与引用</a>
-        </h1>
-    
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2016/05/03/aar的生成与引用/">
-            <time datetime="2016-05-03T13:55:37.000Z" itemprop="datePublished">2016-05-03</time>
-        </a>
-    </div>
-
-
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Android/">Android</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/aar/">aar</a>
-    </div>
-
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            <p><p>最近项目中使用了aar，网上介绍的aar的使用方法都是最基本的使用方法，自己在实际使用的时候遇到一些问题，google,百度都无果，后来自己摸索出来了，记录一下。<br>最基本的用法：<br></p>
-            <p class="article-more-link">
-                <a href="/2016/05/03/aar的生成与引用/#more">查看更多</a>
-            </p>
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-    <div class="jiathis_style">
-    <span class="jiathis_txt">分享到：</span>
-    <a class="jiathis_button_qzone">QQ空间</a>
-    <a class="jiathis_button_tsina">新浪微博</a>
-    <a class="jiathis_button_tqq">腾讯微博</a>
-    <a class="jiathis_button_weixin">微信</a>
-    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-    <a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
-<style>
-    .jiathis_style div:first-child:not(.jiadiv_01) {
-        width: auto !important;
-        border: none !important;
-    }
-    .jiathis_style .jiadiv_01 {
-        margin: 10px 0;
-        border-radius: 4px;
-        border: #e1e1e1 solid 1px;
-    }
-    .jiathis_style .jiadiv_01 div:first-child {
-        display: none;
-    }
-    .jiathis_style .jiadiv_02 {
-        padding: 7px 0 !important;
-    }
-    .jiathis_style .jiadiv_02 .jiatitle {
-        width: 85px;
-        border: none;
-        height: auto;
-        margin: 3px 10px;
-        padding: 6px 10px;
-        border-radius: 4px;
-    }
-    .jiathis_style .jiadiv_02 .jiatitle:hover {
-        border: none;
-    }
-    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
-        margin-left: 0;
-    }
-    .jiathis_style .jtico:hover {
-        opacity: 1;
-    }
-    .jiathis_style .ckepopBottom,
-    .jiathis_style .centerBottom {
-        width: auto !important;
-        padding: 5px;
-        background: #f7f7f7;
-    }
-</style>
-
-
-
-</div>
-
-            
-    
-        <a href="http://yoursite.com/2016/05/03/aar的生成与引用/#comments" class="article-comment-link">评论</a>
-    
-
-        </footer>
-    </div>
-    
-</article>
-
-
-
     <nav id="page-nav">
         <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
     </nav>
@@ -1499,6 +1502,25 @@
                             <p class="item-category"><a class="article-category-link" href="/categories/Android-UI/">Android UI</a></p>
                             <p class="item-title"><a href="/2017/07/11/仿360应用助手5.1.66版本游戏详情页滚动效果/" class="title">仿360应用助手5.1.66版本游戏详情页滚动效果</a></p>
                             <p class="item-date"><time datetime="2017-07-11T13:26:37.000Z" itemprop="datePublished">2017-07-11</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/05/18/ImageView长图截取部分展示/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://7xs2th.com1.z0.glb.clouddn.com/19541_150804113957_1.jpg)" alt="ImageView长图截取部分展示" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Android-UI/">Android UI</a></p>
+                            <p class="item-title"><a href="/2017/05/18/ImageView长图截取部分展示/" class="title">ImageView长图截取部分展示</a></p>
+                            <p class="item-date"><time datetime="2017-05-18T13:02:37.000Z" itemprop="datePublished">2017-05-18</time></p>
                         </div>
                     </li>
                 
@@ -1559,25 +1581,6 @@
                         </div>
                     </li>
                 
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2016/09/25/CoordinatorLayout,CollapsingToolbarLayout打造自己的折叠式标题栏/" class="thumbnail">
-    
-    
-        <span style="background-image:url(http://7xs2th.com1.z0.glb.clouddn.com/riverc.jpg)" alt="CoordinatorLayout,CollapsingToolbarLayout打造自己的折叠式标题栏" class="thumbnail-image"></span>
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/Android-UI/">Android UI</a></p>
-                            <p class="item-title"><a href="/2016/09/25/CoordinatorLayout,CollapsingToolbarLayout打造自己的折叠式标题栏/" class="title">CoordinatorLayout,CollapsingToolbarLayout打造自己的折叠式标题栏</a></p>
-                            <p class="item-date"><time datetime="2016-09-25T13:26:37.000Z" itemprop="datePublished">2016-09-25</time></p>
-                        </div>
-                    </li>
-                
             </ul>
         </div>
     </div>
@@ -1587,7 +1590,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">分类</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android-UI/">Android UI</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android事件分发/">Android事件分发</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android易入坑集合/">Android易入坑集合</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MVP/">MVP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/RxJava/">RxJava</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/文学/">文学</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/第三方/">第三方</a><span class="category-list-count">1</span></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android-UI/">Android UI</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android事件分发/">Android事件分发</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android易入坑集合/">Android易入坑集合</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MVP/">MVP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/RxJava/">RxJava</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/文学/">文学</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/第三方/">第三方</a><span class="category-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -1596,7 +1599,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">归档</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -1605,7 +1608,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">标签</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android事件分发/">Android事件分发</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android内存泄漏/">Android内存泄漏</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CoordinatorLayout-CollapsingToolbarLayout/">CoordinatorLayout CollapsingToolbarLayout</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MVP/">MVP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Retrofit-Http-Put/">Retrofit Http Put</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RxJava/">RxJava</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TextView-AndroidUI/">TextView AndroidUI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aar/">aar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/handler/">handler</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/toolbar/">toolbar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ui/">ui</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/youmeng/">youmeng</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/闲书读书笔记/">闲书读书笔记</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android事件分发/">Android事件分发</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android内存泄漏/">Android内存泄漏</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CoordinatorLayout-CollapsingToolbarLayout/">CoordinatorLayout CollapsingToolbarLayout</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MVP/">MVP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Retrofit-Http-Put/">Retrofit Http Put</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RxJava/">RxJava</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TextView-AndroidUI/">TextView AndroidUI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aar/">aar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/handler/">handler</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/toolbar/">toolbar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ui/">ui</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/youmeng/">youmeng</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/闲书读书笔记/">闲书读书笔记</a><span class="tag-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -1614,7 +1617,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">标签云</h3>
         <div class="widget tagcloud">
-            <a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/Android事件分发/" style="font-size: 10px;">Android事件分发</a> <a href="/tags/Android内存泄漏/" style="font-size: 10px;">Android内存泄漏</a> <a href="/tags/CoordinatorLayout-CollapsingToolbarLayout/" style="font-size: 10px;">CoordinatorLayout CollapsingToolbarLayout</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/MVP/" style="font-size: 10px;">MVP</a> <a href="/tags/Retrofit-Http-Put/" style="font-size: 10px;">Retrofit Http Put</a> <a href="/tags/RxJava/" style="font-size: 20px;">RxJava</a> <a href="/tags/TextView-AndroidUI/" style="font-size: 10px;">TextView AndroidUI</a> <a href="/tags/aar/" style="font-size: 10px;">aar</a> <a href="/tags/handler/" style="font-size: 10px;">handler</a> <a href="/tags/toolbar/" style="font-size: 10px;">toolbar</a> <a href="/tags/ui/" style="font-size: 10px;">ui</a> <a href="/tags/youmeng/" style="font-size: 10px;">youmeng</a> <a href="/tags/闲书读书笔记/" style="font-size: 10px;">闲书读书笔记</a>
+            <a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/Android事件分发/" style="font-size: 10px;">Android事件分发</a> <a href="/tags/Android内存泄漏/" style="font-size: 10px;">Android内存泄漏</a> <a href="/tags/CoordinatorLayout-CollapsingToolbarLayout/" style="font-size: 10px;">CoordinatorLayout CollapsingToolbarLayout</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/MVP/" style="font-size: 10px;">MVP</a> <a href="/tags/Retrofit-Http-Put/" style="font-size: 10px;">Retrofit Http Put</a> <a href="/tags/RxJava/" style="font-size: 20px;">RxJava</a> <a href="/tags/TextView-AndroidUI/" style="font-size: 10px;">TextView AndroidUI</a> <a href="/tags/aar/" style="font-size: 10px;">aar</a> <a href="/tags/handler/" style="font-size: 10px;">handler</a> <a href="/tags/toolbar/" style="font-size: 10px;">toolbar</a> <a href="/tags/ui/" style="font-size: 15px;">ui</a> <a href="/tags/youmeng/" style="font-size: 10px;">youmeng</a> <a href="/tags/闲书读书笔记/" style="font-size: 10px;">闲书读书笔记</a>
         </div>
     </div>
 
