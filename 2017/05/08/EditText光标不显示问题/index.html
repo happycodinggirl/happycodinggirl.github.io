@@ -3,20 +3,23 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Android事件分发机制研究 | happycodinggirl</title>
+    <title>EditText光标不显示问题 | happycodinggirl</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="一直对android的事件分发机制很困惑的，最近又重新看了下这块的知识，配合自己写个小demo，打log研究了下，做个读书笔记，备忘,如有错误，欢迎批评指正。">
+    <meta name="description" content="开发中界面上在多个EditText点击切换焦点时如果editText在、内容为空时，光标不显示的问题，下面是这个问题的解决办法1.EidtText的属性设置123android:cursorVisible=&quot;true&quot;android:focusable=&quot;true&quot;android:focusableInTouchMode=&quot;true&quot;
+同时在点击该EditText时，12 **editText.r">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android事件分发机制研究">
-<meta property="og:url" content="http://yoursite.com/2016/09/25/Android事件分发机制研究/index.html">
+<meta property="og:title" content="EditText光标不显示问题">
+<meta property="og:url" content="http://yoursite.com/2017/05/08/EditText光标不显示问题/index.html">
 <meta property="og:site_name" content="happycodinggirl">
-<meta property="og:description" content="一直对android的事件分发机制很困惑的，最近又重新看了下这块的知识，配合自己写个小demo，打log研究了下，做个读书笔记，备忘,如有错误，欢迎批评指正。">
-<meta property="og:image" content="http://7xs2th.com1.z0.glb.clouddn.com/woniu.jpg">
-<meta property="og:updated_time" content="2016-09-25T08:38:33.437Z">
+<meta property="og:description" content="开发中界面上在多个EditText点击切换焦点时如果editText在、内容为空时，光标不显示的问题，下面是这个问题的解决办法1.EidtText的属性设置123android:cursorVisible=&quot;true&quot;android:focusable=&quot;true&quot;android:focusableInTouchMode=&quot;true&quot;
+同时在点击该EditText时，12 **editText.r">
+<meta property="og:image" content="http://7xs2th.com1.z0.glb.clouddn.com/19541_150804113957_1.jpg">
+<meta property="og:updated_time" content="2017-07-11T14:54:36.982Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android事件分发机制研究">
-<meta name="twitter:description" content="一直对android的事件分发机制很困惑的，最近又重新看了下这块的知识，配合自己写个小demo，打log研究了下，做个读书笔记，备忘,如有错误，欢迎批评指正。">
-<meta name="twitter:image" content="http://7xs2th.com1.z0.glb.clouddn.com/woniu.jpg">
+<meta name="twitter:title" content="EditText光标不显示问题">
+<meta name="twitter:description" content="开发中界面上在多个EditText点击切换焦点时如果editText在、内容为空时，光标不显示的问题，下面是这个问题的解决办法1.EidtText的属性设置123android:cursorVisible=&quot;true&quot;android:focusable=&quot;true&quot;android:focusableInTouchMode=&quot;true&quot;
+同时在点击该EditText时，12 **editText.r">
+<meta name="twitter:image" content="http://7xs2th.com1.z0.glb.clouddn.com/19541_150804113957_1.jpg">
     
 
     
@@ -195,12 +198,12 @@
 </aside>
 
             
-            <section id="main"><article id="post-Android事件分发机制研究" class="article article-type-post" itemscope itemprop="blogPost">
+            <section id="main"><article id="post-EditText光标不显示问题" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
             
 	
-		<img src="http://7xs2th.com1.z0.glb.clouddn.com/yuzhouanimal.jpg" class="article-banner" />
+		<img src="http://7xs2th.com1.z0.glb.clouddn.com/whitegirl.jpg" class="article-banner" />
 	
 
 
@@ -211,7 +214,7 @@
                 
     
         <h1 class="article-title" itemprop="name">
-            Android事件分发机制研究
+            EditText光标不显示问题
         </h1>
     
 
@@ -220,8 +223,8 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2016/09/25/Android事件分发机制研究/">
-            <time datetime="2016-09-25T13:55:37.000Z" itemprop="datePublished">2016-09-25</time>
+        <a href="/2017/05/08/EditText光标不显示问题/">
+            <time datetime="2017-05-08T14:02:37.000Z" itemprop="datePublished">2017-05-08</time>
         </a>
     </div>
 
@@ -229,13 +232,13 @@
                         
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Android事件分发/">Android事件分发</a>
+        <a class="article-category-link" href="/categories/Android-UI/">Android UI</a>
     </div>
 
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Android事件分发/">Android事件分发</a>
+        <a class="tag-link" href="/tags/ui/">ui</a>
     </div>
 
                     </div>
@@ -246,15 +249,8 @@
         <div class="article-entry" itemprop="articleBody">
         
             
-            <p>一直对android的事件分发机制很困惑的，最近又重新看了下这块的知识，配合自己写个小demo，打log研究了下，做个读书笔记，备忘,如有错误，欢迎批评指正。<br><a id="more"></a></p>
-<h2 id="结论一："><a href="#结论一：" class="headerlink" title="结论一："></a>结论一：</h2><p>如果在父容器中这样写：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onInterceptTouchEvent</span><span class="params">(MotionEvent ev)</span> </span>&#123;</div><div class="line"><span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>onInterceptTouchEvent表示是否拦截触摸事件，如果返回true,则其内的子控件的触摸事件，onClick事件都执行不到了。但可通过ViewGroup的requestDisallowInterceptTouchEvent方法干预父控件的事件分发.例如ViewPager来实现左右滑动切换tab，如果tab的某一项中嵌入了水平可滑动的View，比如想滑动tab项中的可水平滑动的控件，却导致tab切换。<br>你就可以在tab页里面注入viewpager实例，然后在onTouch事件中这么处理。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onTouch</span><span class="params">(View v, MotionEvent event)</span> </span>&#123;</div><div class="line">    <span class="keyword">switch</span> (event.getAction()) &#123;</div><div class="line">    <span class="keyword">case</span> MotionEvent.ACTION_MOVE:</div><div class="line">        pager.requestDisallowInterceptTouchEvent(<span class="keyword">true</span>);</div><div class="line">        <span class="keyword">break</span>;</div><div class="line">    <span class="keyword">case</span> MotionEvent.ACTION_UP:</div><div class="line">    <span class="keyword">case</span> MotionEvent.ACTION_CANCEL:</div><div class="line">        pager.requestDisallowInterceptTouchEvent(<span class="keyword">false</span>);</div><div class="line">        <span class="keyword">break</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>这时move事件里pager.requestDisallowInterceptTouchEvent(true);看字面意思就是告诉viewpager不要拦截改事件（此时由tab响应滚动事件）。然后在手指抬起的时候viewpager处理抬起事件。</p>
-<h2 id="结论二："><a href="#结论二：" class="headerlink" title="结论二："></a>结论二：</h2><p>如果一个触摸事件传递到一个控件上，它的dispatchTouchEvent会被调用，如果在父控件的onInterceptTouchEvent返回false的前提下，子控件dispatchTouchEvent返回true,代表该子控件自己消费到该触摸事件（onTouchListener会被执行，如果有的话），即触摸事件不会被父控件处理，父控件的onTouchListener和onTouchEvent方法都走不到。</p>
-<h2 id="结论三："><a href="#结论三：" class="headerlink" title="结论三："></a>结论三：</h2><p>触摸事件的分发是从上往下分发的，Activity-&gt;Window-&gt;View.在View之间也是是从上往下分发的，触摸事件先到达父容器，然后父容器再下发给子View.所以响应触摸事件去执行事情的顺序就反过来了，从子View开始处理起，如果子view的dispatchTouchEvent方法返回了false,则就传递给父容器处理（父容器的onTouchListener会被调到）。注意此时子view的onTouchListener和onTouchEvent（如果onTouchListener返回false）事件依然会被调到,只是调完后给父控件接着调用，如果父容器的dispatchTouchEvent方法也返回了false,则事件继续往上传递，如果dispatchTouchEvent都返回了，false,则Activity的onTouchEvent会被掉到。</p>
-<h2 id="结论四："><a href="#结论四：" class="headerlink" title="结论四："></a>结论四：</h2><p>onTouchListener方法在事件分发过程中的优先级最高，如果一个view设置了onTouchListener方法且返回了true,代表事件已被消费，则他的onTouchEvent方法就走不到了。<br>注意：我看任大神的书上说如果子View的onTouchEvent方法返回false,则父容器的触摸事件会被调的，而我测下来，不是这样，将子View的onTouchEvent返回了fasle,此时查看子view的dispatchTouchEvent的默认返回值也为false,此时事件确实传到父容器里面调用去了，但如果此时我把子View的diapatchTouchEvent方法强制返回true,（不是默认的返回super.dispatchTouchEvent，而是先是调用super.dispatchTouchEvent，然后返回true），此时即使onTouchEvent返回了false，父控件的触摸和点击事件都没有调到。</p>
-<p>所以感觉onTouchEvent返回false父容器的触摸事件会被掉到不准确，应该是dispatchTouchEvent返回false,父容器的触摸事件才会被掉到。不管onTouchEvent返回true or false，只要dispatchTouchEvent返回false,父容器的触摸事件就会被调到。</p>
-<p>我的测试demo地址放到github上去了，有需要的可以下载试下，很例子粗糙，仅作测试所用。地址：<a href="https://github.com/happycodinggirl/TestTouchEvent" target="_blank" rel="external">https://github.com/happycodinggirl/TestTouchEvent</a><br>本文文章如有不对的地方，还望指出。</p>
+            <p>开发中界面上在多个EditText点击切换焦点时如果editText<strong>在、内容为空时，光标不显示</strong>的问题，下面是这个问题的解决办法<br>1.EidtText的属性设置<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">android:cursorVisible=<span class="string">"true"</span></div><div class="line">android:focusable=<span class="string">"true"</span></div><div class="line">android:focusableInTouchMode=<span class="string">"true"</span></div></pre></td></tr></table></figure></p>
+<p>同时在点击该EditText时，<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"> **editText.requestFocus();<span class="comment">//必须要加这句，很重要，只有调用了这句，光标才能显示出来**</span></div><div class="line">editText.setSelection(selectionPos);<span class="comment">//非必须，将光标定位到指定位置</span></div></pre></td></tr></table></figure></p>
 
         
         </div>
@@ -318,7 +314,7 @@
 
             
     
-        <a href="http://yoursite.com/2016/09/25/Android事件分发机制研究/#comments" class="article-comment-link">评论</a>
+        <a href="http://yoursite.com/2017/05/08/EditText光标不显示问题/#comments" class="article-comment-link">评论</a>
     
 
         </footer>
@@ -327,19 +323,19 @@
         
 <nav id="article-nav">
     
-        <a href="/2016/09/29/Android 多行文本折叠展开效果/" id="article-nav-newer" class="article-nav-link-wrap">
+        <a href="/2017/05/18/ImageView长图截取部分展示/" id="article-nav-newer" class="article-nav-link-wrap">
             <strong class="article-nav-caption">上一篇</strong>
             <div class="article-nav-title">
                 
-                    Android 多行文本折叠展开效果
+                    ImageView长图截取部分展示
                 
             </div>
         </a>
     
     
-        <a href="/2016/09/25/CoordinatorLayout,CollapsingToolbarLayout打造自己的折叠式标题栏/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2016/09/30/Retrofit Put的一次使用经历/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">下一篇</strong>
-            <div class="article-nav-title">CoordinatorLayout,CollapsingToolbarLayout打造自己的折叠式标题栏</div>
+            <div class="article-nav-title">Retrofit PUT的一次使用经历</div>
         </a>
     
 </nav>
